@@ -1,0 +1,50 @@
+/*
+Theme Name: Newington 2011
+Description: A first theme for Newington Blogs 
+Author: Myles Carrick <mcarrick@newington.nsw.edu.au>
+Template: twentyeleven
+*/
+
+@import url("../twentyeleven/style.css");
+
+/* Header modifications - logotype etc */
+
+body {
+}
+
+#page {
+}
+
+header#branding {
+	border-top: 0;
+}
+
+header#branding #network_logo {
+	height: 70px;
+	margin: 0 auto;
+	background-color: #1d1d1d;
+	background-image: url(black/logo.png) !important;
+	background-repeat: no-repeat !important;
+	background-position: 10 10;
+}
+header#branding #network_dwp {
+	height: 70px;
+	background-image: url(black/dwp.png) !important;
+	background-repeat: no-repeat !important;
+	background-position: right top;
+}
+#branding hgroup {
+	margin: 0 20px;
+}
+#branding #searchform {
+	top: 90px;
+	right: 20px;
+}
+
+h1#site-title {
+	padding-top: 1.5em;
+}
+
+h2#site-description {
+	margin-bottom: 1.5em;
+}
