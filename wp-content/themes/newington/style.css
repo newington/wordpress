@@ -21,7 +21,7 @@ header#branding {
 }
 
 header#branding #network_logo {
-	height: 70px;
+	height: 60px;
 	margin: 0 auto;
 	background-color: #1d1d1d;
 	background-image: url(black/logo.png) !important;
@@ -38,7 +38,7 @@ header#branding #network_dwp {
 	margin: 0;
 }
 #branding #searchform {
-	top: 75px;
+	top: 70px;
 	right: 0;
 }
 
@@ -46,7 +46,7 @@ h1#site-title {
 	padding-top: 0;
 }
 #site-title a {
-	font-size: 26px;
+	font-size: 36px;
 }
 
 h2#site-description {
