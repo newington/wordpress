@@ -52,3 +52,10 @@ h1#site-title {
 h2#site-description {
 	margin-bottom: 0.5em;
 }
+#left-side {
+	background-color: transparent;
+}
+
+#left-side #section-tabs-header {
+	font-family: inherit;
+}
