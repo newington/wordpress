@@ -63,50 +63,8 @@ get_current_screen()->set_help_sidebar(
 	'<p>' . __('<a href="http://wordpress.org/support/" target="_blank">Support Forums</a>') . '</p>'
 );
 
-// These are the widgets grouped by sidebar
-$sidebars_widgets = wp_get_sidebars_widgets();
-
-if ( empty( $sidebars_widgets ) )
-	$sidebars_widgets = wp_get_widget_defaults();
-
-foreach ( $sidebars_widgets as $sidebar_id => $widgets ) {
-	if ( 'wp_inactive_widgets' == $sidebar_id )
-		continue;
-
-	if ( !isset( $wp_registered_sidebars[ $sidebar_id ] ) ) {
-		if ( ! empty( $widgets ) ) { // register the inactive_widgets area as sidebar
-			register_sidebar(array(
-				'name' => __( 'Inactive Sidebar (from previous theme)' ),
-				'id' => $sidebar_id,
-				'class' => 'inactive-sidebar orphan-sidebar',
-				'description' => __( 'This is a left over sidebar from an old theme and does not show anywhere on your site' ),
-				'before_widget' => '',
-				'after_widget' => '',
-				'before_title' => '',
-				'after_title' => '',
-			));
-		} else {
-			unset( $sidebars_widgets[ $sidebar_id ] );
-		}
-	}
-}
-
-// register the inactive_widgets area as sidebar
-register_sidebar(array(
-	'name' => __('Inactive Widgets'),
-	'id' => 'wp_inactive_widgets',
-	'class' => 'inactive-sidebar',
-	'description' => 'Drag widgets here to remove them from the sidebar but keep their settings.',
-	'before_widget' => '',
-	'after_widget' => '',
-	'before_title' => '',
-	'after_title' => '',
-));
-
-retrieve_widgets();
-
-if ( count($wp_registered_sidebars) == 1 ) {
-	// If only "wp_inactive_widgets" is defined the theme has no sidebars, die.
+if ( empty($wp_registered_sidebars) ) {
+	// the theme has no sidebars, die.
 	require_once( './admin-header.php' );
 ?>
 
@@ -123,6 +81,48 @@ if ( count($wp_registered_sidebars) == 1 ) {
 	require_once( './admin-footer.php' );
 	exit;
 }
+
+// These are the widgets grouped by sidebar
+$sidebars_widgets = wp_get_sidebars_widgets();
+
+if ( empty( $sidebars_widgets ) )
+	$sidebars_widgets = wp_get_widget_defaults();
+
+foreach ( $sidebars_widgets as $sidebar_id => $widgets ) {
+	if ( 'wp_inactive_widgets' == $sidebar_id )
+		continue;
+
+	if ( !isset( $wp_registered_sidebars[ $sidebar_id ] ) ) {
+		if ( ! empty( $widgets ) ) { // register the inactive_widgets area as sidebar
+			register_sidebar(array(
+				'name' => __( 'Inactive Sidebar (not used)' ),
+				'id' => $sidebar_id,
+				'class' => 'inactive-sidebar orphan-sidebar',
+				'description' => __( 'This sidebar is no longer available and does not show anywhere on your site. Remove each of the widgets below to fully remove this inactive sidebar.' ),
+				'before_widget' => '',
+				'after_widget' => '',
+				'before_title' => '',
+				'after_title' => '',
+			));
+		} else {
+			unset( $sidebars_widgets[ $sidebar_id ] );
+		}
+	}
+}
+
+// register the inactive_widgets area as sidebar
+register_sidebar(array(
+	'name' => __('Inactive Widgets'),
+	'id' => 'wp_inactive_widgets',
+	'class' => 'inactive-sidebar',
+	'description' => __( 'Drag widgets here to remove them from the sidebar but keep their settings.' ),
+	'before_widget' => '',
+	'after_widget' => '',
+	'before_title' => '',
+	'after_title' => '',
+));
+
+retrieve_widgets();
 
 // We're saving a widget without js
 if ( isset($_POST['savewidget']) || isset($_POST['removewidget']) ) {
@@ -344,7 +344,7 @@ require_once( './admin-header.php' ); ?>
 
 <?php
 foreach ( $wp_registered_sidebars as $sidebar => $registered_sidebar ) {
-	if ( 'wp_inactive_widgets' == $sidebar || 'orphaned_widgets' == substr( $sidebar, 0, 16 ) ) {
+	if ( false !== strpos( $registered_sidebar['class'], 'inactive-sidebar' ) || 'orphaned_widgets' == substr( $sidebar, 0, 16 ) ) {
 		$wrap_class = 'widgets-holder-wrap';
 		if ( !empty( $registered_sidebar['class'] ) )
 			$wrap_class .= ' ' . $registered_sidebar['class'];
@@ -376,7 +376,7 @@ foreach ( $wp_registered_sidebars as $sidebar => $registered_sidebar ) {
 <?php
 $i = 0;
 foreach ( $wp_registered_sidebars as $sidebar => $registered_sidebar ) {
-	if ( 'wp_inactive_widgets' == $sidebar || 'orphaned_widgets' == substr( $sidebar, 0, 16 ) )
+	if ( false !== strpos( $registered_sidebar['class'], 'inactive-sidebar' ) || 'orphaned_widgets' == substr( $sidebar, 0, 16 ) )
 		continue;
 
 	$wrap_class = 'widgets-holder-wrap';
