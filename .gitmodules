@@ -1,3 +1,0 @@
-[submodule "wp-content/plugins/google-analytics-for-wordpress"]
-	path = wp-content/plugins/google-analytics-for-wordpress
-	url = git@github.com:newington/wordpress_plugin_google-analytics-for-wordpress.git
