@@ -71,6 +71,7 @@
 	<header id="branding" role="banner">
 			<div id="network_logo">
 				<div id="network_dwp">
+					<a class="logo_zone" href="<?php echo network_home_url() ?>"></a>
 				</div>
 			</div>
 			<hgroup>
