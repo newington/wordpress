@@ -233,7 +233,7 @@ final class WP_Screen {
 	 * @var string
 	 * @access public
 	 */
-	public $action = '';
+	public $action;
 
 	/**
 	 * The base type of the screen.  This is typically the same as $id but with any post types and taxonomies stripped.
@@ -387,40 +387,47 @@ final class WP_Screen {
 		if ( is_a( $hook_name, 'WP_Screen' ) )
 			return $hook_name;
 
-		$action = $post_type = $taxonomy = null;
+		$post_type = $taxonomy = null;
 		$is_network = $is_user = false;
+		$action = '';
 
 		if ( $hook_name )
 			$id = $hook_name;
 		else
 			$id = $GLOBALS['hook_suffix'];
 
-		$id = str_replace( '.php', '', $id );
-		if ( in_array( substr( $id, -4 ), array( '-add', '-new' ) ) )
-			$action = 'add';
-		$id = str_replace( array( '-new', '-add' ), '', $id );
+		// For those pesky meta boxes.
+		if ( $hook_name && post_type_exists( $hook_name ) ) {
+			$post_type = $id;
+			$id = 'post'; // changes later. ends up being $base.
+		} else {
+			if ( '.php' == substr( $id, -4 ) )
+				$id = substr( $id, 0, -4 );
 
-		if ( $hook_name ) {
+			if ( 'post-new' == $id || 'link-add' == $id || 'media-new' == $id || 'user-new' == $id ) {
+				$id = substr( $id, 0, -4 );
+				$action = 'add';
+			}
+		}
+
+		if ( ! $post_type && $hook_name ) {
 			if ( '-network' == substr( $id, -8 ) ) {
-				$id = str_replace( '-network', '', $id );
+				$id = substr( $id, 0, -8 );
 				$is_network = true;
 			} elseif ( '-user' == substr( $id, -5 ) ) {
-				$id = str_replace( '-user', '', $id );
+				$id = substr( $id, 0, -5 );
 				$is_user = true;
 			}
 
 			$id = sanitize_key( $id );
-			if ( post_type_exists( $id ) ) {
-				$post_type = $id;
-				$id = 'post'; // changes later. ends up being $base.
-			} elseif ( false !== strpos( $id, '-' ) ) {
-				list( $first, $second ) = explode( '-', $id, 2 );
-				if ( taxonomy_exists( $second ) ) {
+			if ( 'edit-comments' != $id && 'edit-tags' != $id && 'edit-' == substr( $id, 0, 5 ) ) {
+				$maybe = substr( $id, 5 );
+				if ( taxonomy_exists( $maybe ) ) {
  					$id = 'edit-tags';
-					$taxonomy = $second;
-				} elseif ( post_type_exists( $second ) ) {
-					$id = $first;
-					$post_type = $second;
+					$taxonomy = $maybe;
+				} elseif ( post_type_exists( $maybe ) ) {
+					$id = 'edit';
+					$post_type = $maybe;
 				}
  			}
 		} else {
@@ -477,10 +484,6 @@ final class WP_Screen {
 				if ( null === $taxonomy )
 					$taxonomy = 'post_tag';
 				$id = 'edit-' . $taxonomy;
-				break;
-			case 'upload' :
-				if ( null === $post_type )
-					$post_type = 'attachment';
 				break;
 		}
 

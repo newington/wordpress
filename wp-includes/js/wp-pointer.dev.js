@@ -16,7 +16,8 @@
 				var close  = ( wpPointerL10n ) ? wpPointerL10n.dismiss : 'Dismiss',
 					button = $('<a class="close" href="#">' + close + '</a>');
 
-				return button.bind( 'click.pointer', function() {
+				return button.bind( 'click.pointer', function(e) {
+					e.preventDefault();
 					t.element.pointer('close');
 				});
 			},
@@ -217,7 +218,7 @@
 			var self = this,
 				o    = this.options;
 
-			if ( this.active || o.disabled )
+			if ( this.active || o.disabled || this.element.is(':hidden') )
 				return;
 
 			this.update().done( function() {
@@ -229,7 +230,7 @@
 			var self = this,
 				o    = this.options;
 
-			if ( this.active || o.disabled )
+			if ( this.active || o.disabled || this.element.is(':hidden') )
 				return;
 
 			this.active = true;
