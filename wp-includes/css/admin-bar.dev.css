@@ -212,6 +212,15 @@
 	text-shadow: none;
 }
 
+#wpadminbar .hover .ab-label {
+	color: #fafafa;
+}
+
+#wpadminbar .menupop.hover .ab-label {
+	color: #333;
+	text-shadow: none;
+}
+
 #wpadminbar .menupop li:hover,
 #wpadminbar .menupop li.hover,
 #wpadminbar .quicklinks .menupop .ab-item:focus,
@@ -233,14 +242,14 @@
 
 #wpadminbar .menupop .menupop > .ab-item {
 	display: block;
-	background-image: url(../images/admin-bar-sprite.png?d=20111122);
+	background-image: url(../images/admin-bar-sprite.png?d=20111130);
 	background-position: 95% -20px;
 	background-repeat: no-repeat;
 	padding-right: 2em;
 }
 
 #wpadminbar .ab-top-secondary .menupop .menupop > .ab-item {
-	background-image: url(../images/admin-bar-sprite.png?d=20111122);
+	background-image: url(../images/admin-bar-sprite.png?d=20111130);
 	background-position: 5% -46px;
 	background-repeat: no-repeat;
 	padding-left: 2em;
@@ -405,15 +414,15 @@
 #wpadminbar #adminbarsearch .adminbar-input {
 	font: 13px/24px sans-serif;
 	height: 24px;
-	width: 140px;
+	width: 24px;
 	border: none;
 	padding: 0 3px 0 23px;
 	margin: 0;
 	color: #ccc;
 	text-shadow: #444 0px -1px 0px;
 	background-color: rgba( 255, 255, 255, 0 );
-	background-image: url(../images/admin-bar-sprite.png?d=20111122);
-	background-position: 3px 1px;
+	background-image: url(../images/admin-bar-sprite.png?d=20111130);
+	background-position: 3px 2px;
 	background-repeat: no-repeat;
 	outline: none;
 
@@ -470,66 +479,68 @@
 }
 
 /**
- * WP Logo item
+ * ICONS
  */
-#wpadminbar .ab-wp-logo {
-	display: block;
-	height: 28px;
+#wpadminbar .ab-icon {
+	position: relative;
+	float: left;
 	width: 16px;
-	background-image: url(../images/admin-bar-sprite.png?d=20111122);
-	background-position: -2px -72px;
+	height: 16px;
+	margin-top: 6px;
+}
+
+#wpadminbar .ab-label {
+	margin-left: 4px;
+}
+
+/**
+ * WP Logo icon
+ */
+#wp-admin-bar-wp-logo > .ab-item .ab-icon {
+	width: 20px;
+	height: 20px;
+	margin-top: 4px;
+	background-image: url(../images/admin-bar-sprite.png?d=20111130);
+	background-position: 0 -76px;
 	background-repeat: no-repeat;
 }
 
-#wpadminbar.nojs #wp-admin-bar-wp-logo:hover .ab-wp-logo,
-#wpadminbar #wp-admin-bar-wp-logo.hover .ab-wp-logo {
-	background-image: url(../images/admin-bar-sprite.png?d=20111122);
-	background-position: -2px -100px;
+#wpadminbar.nojs #wp-admin-bar-wp-logo:hover > .ab-item .ab-icon,
+#wpadminbar #wp-admin-bar-wp-logo.hover > .ab-item .ab-icon {
+	background-image: url(../images/admin-bar-sprite.png?d=20111130);
+	background-position: 0 -104px;
+	background-repeat: no-repeat;
+}
+
+/**
+ * Updates icon
+ */
+#wp-admin-bar-updates > .ab-item .ab-icon {
+	background-image: url(../images/admin-bar-sprite.png?d=20111130);
+	background-position: -2px -159px;
 	background-repeat: no-repeat;
 }
 
 /**
  * Comments icon
  */
-#wpadminbar .ab-comments-icon {
-	position: relative;
-	padding-top: 8px;
-	float: left;
-}
-
-#wpadminbar .ab-comments-icon-body {
-	background: #999;
-	height: 10px;
-	width: 14px;
-	-webkit-border-radius: 10px;
-	border-radius: 10px;
-}
-
-#wpadminbar a:hover .ab-comments-icon-body {
-	background: #bbb;
-	color: #555;
-}
-
-#wpadminbar a .ab-comments-icon-arrow {
-	height: 0;
-	position: absolute;
-	bottom: -3px;
-	left: 3px;
-	/* Use transparent borders to form a triangle */
-	border-left: 4px solid #999;
-	border-bottom: 4px solid transparent;
-}
-
-#wpadminbar a:hover .ab-comments-icon-arrow {
-	border-left-color: #bbb;
-}
-
-#wpadminbar #ab-awaiting-mod {
-	margin-left: 4px;
+#wp-admin-bar-comments > .ab-item .ab-icon {
+	background-image: url(../images/admin-bar-sprite.png?d=20111130);
+	background-position: -1px -134px;
+	background-repeat: no-repeat;
 }
 
 #wpadminbar span.count-0 {
 	display: none;
+}
+
+/**
+ * Add New icon
+ */
+#wp-admin-bar-new-content > .ab-item .ab-icon {
+	background-image: url(../images/admin-bar-sprite.png?d=20111130);
+	background-position: -2px -182px;
+	background-repeat: no-repeat;
 }
 
 

@@ -168,7 +168,7 @@ $(document).ready( function() {
 		if ( tab )
 			node.attr('tabindex', '0').attr('tabindex', tab);
 	};
-	
+
 	$('#collapse-menu', menu).click(function(){
 		var body = $(document.body);
 
@@ -229,6 +229,7 @@ $(document).ready( function() {
 		e.stopPropagation();
 		e.preventDefault();
 
+		menu.find('.wp-submenu').removeClass('sub-open');
 		target.siblings('.wp-submenu').toggleClass('sub-open').find('a[role="menuitem"]').each(refresh);
 	}).each(refresh);
 

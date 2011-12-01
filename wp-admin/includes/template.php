@@ -1677,9 +1677,6 @@ final class WP_Internal_Pointers {
 	 *     remove_action( 'admin_print_footer_scripts', array( 'WP_Internal_Pointers', 'pointer_wp330_toolbar' ) );
 	 */
 	public static function enqueue_scripts( $hook_suffix ) {
-		if ( get_site_option( 'initial_db_version' ) >= 20000 ) // Final db_version for 3.3.
-			return;
-
 		/*
 		 * Register feature pointers
 		 * Format: array( hook_suffix => pointer_id )
@@ -1697,6 +1694,18 @@ final class WP_Internal_Pointers {
 			return;
 
 		$pointer = $registered_pointers[ $hook_suffix ];
+
+		$caps_required = array(
+			'wp330_media_uploader' => array( 'upload_files' ),
+			'wp330_saving_widgets' => array( 'edit_theme_options', 'switch_themes' ),
+		);
+
+		if ( isset( $caps_required[ $pointer ] ) ) {
+			foreach ( $caps_required[ $pointer ] as $cap ) {
+				if ( ! current_user_can( $cap ) )
+					return;
+			}
+		}
 
 		// Get dismissed pointers
 		$dismissed = explode( ',', (string) get_user_meta( get_current_user_id(), 'dismissed_wp_pointers', true ) );
@@ -1793,9 +1802,20 @@ final class WP_Internal_Pointers {
 			'position' => array( 'edge' => 'top', 'align' => is_rtl() ? 'right' : 'left' ),
 		) );
 	}
+
+	/**
+	 * Prevents new users from seeing existing 'new feature' pointers.
+	 *
+	 * @since 3.3.0
+	 */
+	public static function dismiss_pointers_for_new_users( $user_id ) {
+		add_user_meta( $user_id, 'dismissed_wp_pointers', 'wp330_toolbar,wp330_media_uploader,wp330_saving_widgets' );
+	}
 }
 
-add_action( 'admin_enqueue_scripts', array( 'WP_Internal_Pointers', 'enqueue_scripts' ) );
+add_action( 'admin_enqueue_scripts', array( 'WP_Internal_Pointers', 'enqueue_scripts'                ) );
+// Allow scratch beta/RC installs to experience pointers. Uncomment this before release.
+// add_action( 'user_register',         array( 'WP_Internal_Pointers', 'dismiss_pointers_for_new_users' ) );
 
 /**
  * Convert a screen string to a screen object

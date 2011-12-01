@@ -108,25 +108,6 @@ function get_hidden_meta_boxes( $screen ) {
 }
 
 /**
- * Add contextual help text for a page.
- *
- * Creates a 'Screen Info' help tab.
- *
- * @since 2.7.0
- *
- * @param string    $screen The handle for the screen to add help to.  This is usually the hook name returned by the add_*_page() functions.
- * @param string    $help   The content of a 'Screen Info' help tab.
- *
- * @todo: deprecate?
- */
-function add_contextual_help( $screen, $help ) {
-	if ( is_string( $screen ) )
-		$screen = convert_to_screen( $screen );
-
-	WP_Screen::add_old_compat_help( $screen, $help );
-}
-
-/**
  * Register and configure an admin screen option
  *
  * @since 3.1.0
@@ -527,7 +508,7 @@ final class WP_Screen {
 		$current_screen = $this;
 		$taxnow = $this->taxonomy;
 		$typenow = $this->post_type;
-		$current_screen = apply_filters( 'current_screen', $current_screen );
+		do_action( 'current_screen', $current_screen );
 	}
 
 	/**
@@ -685,7 +666,7 @@ final class WP_Screen {
 		if ( $old_help ) {
 			$this->add_help_tab( array(
 				'id'      => 'contextual-help',
-				'title'   => __('Screen Info'),
+				'title'   => __('Overview'),
 				'content' => $old_help,
 			) );
 		}

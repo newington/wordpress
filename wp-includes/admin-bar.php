@@ -74,8 +74,11 @@ add_action( 'admin_footer', 'wp_admin_bar_render', 1000 );
 function wp_admin_bar_wp_menu( $wp_admin_bar ) {
 	$wp_admin_bar->add_menu( array(
 		'id'    => 'wp-logo',
-		'title' => '<span class="ab-wp-logo"></span>',
+		'title' => '<span class="ab-icon"></span>',
 		'href'  => admin_url( 'about.php' ),
+		'meta'  => array(
+			'title' => __('About WordPress'),
+		),
 	) );
 
 	if ( is_user_logged_in() ) {
@@ -144,6 +147,7 @@ function wp_admin_bar_my_account_menu( $wp_admin_bar ) {
 			'href'      => $profile_url,
 			'meta'      => array(
 				'class'     => $class,
+				'title'     => __('My Account'),
 			),
 		) );
 
@@ -481,23 +485,27 @@ function wp_admin_bar_new_content_menu( $wp_admin_bar ) {
 	}
 
 	if ( current_user_can( 'create_users' ) || current_user_can( 'promote_users' ) )
-		$actions[ 'user-new.php' ] = array( _x( 'User', 'add new from admin bar' ), 'new-user', 'new-secondary-object' );
+		$actions[ 'user-new.php' ] = array( _x( 'User', 'add new from admin bar' ), 'new-user' );
 
 	if ( ! $actions )
 		return;
 
+	$title = '<span class="ab-icon"></span><span class="ab-label">' . _x( 'New', 'admin bar menu group label' ) . '</span>';
+
 	$wp_admin_bar->add_menu( array(
 		'id'    => 'new-content',
-		'title' => _x( 'Add New', 'admin bar menu group label' ),
+		'title' => $title,
 		'href'  => admin_url( current( array_keys( $actions ) ) ),
+		'meta'  => array(
+			'title' => _x( 'Add New', 'admin bar menu group label' ),
+		),
 	) );
 
 	foreach ( $actions as $link => $action ) {
 		list( $title, $id ) = $action;
-		$parent = empty( $action[2] ) ? 'new-content' : $action[2];
 
 		$wp_admin_bar->add_menu( array(
-			'parent'    => $parent,
+			'parent'    => 'new-content',
 			'id'        => $id,
 			'title'     => $title,
 			'href'      => admin_url( $link )
@@ -518,17 +526,14 @@ function wp_admin_bar_comments_menu( $wp_admin_bar ) {
 	$awaiting_mod = $awaiting_mod->moderated;
 	$awaiting_title = esc_attr( sprintf( _n( '%s comment awaiting moderation', '%s comments awaiting moderation', $awaiting_mod ), number_format_i18n( $awaiting_mod ) ) );
 
-	$icon  = "<div class='ab-comments-icon' title='$awaiting_title'>";
-	$icon .= "<div class='ab-comments-icon-body'></div>";
-	$icon .= "<div class='ab-comments-icon-arrow'></div>";
-	$icon .= "</div>";
-
-	$title = '<span id="ab-awaiting-mod" class="awaiting-mod pending-count count-' . $awaiting_mod . '">' . number_format_i18n( $awaiting_mod ) . '</span>';
+	$icon  = '<span class="ab-icon"></span>';
+	$title = '<span id="ab-awaiting-mod" class="ab-label awaiting-mod pending-count count-' . $awaiting_mod . '">' . number_format_i18n( $awaiting_mod ) . '</span>';
 
 	$wp_admin_bar->add_menu( array(
 		'id'    => 'comments',
 		'title' => $icon . $title,
 		'href'  => admin_url('edit-comments.php'),
+		'meta'  => array( 'title' => $awaiting_title ),
 	) );
 }
 
@@ -571,11 +576,16 @@ function wp_admin_bar_updates_menu( $wp_admin_bar ) {
 	if ( !$update_data['counts']['total'] )
 		return;
 
-	$update_title = "<span title='{$update_data['title']}'>";
-	$update_title .= sprintf( __('Updates %s'), "<span id='ab-updates' class='update-count'>" . number_format_i18n($update_data['counts']['total']) . '</span>' );
-	$update_title .= '</span>';
+	$title = '<span class="ab-icon"></span><span class="ab-label">' . number_format_i18n( $update_data['counts']['total'] ) . '</span>';
 
-	$wp_admin_bar->add_menu( array( 'id' => 'updates', 'title' => $update_title, 'href' => network_admin_url( 'update-core.php' ) ) );
+	$wp_admin_bar->add_menu( array(
+		'id'    => 'updates',
+		'title' => $title,
+		'href'  => network_admin_url( 'update-core.php' ),
+		'meta'  => array(
+			'title' => $update_data['title'],
+		),
+	) );
 }
 
 /**
@@ -584,16 +594,19 @@ function wp_admin_bar_updates_menu( $wp_admin_bar ) {
  * @since 3.3.0
  */
 function wp_admin_bar_search_menu( $wp_admin_bar ) {
+	if ( is_admin() )
+		return;
+
 	$form  = '<form action="' . esc_url( home_url( '/' ) ) . '" method="get" id="adminbarsearch">';
-	$form .= '<input class="adminbar-input" name="s" id="adminbar-search" tabindex="10" ';
-	$form .= 'type="text" value="" maxlength="150" placeholder="' . esc_attr__( 'Search' ) . '" />';
+	$form .= '<input class="adminbar-input" name="s" id="adminbar-search" tabindex="10" type="text" value="" maxlength="150" />';
 	$form .= '<input type="submit" class="adminbar-button" value="' . __('Search') . '"/>';
 	$form .= '</form>';
 
 	$wp_admin_bar->add_menu( array(
-		'id'    => 'search',
-		'title' => $form,
-		'meta'  => array(
+		'parent' => 'top-secondary',
+		'id'     => 'search',
+		'title'  => $form,
+		'meta'   => array(
 			'class'    => 'admin-bar-search',
 			'tabindex' => -1,
 		)
@@ -616,14 +629,6 @@ function wp_admin_bar_add_secondary_groups( $wp_admin_bar ) {
 	$wp_admin_bar->add_group( array(
 		'parent' => 'wp-logo',
 		'id'     => 'wp-logo-external',
-		'meta'   => array(
-			'class' => 'ab-sub-secondary',
-		),
-	) );
-
-	$wp_admin_bar->add_group( array(
-		'parent' => 'new-content',
-		'id'     => 'new-secondary-object',
 		'meta'   => array(
 			'class' => 'ab-sub-secondary',
 		),

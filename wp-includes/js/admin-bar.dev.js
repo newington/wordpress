@@ -33,11 +33,15 @@ if ( typeof(jQuery) != 'undefined' ) {
 			if ( e.which != 13 )
 				return;
 
-			var target = $(e.target);
+			var target = $(e.target), wrap = target.closest('ab-sub-wrapper');
 
 			e.stopPropagation();
 			e.preventDefault();
 
+			if ( !wrap.length )
+				wrap = $('#wpadminbar .quicklinks');
+
+			wrap.find('.menupop').removeClass('hover');
 			target.parent().toggleClass('hover');
 			target.siblings('.ab-sub-wrapper').find('.ab-item').each(refresh);
 		}).each(refresh);

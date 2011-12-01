@@ -80,12 +80,15 @@ class Custom_Background {
 	 * @since 3.0.0
 	 */
 	function admin_load() {
-		add_contextual_help( $this->page,
-			'<p>' . __( 'You can customize the look of your site without touching any of your theme&#8217;s code by using a custom background. Your background can be an image or a color.' ) . '</p>' .
-			'<p>' . __( 'To use a background image, simply upload it, then choose your display options below. You can display a single instance of your image, or tile it to fill the screen. You can have your background fixed in place, so your site content moves on top of it, or you can have it scroll with your site.' ) . '</p>' .
-			'<p>' . __( 'You can also choose a background color. If you know the hexadecimal code for the color you want, enter it in the Color field. If not, click on the Select a Color link, and a color picker will allow you to choose the exact shade you want.' ) . '</p>' .
-			'<p>' . __( 'Don&#8217;t forget to click on the Save Changes button when you are finished.' ) . '</p>'
-		);
+		get_current_screen()->add_help_tab( array(
+			'id'      => 'overview',
+			'title'   => __('Overview'),
+			'content' =>
+				'<p>' . __( 'You can customize the look of your site without touching any of your theme&#8217;s code by using a custom background. Your background can be an image or a color.' ) . '</p>' .
+				'<p>' . __( 'To use a background image, simply upload it, then choose your display options below. You can display a single instance of your image, or tile it to fill the screen. You can have your background fixed in place, so your site content moves on top of it, or you can have it scroll with your site.' ) . '</p>' .
+				'<p>' . __( 'You can also choose a background color. If you know the hexadecimal code for the color you want, enter it in the Color field. If not, click on the Select a Color link, and a color picker will allow you to choose the exact shade you want.' ) . '</p>' .
+				'<p>' . __( 'Don&#8217;t forget to click on the Save Changes button when you are finished.' ) . '</p>'
+		) );
 
 		get_current_screen()->set_help_sidebar(
 			'<p><strong>' . __( 'For more information:' ) . '</strong></p>' .
@@ -297,7 +300,7 @@ if ( get_background_image() ) {
 </tr>
 <?php endif; // get_background_image() ?>
 <tr valign="top">
-<th scope="row"><?php _e( 'Color' ); ?></th>
+<th scope="row"><?php _e( 'Background Color' ); ?></th>
 <td><fieldset><legend class="screen-reader-text"><span><?php _e( 'Background Color' ); ?></span></legend>
 <?php $show_clear = get_background_color() ? '' : ' style="display:none"'; ?>
 <input type="text" name="background-color" id="background-color" value="#<?php echo esc_attr(get_background_color()) ?>" />
