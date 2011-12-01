@@ -1,0 +1,11 @@
+header#branding {
+	border-top: 0;
+	background-color: #1d1d1d;
+}
+header#branding #network_logo {
+	background-color: #1d1d1d;
+	background-image: url(dark/logo.png) !important;
+}
+header#branding #network_dwp {
+	background-image: url(dark/dwp.png) !important;
+}

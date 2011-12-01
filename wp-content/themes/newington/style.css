@@ -13,29 +13,30 @@ body {
 }
 
 #page {
+	margin: 1em auto;
 }
 
 header#branding {
 	border-top: 0;
-	background-color: #1d1d1d;
+	background-color: #e2e2e2;
 }
 
 header#branding #network_logo {
-	height: 60px;
+	height: 55px;
 	margin: 0 auto;
-	background-color: #1d1d1d;
-	background-image: url(black/logo.png) !important;
+	background-color: #e2e2e2;
+	background-image: url(light/logo.png) !important;
 	background-repeat: no-repeat !important;
 	background-position: 10 10;
 }
 header#branding #network_dwp {
-	height: 70px;
-	background-image: url(black/dwp.png) !important;
+	height: 55px;
+	background-image: url(light/dwp.png) !important;
 	background-repeat: no-repeat !important;
 	background-position: right top;
 }
 header a.logo_zone {
-	height: 60px;
+	height: 55px;
 	width: 200px;
 	display: block;
 	outline: none;
@@ -44,7 +45,7 @@ header a.logo_zone {
 	margin: 0;
 }
 #branding #searchform {
-	top: 70px;
+	top: 60px;
 	right: 0;
 }
 

@@ -15,8 +15,12 @@ function twentyeleven_color_schemes_orange( $color_schemes ) {
 }
 
 function twentyeleven_enqueue_color_scheme_orange( $color_scheme ) {
-	if ( 'orange' == $color_scheme )
+	if ( 'orange' == $color_scheme ) {
 		wp_enqueue_style( 'orange', get_stylesheet_directory_uri() . '/orange.css', array(), null );
+	}
+	else if ( 'dark' == $color_scheme ) {
+		wp_enqueue_style( 'dark_extras', get_stylesheet_directory_uri() . '/dark_extras.css', array(), null );
+	}
 }
 
 function add_googleanalytics() { ?>
