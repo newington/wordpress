@@ -107,12 +107,12 @@
 /**
  * My Account
  */
-#wpadminbar #wp-admin-bar-my-account.with-avatar #wp-admin-bar-my-account-default > li {
+#wpadminbar #wp-admin-bar-my-account.with-avatar #wp-admin-bar-user-actions > li {
 	margin-right: 88px;
 	margin-left: 16px;
 }
 
-#wp-admin-bar-my-account-default > li > .ab-item {
+#wp-admin-bar-user-actions > li > .ab-item {
 	padding-left: 0;
 	padding-right: 8px;
 }
@@ -138,48 +138,41 @@
 /*
  * Search
  */
-#wpadminbar #adminbarsearch {
-	float: left;
-}
-
 #wpadminbar #adminbarsearch .adminbar-input {
-	float: right;
 	font-family: Tahoma, Arial, Helvetica, sans-serif;
 	padding: 0 24px 0 3px;
-	margin: 0 0 0 3px;
-	background-position: 99% 1px;
+	margin: 0;
+	background-position: 50% 2px;
+}
+
+#wpadminbar #adminbarsearch .adminbar-input:focus,
+#wpadminbar.ie7 #adminbarsearch .adminbar-input {
+	background-position: 99% 2px;
 }
 
 /**
  * Comments icon
  */
-#wpadminbar .ab-comments-icon {
+#wpadminbar .ab-icon {
 	float: right;
 }
 
-#wpadminbar.ie7 .ab-comments-icon {
+.ie7 #wp-admin-bar-wp-logo > .ab-item .ab-icon {
+	position: static;
+}
+
+#wpadminbar.ie7 .ab-icon {
 	float: left;
 	left: 12px;
 }
 
-#wpadminbar .ab-comments-icon-body {
-	margin-right: -2px;
-}
-
-#wpadminbar a .ab-comments-icon-arrow {
-	left: auto;
-	right: 1px;
-	/* Use transparent borders to form a triangle */
-	border-left: 0;
-	border-right: 4px solid #999;
-}
-
-#wpadminbar #ab-awaiting-mod {
+#wpadminbar .ab-label {
 	margin-left: 0px;
 	margin-right: 4px;
+	float: left;
 }
 
-#wpadminbar.ie7 #ab-awaiting-mod {
+#wpadminbar.ie7 .ab-label {
 	margin-right: 0;
 }
 

@@ -34,7 +34,7 @@ $_SERVER['REQUEST_URI'] = remove_query_arg( $temp_args, $_SERVER['REQUEST_URI'] 
 $referer = remove_query_arg( $temp_args, wp_get_referer() );
 
 if ( $action ) {
-	$allowed_themes = get_site_option( 'allowedthemes' );	
+	$allowed_themes = get_site_option( 'allowedthemes' );
 	switch ( $action ) {
 		case 'enable':
 			check_admin_referer('enable-theme_' . $_GET['theme']);
@@ -47,33 +47,33 @@ if ( $action ) {
 			check_admin_referer('disable-theme_' . $_GET['theme']);
 			unset( $allowed_themes[ $_GET['theme'] ] );
 			update_site_option( 'allowedthemes', $allowed_themes );
-			wp_redirect( add_query_arg( 'disabled', '1', $referer ) );
+			wp_safe_redirect( add_query_arg( 'disabled', '1', $referer ) );
 			exit;
 			break;
 		case 'enable-selected':
 			check_admin_referer('bulk-themes');
 			$themes = isset( $_POST['checked'] ) ? (array) $_POST['checked'] : array();
 			if ( empty($themes) ) {
-				wp_redirect( add_query_arg( 'error', 'none', $referer ) );
+				wp_safe_redirect( add_query_arg( 'error', 'none', $referer ) );
 				exit;
 			}
 			foreach( (array) $themes as $theme )
 				$allowed_themes[ $theme ] = true;
 			update_site_option( 'allowedthemes', $allowed_themes );
-			wp_redirect( add_query_arg( 'enabled', count( $themes ), $referer ) );
+			wp_safe_redirect( add_query_arg( 'enabled', count( $themes ), $referer ) );
 			exit;
 			break;
 		case 'disable-selected':
 			check_admin_referer('bulk-themes');
 			$themes = isset( $_POST['checked'] ) ? (array) $_POST['checked'] : array();
 			if ( empty($themes) ) {
-				wp_redirect( add_query_arg( 'error', 'none', $referer ) );
+				wp_safe_redirect( add_query_arg( 'error', 'none', $referer ) );
 				exit;
 			}
 			foreach( (array) $themes as $theme )
 				unset( $allowed_themes[ $theme ] );
 			update_site_option( 'allowedthemes', $allowed_themes );
-			wp_redirect( add_query_arg( 'disabled', count( $themes ), $referer ) );
+			wp_safe_redirect( add_query_arg( 'disabled', count( $themes ), $referer ) );
 			exit;
 			break;
 		case 'update-selected' :
@@ -117,7 +117,7 @@ if ( $action ) {
 				unset( $themes[ get_option( 'stylesheet' ) ] );
 
 			if ( empty( $themes ) ) {
-				wp_redirect( add_query_arg( 'error', 'none', $referer ) );
+				wp_safe_redirect( add_query_arg( 'error', 'none', $referer ) );
 				exit;
 			}
 
@@ -128,13 +128,13 @@ if ( $action ) {
 				if ( $data['Name'] == $main_theme ) {
 					unset( $themes[$key] );
 				} else {
-					$files_to_delete = array_merge( $files_to_delete, list_files( WP_CONTENT_DIR . "/themes/$theme" ) );					
+					$files_to_delete = array_merge( $files_to_delete, list_files( WP_CONTENT_DIR . "/themes/$theme" ) );
 					$theme_info[ $theme ] = $data;
 				}
 			}
-			
+
 			if ( empty( $themes ) ) {
-				wp_redirect( add_query_arg( 'error', 'main', $referer ) );
+				wp_safe_redirect( add_query_arg( 'error', 'main', $referer ) );
 				exit;
 			}
 
@@ -190,7 +190,7 @@ if ( $action ) {
 
 			foreach ( $themes as $theme )
 				$delete_result = delete_theme( $theme, esc_url( add_query_arg( array('verify-delete' => 1), $_SERVER['REQUEST_URI'] ) ) );
-			$paged = ( $_REQUEST['paged'] ) ? $_REQUEST['paged'] : 1; 
+			$paged = ( $_REQUEST['paged'] ) ? $_REQUEST['paged'] : 1;
 			wp_redirect( network_admin_url( "themes.php?deleted=".count( $themes )."&paged=$paged&s=$s" ) );
 			exit;
 			break;
@@ -228,8 +228,8 @@ require_once(ABSPATH . 'wp-admin/admin-header.php');
 <div class="wrap">
 <?php screen_icon('themes'); ?>
 <h2><?php echo esc_html( $title ); if ( current_user_can('install_themes') ) { ?> <a href="theme-install.php" class="add-new-h2"><?php echo esc_html_x('Add New', 'theme'); ?></a><?php }
-if ( $s ) 
-	printf( '<span class="subtitle">' . __('Search results for &#8220;%s&#8221;') . '</span>', esc_html( $s ) ); ?> 
+if ( $s )
+	printf( '<span class="subtitle">' . __('Search results for &#8220;%s&#8221;') . '</span>', esc_html( $s ) ); ?>
 </h2>
 
 <?php

@@ -356,9 +356,13 @@ ol {
 	padding: 0;
 }
 
-ul li,
-ol li {
+ul {
 	list-style: none;
+}
+
+ol {
+	list-style-type: decimal;
+	margin-left: 2em;
 }
 
 ul.ul-disc {
@@ -369,9 +373,8 @@ ul.ul-square {
 	list-style: square outside;
 }
 
-ol {
-	list-style-type: decimal;
-	margin-left: 2em;
+ol.ol-decimal {
+	list-style: decimal outside;
 }
 
 ul.ul-disc,
@@ -2946,9 +2949,10 @@ input#link_url {
 	margin:0;
 }
 
-#side-sortables .category-add input[type="text"],
-#side-sortables .category-add select {
-	width: 160px;
+.category-add input[type="text"],
+.category-add select {
+	width: 100%;
+	max-width: 260px;
 }
 
 #post-body ul.category-tabs,
@@ -3360,11 +3364,6 @@ table.diff .diff-deletedline del, table.diff .diff-addedline ins {
 
 #side-sortables .category-adder {
 	margin: 0;
-}
-
-#normal-sortables .category-add input[type="text"],
-#normal-sortables .category-add select {
-	width: 30%;
 }
 
 #post-body ul.category-tabs,
@@ -4591,7 +4590,7 @@ h2 .nav-tab {
 
 #dashboard_right_now .versions .b,
 #post-status-display,
-#post-visibility-display
+#post-visibility-display,
 #adminmenu .wp-submenu li.current,
 #adminmenu .wp-submenu li.current a,
 #adminmenu .wp-submenu li.current a:hover,
@@ -4893,6 +4892,18 @@ html.ie8 .about-wrap img.element-screenshot {
 	padding: 2px;
 }
 
+/* Point Releases */
+
+.about-wrap .point-releases {
+	margin-top: 5px;
+}
+.about-wrap .changelog.point-releases h3 {
+	padding-top: 35px;
+}
+.about-wrap .changelog.point-releases h3:first-child {
+	padding-top: 7px;
+}
+
 /* WordPress Version Badge */
 
 .wp-badge {
@@ -5077,7 +5088,7 @@ html.ie8 .about-wrap .feature-section.three-col img {
 .about-wrap ul.wp-people-group {
 	overflow: hidden;
 	padding: 5px;
-	margin: 0 -5px;
+	margin: 0 -15px 0 -5px;
 }
 .about-wrap ul.compact {
 	margin-bottom: 0
