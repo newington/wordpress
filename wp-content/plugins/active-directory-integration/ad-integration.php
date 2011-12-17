@@ -2,7 +2,7 @@
 
 /*
 Plugin Name: Active Directory Integration 
-Version: 1.1.1
+Version: 1.1.2
 Plugin URI: http://blog.ecw.de/wp-ad-integration
 Description: Allows WordPress to authenticate, authorize, create and update users through Active Directory
 Author: Christoph Steindorff, ECW GmbH
@@ -211,6 +211,9 @@ class ADIntegrationPlugin {
 	// All options and its types
 	// Has to be static for static call of method uninstall()
 	protected static $_all_options = array(
+	
+			array('name' => 'AD_Integration_version', 'type' => 'string'),
+		
 			array('name' => 'AD_Integration_account_suffix', 'type' => 'string'),
 			array('name' => 'AD_Integration_auto_create_user', 'type' => 'bool'),
 			array('name' => 'AD_Integration_auto_update_user', 'type' => 'bool'),
@@ -253,6 +256,8 @@ class ADIntegrationPlugin {
 			array('name' => 'AD_Integration_bulkimport_security_groups', 'type' => 'string'),
 			array('name' => 'AD_Integration_bulkimport_user', 'type' => 'string'),
 			array('name' => 'AD_Integration_bulkimport_pwd', 'type' => 'string')
+			
+			
 		);
 		
 
@@ -595,17 +600,66 @@ class ADIntegrationPlugin {
 			return false;
 		}
 		
-		
-		// extract account suffix from username if not set
+		// extract account suffix from username if not set or this is enanbled
 		// (after loading of options)
-		if (trim($this->_account_suffix) == '') {
-			if (strpos($username,'@') !== false) {
-				$parts = explode('@',$username);
+		// TODO: enable login with user@domain2.local if account suffix @domain1.local is set
+		/*
+		if (strpos($username,'@') !== false) {
+			$this->_log(ADI_LOG_NOTICE,'Logon with @domain detected.');
+			$parts = explode('@',$username);
+			if (trim($this->_account_suffix) == '') {
 				$username = $parts[0];
 				$this->_account_suffix = '@'.$parts[1];
 				$this->_append_suffix_to_new_users = true;
+			} else {
+				$this->_log(ADI_LOG_NOTICE,'Try domain ' . $parts[1] . ' from username.');
+				if (trim($this->_account_suffix) !== '@'.trim($parts[1])) {
+					$this->_log(ADI_LOG_NOTICE,'Temporarily reseting account_suffix and switching off append_suffix_to_new_users.');
+					$username = $parts[0];
+					$this->_account_suffix = '@'.trim($parts[1]);
+					$this->_append_suffix_to_new_users = true;
+				}
+			}
+		}*/
+		
+		// extract account suffix from username if not set
+		// (after loading of options)
+		// Extended for issue #0043
+		if (strpos($username,'@') !== false) {
+			$this->_log(ADI_LOG_NOTICE,'@domain found.');
+			$parts = explode('@',trim($username));
+			$puser = $parts[0];
+			$pdomain = '@'.$parts[1];
+			if (trim($this->_account_suffix) == '') {
+				// without Account Suffix
+				$username = $puser;
+				$this->_account_suffix = $pdomain;
+				$this->_append_suffix_to_new_users = true;
+				$this->_log(ADI_LOG_NOTICE,'No account suffix set. Using user domain "' . $pdomain . '" as account suffix.');
+			} else {
+				// with Account Suffix
+				// let's see if users domain is in the list of all account suffixes
+				$account_suffix_found = false;
+				$account_suffixes = explode(";", $this->_account_suffix);
+				foreach($account_suffixes AS $account_suffix) {
+					if (trim($account_suffix) == $pdomain) {
+						// user domain same as _account_suffix (leave _append_suffix_to_new_users untouched)
+						$username = $puser;
+						$account_suffix_found = true;
+						$this->_log(ADI_LOG_NOTICE,'user domain "' . $pdomain . '" in list of account suffixes.');
+						break;
+					}
+				}
+				if ($account_suffix_found === false) {
+					// 
+					$this->_append_suffix_to_new_users = false;
+					$this->_account_suffix = '';
+					$this->_log(ADI_LOG_NOTICE,'user domain "' . $pdomain . '" NOT in list of account suffixes.');
+				}
 			}
 		}
+		
+		
 		
 		$this->_log(ADI_LOG_NOTICE,'username: '.$username);
 		$this->_log(ADI_LOG_NOTICE,'password: **not shown**');
@@ -916,7 +970,7 @@ class ADIntegrationPlugin {
 					}
 				}
 				
-				
+
 				// establish adLDAP connection
 				// Connect to Active Directory
 				if ($this->_syncback_use_global_user === true) {
@@ -960,6 +1014,7 @@ class ADIntegrationPlugin {
 				}
 				$this->_log(ADI_LOG_DEBUG,'Connected to AD');
 				
+				
 				//  Now we can modify the user
 				$this->_log(ADI_LOG_DEBUG,'attributes to sync: '.print_r($attributes_to_sync, true));
 				$this->_log(ADI_LOG_DEBUG,'modifying user: '.$username);
@@ -967,7 +1022,7 @@ class ADIntegrationPlugin {
 				if (!$modified) {
 					$this->_log(ADI_LOG_WARN,'SyncBack: modifying user failed');
 					$this->_log(ADI_LOG_DEBUG,$ad->get_last_errno().': '.$ad->get_last_error());
-		    		$this->errors->add('syncback_modify_failed',__('Error on writing additional attributes back to Active Directory. Please contact your administrator.','ad-integration'),'');
+		    		$this->errors->add('syncback_modify_failed',__('Error on writing additional attributes back to Active Directory. Please contact your administrator.','ad-integration') . "<br/>[Error " . $ad->get_last_errno().'] '.$ad->get_last_error(),'');
 		    		return false;
 				} else {
 					$this->_log(ADI_LOG_NOTICE,'SyncBack: User successfully modified.');
@@ -1294,11 +1349,11 @@ class ADIntegrationPlugin {
 					</tr>
 				<?php 
 				}
-				    // show this only if Global Sync Back user is not set AND your are your own personal profile page AND we have an AD-user
-					if (($this->_syncback_use_global_user === false)
-						 && ($user->id == $user_ID)
-						 && ($this->_syncback == true)
-						 && ($adi_samaccountname != '')) {
+				   // show this only if Global Sync Back user is not set AND your are your own personal profile page AND we have an AD-user
+				if (($this->_syncback_use_global_user === false)
+					 && ($user->id == $user_ID)
+					 && ($this->_syncback == true)
+					 && ($adi_samaccountname != '')) {
 					?>
 					<tr>
 						<th><label for="adi_syncback_password" class="adi_syncback_password"><?php _e('Your password','ad-integration');?></label></th>
@@ -1307,8 +1362,29 @@ class ADIntegrationPlugin {
 							<?php _e('If you want to save the changes on "Additional Informations" back to the Active Directory you must enter your password.')?>
 						</td>
 					</tr>
+					<?php
+				}
+				
+				/*
+				// Show SyncBack for this user if you are an admin and Global SyncBack is deactivated
+				if (($adi_samaccountname != '')
+					&& (current_user_can('level_10'))
+					&& ($this->_syncback_global_pwd != '')
+					&& ($this->_syncback_global_user != '')
+					&& ($this->_syncback_use_global_user != true)) {
+					?>
+					<tr style="border: 1px solid #999; background-color: white;">
+						<th scope="row"><label for="AD_Integration_syncback_manually"><?php _e('Perform SyncBack for this user', 'ad-integration'); ?></label></th>
+						<td>
+							<?php _e('Click on the following link to perform a SyncBack of this user to Active Directory. Only pre-stored data will be transmitted.', 'ad-integration'); ?>
+							<br>
+							<a href="<?php echo plugins_url() . '/'. ADINTEGRATION_FOLDER . '/syncback.php?userid=' . $user->id; ?>" target="_blank"><?php echo plugins_url() . '/'. ADINTEGRATION_FOLDER . '/syncback.php?userid=' . $user->id; ?></a>
+							<a href="<?php echo plugins_url() . '/'. ADINTEGRATION_FOLDER . '/syncback.php?userid=' . $user->id; ?>" target="_blank" class="button">SyncBack</a>
+						</td>
+					</tr>
 					<?php 
 				}
+				*/
 				?>
 				</table>
 				<?php
