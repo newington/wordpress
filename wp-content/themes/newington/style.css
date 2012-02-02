@@ -95,10 +95,10 @@ body {
 @media (max-width: 1024px) {
 	/* Simplify the basic layout */
 	#main #content {
-		margin: 0 4%;
+		margin: 0 34% 0 4;
 	}
 	#main #secondary {
-		margin: 0 4%;
+		margin: 0 4% 0 0;
 	}
 }
 
