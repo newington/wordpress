@@ -87,3 +87,18 @@ h2#site-description {
 .entry-content, .entry-summary {
 	padding-top: 0.5em;
 }
+body {
+	font-size: 14px;
+}
+
+/* Responsive hacks */
+
+@media (max-width: 800px) {
+	/* Simplify the basic layout */
+	#main #content {
+		margin: 0 4%;
+	}=
+	#main #secondary {
+		margin: 0 4%;
+	}
+}
