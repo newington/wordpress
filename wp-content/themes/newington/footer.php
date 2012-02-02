@@ -23,7 +23,7 @@
 
 			<div id="site-generator">
 				The blogging site of Newington College students and staff. <br/>
-				All content © 2011 the relevant author and Newington College unless otherwise stated.
+				All content © 2012 the relevant author and Newington College unless otherwise stated.
 			</div>
 	</footer><!-- #colophon -->
 </div><!-- #page -->

@@ -92,6 +92,15 @@ body {
 }
 
 /* Responsive hacks */
+@media (max-width: 1024px) {
+	/* Simplify the basic layout */
+	#main #content {
+		margin: 0 4%;
+	}
+	#main #secondary {
+		margin: 0 4%;
+	}
+}
 
 @media (max-width: 800px) {
 	/* Simplify the basic layout */
