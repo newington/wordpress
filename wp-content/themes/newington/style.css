@@ -66,3 +66,16 @@ h2#site-description {
 #left-side #section-tabs-header {
 	font-family: inherit;
 }
+
+#content {
+	margin: 0 34% 0 4%;
+}
+#secondary {
+	margin-right: 4%;
+}
+#access div {
+	margin: 0 4%;
+}
+.entry-title {
+	padding-bottom: 0;
+}
