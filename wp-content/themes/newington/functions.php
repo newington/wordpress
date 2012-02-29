@@ -4,6 +4,9 @@ add_filter( 'twentyeleven_color_schemes', 'twentyeleven_color_schemes_orange' );
 add_action( 'twentyeleven_enqueue_color_scheme', 'twentyeleven_enqueue_color_scheme_orange' );
 add_action( 'wp_footer', 'add_googleanalytics' );
 
+remove_filter( 'HEADER_IMAGE_HEIGHT', 'twentyeleven_header_image_height' );
+define( 'HEADER_IMAGE_HEIGHT', apply_filters( 'child_header_image_height', 150 ) );
+
 function twentyeleven_color_schemes_orange( $color_schemes ) {
 	$color_schemes['orange'] = array(
 		'value' => 'orange',
@@ -37,4 +40,5 @@ function add_googleanalytics() { ?>
 	  })();
 
 	</script>
-<?php } ?>
+
+<?php }
