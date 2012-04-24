@@ -3,8 +3,8 @@ Contributors: WyriHaximus
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=webmaster%40wyrihaximus%2enet&item_name=Donation%20to%20wyrihaximus%2enet&currency_code=EUR&bn=PP%2dDonationsBF&charset=UTF%2d8
 Tags: widget, feed, feedburner, subscription, email
 Requires at least: 2.9.0
-Tested up to: 3.2.1
-Stable tag: 1.1.5
+Tested up to: 3.3.1
+Stable tag: 1.1.6
 
 Allows you to add a Feedburner Email Subscription widget to one of your sidebars.
 
@@ -32,6 +32,9 @@ In 1.2 a new admin widget will make it easier to managed your sidebar widget. Wi
 2. Backend
 
 == Changelog ==
+
+= 1.1.6 =
+* Expanded blog feed detection
 
 = 1.1.5 =
 * Removed a double filter call on the widget title.

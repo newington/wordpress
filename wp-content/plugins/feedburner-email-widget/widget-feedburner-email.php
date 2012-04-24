@@ -1,7 +1,7 @@
 <?php
 /*
   Plugin Name: Feedburner Email Widget
-  Version: 1.1.5
+  Version: 1.1.6
   Plugin URI: http://wyrihaximus.net/projects/wordpress/feedburner-email-widget/
   Description: Allows you to add a Feedburner Email Subscription widget to one of your sidebars.
   Author: WyriHaximus
@@ -152,7 +152,7 @@ class FeedburnerEmailWidget extends WP_Widget {
         $analytics_val = empty($instance['analytics_val']) ? false : $instance['analytics_val'];
         if ($uri) {
             // Cut out the part we need
-            $uri = str_replace('http://feeds.feedburner.com/', '', $uri);
+            $uri = str_replace(array('http://feeds.feedburner.com/', 'http://feedburner.google.com/fb/a/mailverify?uri='), '', $uri);
             if (!empty($title)) {
                 if(!isset($before_title)) {
                     $before_title = '';
