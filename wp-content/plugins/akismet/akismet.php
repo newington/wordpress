@@ -6,7 +6,7 @@
 Plugin Name: Akismet
 Plugin URI: http://akismet.com/?return=true
 Description: Used by millions, Akismet is quite possibly the best way in the world to <strong>protect your blog from comment and trackback spam</strong>. It keeps your site protected from spam even while you sleep. To get started: 1) Click the "Activate" link to the left of this description, 2) <a href="http://akismet.com/get/?return=true">Sign up for an Akismet API key</a>, and 3) Go to your <a href="admin.php?page=akismet-key-config">Akismet configuration</a> page, and save your API key.
-Version: 2.5.5
+Version: 2.5.6
 Author: Automattic
 Author URI: http://automattic.com/wordpress-plugins/
 License: GPLv2 or later
@@ -28,7 +28,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-define('AKISMET_VERSION', '2.5.5');
+define('AKISMET_VERSION', '2.5.6');
 define('AKISMET_PLUGIN_URL', plugin_dir_url( __FILE__ ));
 
 /** If you hardcode a WP.com API key here, all key config screens will be hidden */
@@ -81,12 +81,16 @@ function akismet_check_key_status( $key, $ip = null ) {
 
 // given a response from an API call like akismet_check_key_status(), update the alert code options if an alert is present.
 function akismet_update_alert( $response ) {
+	$code = $msg = null;
 	if ( isset($response[0]['x-akismet-alert-code']) ) {
-		update_option( 'akismet_alert_code', $response[0]['x-akismet-alert-code'] );
-		update_option( 'akismet_alert_msg', $response[0]['x-akismet-alert-msg'] );
-	} else {
-		update_option( 'akismet_alert_code', '' );
-		update_option( 'akismet_alert_code', '' );
+		$code = $response[0]['x-akismet-alert-code'];
+		$msg = $response[0]['x-akismet-alert-msg'];
+	}
+	
+	// only call update_option() if the value has changed
+	if ( $code != get_option( 'akismet_alert_code' ) ) {
+		update_option( 'akismet_alert_code', $code );
+		update_option( 'akismet_alert_msg', $msg );
 	}
 }
 
@@ -366,6 +370,7 @@ function akismet_auto_check_comment( $commentdata ) {
 	$commentdata['comment_as_submitted'] = $comment;
 
 	$response = akismet_http_post($query_string, $akismet_api_host, '/1.1/comment-check', $akismet_api_port);
+	akismet_update_alert( $response );
 	$commentdata['akismet_result'] = $response[1];
 	if ( 'true' == $response[1] ) {
 		// akismet_spam_count will be incremented later by akismet_result_spam()
@@ -395,9 +400,6 @@ function akismet_auto_check_comment( $commentdata ) {
 			wp_schedule_single_event( time() + 1200, 'akismet_schedule_cron_recheck' );
 		}
 	}
-	
-	if ( !get_option( 'akismet_alert_code' ) )
-		akismet_update_alert( $response );
 	
 	if ( function_exists('wp_next_scheduled') && function_exists('wp_schedule_event') ) {
 		// WP 2.1+: delete old comments daily

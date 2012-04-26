@@ -2,8 +2,8 @@
 Contributors: matt, ryan, andy, mdawaffe, tellyworth, josephscott, lessbloat, automattic
 Tags: akismet, comments, spam
 Requires at least: 3.0
-Tested up to: 3.3.1
-Stable tag: 2.5.5
+Tested up to: 3.4
+Stable tag: 2.5.6
 License: GPLv2 or later
 
 Akismet checks your comments against the Akismet web service to see if they look like spam or not.
@@ -32,9 +32,15 @@ Upload the Akismet plugin to your blog, Activate it, then enter your [Akismet.co
 == Changelog ==
 
 = 2.5.6 =
-* Add more checks on the scheduled re-check feature, force it to be no more than 20 minutes in the future
-* Preloading mshot screens on comment page after everything else on the page has loaded
-* Updated widget code
+* Prevent retry scheduling problems on sites where wp_cron is misbehaving
+* Preload mshot previews
+* Modernize the widget code
+* Fix a bug where comments were not held for moderation during an error condition
+* Improve the UX and display when comments are temporarily held due to an error
+* Make the Check For Spam button force a retry when comments are held due to an error
+* Handle errors caused by an invalid key
+* Don't retry comments that are too old
+* Improve error messages when verifying an API key
 
 = 2.5.5 =
 * Add nonce check for comment author URL remove action
