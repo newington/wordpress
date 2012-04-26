@@ -5,8 +5,8 @@
 /*
 Plugin Name: Akismet
 Plugin URI: http://akismet.com/?return=true
-Description: Used by millions, Akismet is quite possibly the best way in the world to <strong>protect your blog from comment and trackback spam</strong>. It keeps your site protected from spam even while you sleep. To get started: 1) Click the "Activate" link to the left of this description, 2) <a href="http://akismet.com/get/?return=true">Sign up for an Akismet API key</a>, and 3) Go to your <a href="plugins.php?page=akismet-key-config">Akismet configuration</a> page, and save your API key.
-Version: 2.5.3
+Description: Used by millions, Akismet is quite possibly the best way in the world to <strong>protect your blog from comment and trackback spam</strong>. It keeps your site protected from spam even while you sleep. To get started: 1) Click the "Activate" link to the left of this description, 2) <a href="http://akismet.com/get/?return=true">Sign up for an Akismet API key</a>, and 3) Go to your <a href="admin.php?page=akismet-key-config">Akismet configuration</a> page, and save your API key.
+Version: 2.5.5
 Author: Automattic
 Author URI: http://automattic.com/wordpress-plugins/
 License: GPLv2 or later
@@ -28,7 +28,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-define('AKISMET_VERSION', '2.5.3');
+define('AKISMET_VERSION', '2.5.5');
 define('AKISMET_PLUGIN_URL', plugin_dir_url( __FILE__ ));
 
 /** If you hardcode a WP.com API key here, all key config screens will be hidden */
@@ -70,12 +70,29 @@ function akismet_get_key() {
 	return get_option('wordpress_api_key');
 }
 
-function akismet_verify_key( $key, $ip = null ) {
+function akismet_check_key_status( $key, $ip = null ) {
 	global $akismet_api_host, $akismet_api_port, $wpcom_api_key;
 	$blog = urlencode( get_option('home') );
 	if ( $wpcom_api_key )
 		$key = $wpcom_api_key;
 	$response = akismet_http_post("key=$key&blog=$blog", 'rest.akismet.com', '/1.1/verify-key', $akismet_api_port, $ip);
+	return $response;
+}
+
+// given a response from an API call like akismet_check_key_status(), update the alert code options if an alert is present.
+function akismet_update_alert( $response ) {
+	if ( isset($response[0]['x-akismet-alert-code']) ) {
+		update_option( 'akismet_alert_code', $response[0]['x-akismet-alert-code'] );
+		update_option( 'akismet_alert_msg', $response[0]['x-akismet-alert-msg'] );
+	} else {
+		update_option( 'akismet_alert_code', '' );
+		update_option( 'akismet_alert_code', '' );
+	}
+}
+
+function akismet_verify_key( $key, $ip = null ) {
+	$response = akismet_check_key_status( $key, $ip );
+	akismet_update_alert( $response );
 	if ( !is_array($response) || !isset($response[1]) || $response[1] != 'valid' && $response[1] != 'invalid' )
 		return 'failed';
 	return $response[1];
@@ -280,7 +297,7 @@ function akismet_auto_check_update_meta( $id, $comment ) {
 				// abnormal result: error
 				} else {
 					update_comment_meta( $comment->comment_ID, 'akismet_error', time() );
-					akismet_update_comment_history( $comment->comment_ID, sprintf( __('Akismet was unable to check this comment (response: %s), will automatically retry again later.'), $akismet_last_comment['akismet_result']), 'check-error' );
+					akismet_update_comment_history( $comment->comment_ID, sprintf( __('Akismet was unable to check this comment (response: %s), will automatically retry again later.'), substr($akismet_last_comment['akismet_result'], 0, 50)), 'check-error' );
 				}
 				
 				// record the complete original data as submitted for checking
@@ -339,6 +356,9 @@ function akismet_auto_check_comment( $commentdata ) {
 			$comment["$key"] = '';
 	}
 
+	$post = get_post( $comment['comment_post_ID'] );
+	$comment[ 'comment_post_modified_gmt' ] = $post->post_modified_gmt;
+
 	$query_string = '';
 	foreach ( $comment as $key => $data )
 		$query_string .= $key . '=' . urlencode( stripslashes($data) ) . '&';
@@ -353,7 +373,6 @@ function akismet_auto_check_comment( $commentdata ) {
 
 		do_action( 'akismet_spam_caught' );
 
-		$post = get_post( $comment['comment_post_ID'] );
 		$last_updated = strtotime( $post->post_modified_gmt );
 		$diff = time() - $last_updated;
 		$diff = $diff / 86400;
@@ -369,11 +388,16 @@ function akismet_auto_check_comment( $commentdata ) {
 	
 	// if the response is neither true nor false, hold the comment for moderation and schedule a recheck
 	if ( 'true' != $response[1] && 'false' != $response[1] ) {
-		if ( !wp_get_current_user() ) {
+		if ( !current_user_can('moderate_comments') ) {
 			add_filter('pre_comment_approved', 'akismet_result_hold');
 		}
-		wp_schedule_single_event( time() + 1200, 'akismet_schedule_cron_recheck' );
+		if ( !wp_next_scheduled( 'akismet_schedule_cron_recheck' ) ) {
+			wp_schedule_single_event( time() + 1200, 'akismet_schedule_cron_recheck' );
+		}
 	}
+	
+	if ( !get_option( 'akismet_alert_code' ) )
+		akismet_update_alert( $response );
 	
 	if ( function_exists('wp_next_scheduled') && function_exists('wp_schedule_event') ) {
 		// WP 2.1+: delete old comments daily
@@ -384,6 +408,8 @@ function akismet_auto_check_comment( $commentdata ) {
 		akismet_delete_old();
 	}
 	$akismet_last_comment = $commentdata;
+
+	akismet_fix_scheduled_recheck();
 	return $commentdata;
 }
 
@@ -408,7 +434,42 @@ function akismet_delete_old() {
 
 }
 
+function akismet_delete_old_metadata() { 
+	global $wpdb; 
+
+	$now_gmt = current_time( 'mysql', 1 ); 
+	$interval = apply_filters( 'akismet_delete_commentmeta_interval', 15 );
+
+	# enfore a minimum of 1 day
+	$interval = absint( $interval );
+	if ( $interval < 1 ) {
+		return;
+	}
+
+	// akismet_as_submitted meta values are large, so expire them 
+	// after $interval days regardless of the comment status 
+	while ( TRUE ) {
+		$comment_ids = $wpdb->get_col( "SELECT $wpdb->comments.comment_id FROM $wpdb->commentmeta INNER JOIN $wpdb->comments USING(comment_id) WHERE meta_key = 'akismet_as_submitted' AND DATE_SUB('$now_gmt', INTERVAL {$interval} DAY) > comment_date_gmt LIMIT 10000" ); 
+
+		if ( empty( $comment_ids ) ) {
+			return; 
+		}
+
+		foreach ( $comment_ids as $comment_id ) {
+			delete_comment_meta( $comment_id, 'akismet_as_submitted' );
+		}
+	}
+
+	/*
+	$n = mt_rand( 1, 5000 ); 
+	if ( apply_filters( 'akismet_optimize_table', ( $n == 11 ), 'commentmeta' ) ) { // lucky number 
+		$wpdb->query( "OPTIMIZE TABLE $wpdb->commentmeta" ); 
+	}
+	*/
+} 
+
 add_action('akismet_scheduled_delete', 'akismet_delete_old');
+add_action('akismet_scheduled_delete', 'akismet_delete_old_metadata'); 
 
 function akismet_check_db_comment( $id, $recheck_reason = 'recheck_queue' ) {
     global $wpdb, $akismet_api_host, $akismet_api_port;
@@ -441,6 +502,13 @@ function akismet_check_db_comment( $id, $recheck_reason = 'recheck_queue' ) {
 function akismet_cron_recheck() {
 	global $wpdb;
 
+	$status = akismet_verify_key( akismet_get_key() );
+	if ( get_option( 'akismet_alert_code' ) || $status == 'invalid' ) {
+		// since there is currently a problem with the key, reschedule a check for 6 hours hence
+		wp_schedule_single_event( time() + 21600, 'akismet_schedule_cron_recheck' );
+		return false;
+	}
+	
 	delete_option('akismet_available_servers');
 
 	$comment_errors = $wpdb->get_col( "
@@ -451,8 +519,9 @@ function akismet_cron_recheck() {
 	" );
 	
 	foreach ( (array) $comment_errors as $comment_id ) {
-		// if the comment no longer exists, remove the meta entry from the queue to avoid getting stuck
-		if ( !get_comment( $comment_id ) ) {
+		// if the comment no longer exists, or is too old, remove the meta entry from the queue to avoid getting stuck
+		$comment = get_comment( $comment_id );
+		if ( !$comment || strtotime( $comment->comment_date_gmt ) < strtotime( "-15 days" ) ) {
 			delete_comment_meta( $comment_id, 'akismet_error' );
 			continue;
 		}
@@ -491,6 +560,7 @@ function akismet_cron_recheck() {
 			wp_schedule_single_event( time() + 1200, 'akismet_schedule_cron_recheck' );
 			return;
 		}
+		delete_comment_meta( $comment_id, 'akismet_rechecking' );
 	}
 	
 	$remaining = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM $wpdb->commentmeta WHERE meta_key = 'akismet_error'" ) );
@@ -511,8 +581,26 @@ $akismet_comment_nonce_option = apply_filters( 'akismet_comment_nonce', get_opti
 if ( $akismet_comment_nonce_option == 'true' || $akismet_comment_nonce_option == '' )
 	add_action( 'comment_form', 'akismet_add_comment_nonce' );
 
+global $wp_version;
 if ( '3.0.5' == $wp_version ) { 
 	remove_filter( 'comment_text', 'wp_kses_data' ); 
 	if ( is_admin() ) 
 		add_filter( 'comment_text', 'wp_kses_post' ); 
+}
+
+function akismet_fix_scheduled_recheck() {
+	$future_check = wp_next_scheduled( 'akismet_schedule_cron_recheck' );
+	if ( !$future_check ) {
+		return;
+	}
+
+	if ( get_option( 'akismet_alert_code' ) > 0 ) {
+		return;
+	}
+
+	$check_range = time() + 1200;
+	if ( $future_check > $check_range ) {
+		wp_clear_scheduled_hook( 'akismet_schedule_cron_recheck' );
+		wp_schedule_single_event( time() + 300, 'akismet_schedule_cron_recheck' );
+	}
 }
