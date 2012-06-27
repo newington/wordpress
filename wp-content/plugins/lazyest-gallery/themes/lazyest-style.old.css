@@ -1,0 +1,43 @@
+/*
+Lazyest Gallery Theme
+Theme Name: Lazyest Gallery Classic Style Sheet
+Theme URI: http://www.brimosoft.nl/lazyest/
+Description: Minimal styling applied. This stylesheet was used in versions prior to 1.1.
+Version: 1.0
+Author: Marcel Brinkkemper
+Author URI: http://brimosoft.nl/
+Copyright: Copyright (C) 2008-2010 Brimosoft http://brimosoft.nl
+Required Settings: none
+Comment: This stylesheet matches Lazyest Gallery 1.0 and earlier.
+*/
+.lg_gallery table{text-align:center;border:none;margin:0 auto;}
+ .lg_gallery table tr{border:none;}
+ .lg_gallery table tr td{vertical-align:top;padding-bottom:8px;border:none;}
+ .lg_gallery table tr td .lg_thumb a{text-decoration:none;}
+ .lg_gallery table tr td .lg_thumb img{border:none;}
+ .lg_gallery table tr td .lg_thumb_caption{overflow:hidden;padding:0 2px;}
+ .lg_gallery .folders{margin:6px 0;}
+ .lg_gallery table.dir_view tr td{vertical-align:top;padding-bottom:8px;border:none;}
+ .lg_gallery table.dirview tr td.folder{text-align:left;padding:5px 5px 20px;}
+ .lg_gallery table.dirview tr td .lg_thumb a.fldrimg{text-decoration:none;}
+ .folder_pagination,.image_pagination{display:block;font-size:smaller;padding:4px;}
+ .lazyest_navigator{display:block;margin:0 auto;}
+ a.lg_slideshow_button,a.lg_slideshow_button:hover,a.lg_slideshow_button:visited{background-color:#ddd;border-radius:5px 5px 5px 5px;-moz-border-radius:5px;border:1px solid gray;font-size:100%;color:#000;text-decoration:none;margin:2px;padding:2px 4px;}
+ .tablenav-pages{float:right;}
+ .tablenav-pages a,.tablenav-pages a:hover,.tablenav-pages a:visited{color:#000;text-decoration:none;}
+ .tablenav-pages .displaying-num{margin-right:12px;}
+ .tablenav-pages a.next-page,.tablenav-pages a.last-page,.tablenav-pages a.first-page,.tablenav-pages a.prev-page{background-color:#ddd;border-radius:5px 5px 5px 5px;-moz-border-radius:5px;border:1px solid gray;font-size:100%;margin:2px;padding:2px 4px;}
+ .lg_gallery table.lazyest_thumb_view tr td .lg_thumb .lg_thumb_image img.thumb{margin:6px;padding:3px;}
+ .lg_gallery a.lg_slideshow_button,.lg_gallery a.lg_slideshow_button:hover,.lg_gallery a.lg_slideshow_button:visited{text-decoration:none;}
+ .lg_gallery .lazyest_image{margin-top:20px;text-align:center;}
+ .lg_gallery .lazyest_image img.lg_slide{margin:0 auto;}
+ .lg_gallery .lazyest_image .description{font-size:smaller;text-align:left;}
+ .lg_gallery .imagedata{margin:0 auto;padding:3px 3px 15px 20px;}
+ .lg_gallery .imagedatatable tr th,.lg_gallery .imagedatatable tr td{text-align:left;vertical-align:top;padding:1px 1px 1px 5px;}
+ #all_exif{text-align:left;display:none;}
+ .lg_gallery .lg_powered .lgpow{font-size:xx-small;text-align:right;padding:3px 20px 3px 3px;}
+ .lg_image{margin:8px;padding:8px;}
+ .thumb_caption{text-align:center;}
+ .lg_gallery .lg_admin{text-align:left;font-size:small;padding:3px;}
+ .lazyest_sidebox{text-align:center;padding:2px;}
+ .lazyest_sidebox img.thumb{vertical-align:middle;padding:2px;}

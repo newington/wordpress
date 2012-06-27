@@ -1,0 +1,46 @@
+/* Lazyest Gallery
+ * Slide Show related styling 
+ */
+ 
+.lg_slideshow {
+	position:relative;
+  margin: 10px auto;
+}
+
+.lg_slideshow a {
+	float:left;  
+	position:absolute; 
+  visibility:hidden;
+}
+
+.lg_slideshow a img {
+	border:none;
+  margin: 0;
+}
+
+.lg_slideshow a.show {
+	z-index:50
+}
+
+.lg_slideshow .sscaption {
+	z-index:100; 
+	background-color:#000; 
+	color:#ffffff; 
+	height:100px; 
+	position:absolute;
+  overflow: hidden;
+}
+
+.lg_slideshow .sscaption h3 {
+	color:#ffffff !important;  
+  font-size: 1em;
+  font-weight:bold;
+  margin: 5px 5px 0 5px;
+  padding: 3px;
+}
+
+.lg_slideshow .sscaption p {
+	color:#ffffff;  
+  font-size: 1em;
+  margin: 5px;
+}

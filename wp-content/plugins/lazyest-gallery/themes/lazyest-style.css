@@ -1,0 +1,382 @@
+/*
+Lazyest Gallery Theme
+Theme Name: Lazyest Gallery Default Style Sheet
+Theme URI: http://www.brimosoft.nl/lazyest/
+Description: Minimal styling applied, default style sheet. Use this style sheet as a reference to create your own.
+Version: 1.0
+Author: Marcel Brinkkemper
+Author URI: http://brimosoft.nl/
+Copyright: Copyright (C) 2008-2010 Brimosoft http://brimosoft.nl
+Required Settings: none
+Comment: This file gets renewed each time you update Lazyest Gallery. Please add new styles to your own stylesheet. Use this as a refrence for id and class names
+*/
+
+/* the gallery */
+.lg_gallery { 
+}
+
+/* the top navigator ( Now Viewing... ) */
+.lg_gallery .top_navigator {
+}
+
+.lg_gallery ul.lgf-list, .lg_gallery ul.lgi-list {
+  margin:0;
+  padding:0;
+}
+
+.lg_gallery ul.lgf-list li.lgf-item, .lg_gallery ul.lgi-list li.lgi-item {
+  list-style-type: none;
+  display: inline-block;
+  position:relative;
+  vertical-align: top;
+}
+
+/* the gallery tables */
+.lg_gallery table {
+ 	margin: 0 auto;
+ 	text-align: center;
+  border:none;
+}  
+  /* table rows */
+  .lg_gallery table tr {
+    border: none ;
+  }
+
+  /* table cells */
+  .lg_gallery table tr td {
+  	vertical-align:top;
+    border: none;
+  }
+  
+/* thumbnail views ----------------------------------------------------------*/  
+  
+  /* holds the thumbnail and caption */
+  .lg_thumb {
+  }
+  
+  /* the thumbnail image anchor */
+  .lg_thumb a {
+    text-decoration:none;
+  }  
+  
+  /* the thumbnail image */
+  .lg_thumb img {
+    border:none;
+  }  
+  
+  /* holds the caption  */
+  .lg_thumb_caption {
+    overflow:hidden;
+    padding:0 2px;
+  }
+  
+/* show the link to previous page */
+.lg_gallery span.prev {  
+}
+
+/* show the pages (numbers) */
+.lg_gallery span.pages {  
+}
+
+/* show the link to other pages */
+.lg_gallery span.pages a {
+}
+
+/* show the link to next page */
+.lg_gallery span.next {  
+}
+
+/* where the folders are listed */
+.lg_gallery .folders {
+	margin: 6px 0;
+}
+
+/* the link to start the slide show */
+.lg_slideshow_button {  
+}
+
+  /* directory listing */
+  .lg_gallery .dir_view {
+    position:  relative;
+  }
+  
+  /* where the folder icon and caption is shown */
+  .lg_gallery .folder {
+  	text-align: left;
+  	padding: 5px;
+  	padding-bottom: 20px;
+  }
+  
+  /* the filing cabinet icon */
+  .lg_gallery .lg_folders_img {
+    /* uncomment below to hide the icon */
+    /* display:none; */
+  }
+  
+  /* holds the thumbnail and caption in the folder table */
+  .lg_gallery .dirview .lg_thumb {
+  }
+  
+  /* hold the folder thumbnail image */
+  .lg_folder_thumb_image {
+  }
+  
+  /* the link anchor for the thumbnail */
+  .lg_gallery a.fldrimg {
+    text-decoration: none;
+  }
+  
+  /* the folder thumbnail image */
+  .lg_gallery .dirview .lg_thumb img {
+  }
+  
+  /* the folder thumbnail is a random image */
+  .lg_gallery .dirview .lg_thumb img.random_image {
+  }
+  
+  /* holds the folder caption and number of images */
+  .lg_gallery .dirview .lg_thumb_caption {
+  }
+  
+  /* holds the caption text */
+  .lg_gallery span.fldrcaption {  
+  }
+  
+/* pagination */
+  
+  .folder_pagination, .image_pagination {
+    padding: 4px;
+    display:block;
+    font-size:smaller;
+  }
+  
+  .lazyest_navigator {
+    display: block;
+    margin:  0 auto;
+  }
+  
+  
+  /* the link below the thumbnails to start the slide show */
+	.thumb_images div.buttons {
+		width: 25%;
+		float:left;
+	}
+	  
+  a.lg_slideshow_button, 
+  a.lg_slideshow_button:hover,
+  a.lg_slideshow_button:visited {   
+    background-color: #dddddd;
+    padding: 2px 4px;
+    margin:  2px;
+    border-radius:5px 5px 5px 5px;
+    -moz-border-radius:5px 5px 5px 5px;
+    border: 1px solid gray;
+    font-size: 100%;  
+    color: black;
+    text-decoration: none;
+  }
+  
+  .tablenav-pages {
+    float: right;
+  }
+  
+ 
+  .tablenav-pages a, .tablenav-pages a:hover, .tablenav-pages a:visited {
+    color: black;
+    text-decoration: none;
+  }
+  
+  .tablenav-pages .displaying-num {
+    margin-right: 12px;
+  }
+  
+  .tablenav-pages a.next-page, 
+  .tablenav-pages a.last-page,
+  .tablenav-pages a.first-page,
+  .tablenav-pages a.prev-page {
+    background-color: #dddddd;
+    padding: 2px 4px;
+    margin:  2px;
+    border-radius:5px 5px 5px 5px;
+    -moz-border-radius:5px 5px 5px 5px;
+    border: 1px solid gray;
+    font-size: 100%;
+  }
+  
+/* where the images are listed */
+.lg_gallery .lg_thumb_view {  
+  position: relative;
+}
+
+  /* holds the folder caption above the images element */
+  .lg_gallery .lg_thumbview .folder_caption {    
+  }
+  
+  /* the actual folder caption above the images element */
+  .lg_gallery .lg_thumbview .folder_caption h3 {    
+  }
+  
+  /* the element holding the image thumbnails */
+  .lg_gallery .lazyest_thumb_view{    
+  }
+   
+  /* holds the thumbnail and caption in the images element */
+  .lg_gallery .lazyest_thumb_view .lg_thumb {
+  }
+  
+  /* hold the image thumbnail */
+  .lg_gallery .lazyest_thumb_view .lg_thumb .lg_thumb_image {
+  }
+  
+  /* the image thumbnail anvhor */
+  .lg_gallery .lazyest_thumb_view .lg_thumb .lg_thumb_image a{
+  }
+  
+  /* the actual image thumbnail */
+  .lg_gallery .lazyest_thumb_view .lg_thumb .lg_thumb_image img.thumb{
+    padding: 3px;
+  	margin: 6px;
+  }
+  
+  /* the link below the thumbnails to start the slide show */  
+  .lg_gallery a.lg_slideshow_button, 
+  .lg_gallery a.lg_slideshow_button:hover,
+  .lg_gallery a.lg_slideshow_button:visited {
+    text-decoration: none;
+  }
+  
+/* slide views --------------------------------------------------------------*/
+
+
+  /* holds the slide view */
+  .lg_gallery .lazyest_image {
+    margin-top:20px;
+    text-align: center;
+  }
+  
+  /* the actual slide */
+  .lg_gallery .lazyest_image img.lg_slide {
+    margin:0 auto;
+  }
+  
+  .lg_gallery .lazyest_image .description {
+    font-size:smaller;
+	  text-align:left;
+  }
+
+  /* holds the exif data */
+  .lg_gallery .imagedata {
+  	margin: 0px auto;
+  	padding: 3px;
+  	padding-bottom: 15px;
+  	padding-left: 20px;
+  }
+
+  /* the exif data table header cells */
+  .lg_gallery .imagedatatable tr th, .lg_gallery .imagedatatable tr td {
+    text-align: left;
+  	vertical-align: top;
+  	padding: 1px;
+  	padding-left: 5px;
+  }
+
+  /* all the exif data initially hidden */
+  #all_exif {
+    text-align: left;
+  	display:none; 
+  }   
+  
+/* credits ------------------------------------------------------------------*/  
+
+/* holds the credits message, can be switched on and off in lazyest gallery settings (default off)) */  
+.lg_gallery .lg_powered {
+}
+
+  /* the actual credits message */
+  .lg_gallery .lg_powered .lgpow {
+  	font-size:xx-small;
+  	padding:3px;
+  	padding-right: 20px;
+  	text-align: right;
+} 
+
+/* posts --------------------------------------------------------------------*/
+
+/* holds the image in a post */
+.lg_image {
+	padding:8px;
+	margin:8px;
+}
+
+  /* the the link from the image in a post */
+  .lg_image a.lg {    
+  }
+  
+  /* the caption for the image in a post */
+  .thumb_caption {
+  text-align:center;
+  }
+
+
+
+/* -- admin links -----------------------------------------------------------*/
+
+.lg_gallery .lg_admin {
+	padding: 3px;
+	text-align: left;
+	font-size: small;
+}
+
+/* side bar -----------------------------------------------------------------*/
+
+/* widget holds the random images */
+li.lg_random_image {
+}
+
+/* holds the random images */
+.lazyest_sidebox {
+	padding: 2px;
+	text-align:center;
+}
+  /* holds a single random image */
+  .lazyest_sidebox p.lg_thumb_image {
+  }
+
+  /* the random image */
+  .lazyest_sidebox img.thumb {
+  	vertical-align:middle;
+  	padding:2px;
+  }
+  
+/* holds the folder listing */  
+li.lg_list_folders {
+}
+  
+  /* the folder unordered list */
+  li.lg_list_folders ul {    
+  }
+  
+  /* a folder list item */ 
+  li.lg_list_folders ul li {
+  }
+  
+  /* sub folder list */
+  li.lg_list_folders ul li ul {    
+  }
+  
+  /* sub folder list item ()more levels for you to add) */
+  li.lg_list_folders ul li ul li {    
+  }
+  
+/* widget holds the slide show */
+li.lg-slide-show {    
+}
+
+/* holds the slide show */ 
+.lg_slideshow {  
+}
+
+  /* an image in a slideshow */
+  .lg_slideshow img.thumb {
+    
+  }
