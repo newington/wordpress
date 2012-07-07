@@ -1,2 +1,0 @@
-This folder contains images for the lazyset-gallery plugin.
-You may change them if you like.

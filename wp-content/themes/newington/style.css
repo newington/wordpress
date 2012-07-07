@@ -1,0 +1,95 @@
+/*
+Theme Name: Newington 2011
+Description: A first theme for Newington Blogs
+Author: Myles Carrick <mcarrick@newington.nsw.edu.au>
+Template: twentyeleven
+*/
+
+@import url("../twentyeleven/style.css");
+
+/* Header modifications - logotype etc */
+html {
+}
+body, body.custom-background {
+	margin-top: 0;
+	font-size: 14px;
+	background-color: transparent !important;
+}
+#page {
+	background-image: url(light/logo_strip.png) !important;
+	background-repeat: no-repeat !important;
+	padding-top: 22px;
+	margin-top: 5px !important;
+}
+header#branding {
+	border-top: 0;
+	margin: 10px auto;
+}
+#branding hgroup {
+	margin: 0 20px;
+}
+
+h1#site-title {
+	padding-top: 10px;
+}
+#site-title a {
+	font-size: 32px;
+}
+#branding #searchform {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	text-align: right;
+}
+h2#site-description {
+	margin-bottom: 0.5em;
+}
+#left-side {
+	background-color: transparent;
+}
+
+#left-side #section-tabs-header {
+	font-family: inherit;
+}
+
+#content {
+	margin: 0 34% 0 4%;
+}
+#secondary {
+	margin-right: 4%;
+}
+#access div {
+	margin: 0 4%;
+}
+.entry-title {
+	padding-bottom: 0;
+	padding-top: 0;
+}
+
+#respond .form-submit {
+ 	margin: 20px 5px 10px
+}
+.entry-content, .entry-summary {
+	padding-top: 0.5em;
+}
+
+/* Responsive hacks */
+@media (max-width: 1024px) {
+	/* Simplify the basic layout */
+	#main #content {
+		margin: 0 34% 0 4;
+	}
+	#main #secondary {
+		margin: 0 4% 0 0;
+	}
+}
+
+@media (max-width: 800px) {
+	/* Simplify the basic layout */
+	#main #content {
+		margin: 0 4%;
+	}=
+	#main #secondary {
+		margin: 0 4%;
+	}
+}
