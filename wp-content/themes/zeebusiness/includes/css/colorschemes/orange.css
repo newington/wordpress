@@ -1,0 +1,48 @@
+a, a:link, a:visited,
+#sidebar ul li h2,
+#logo h1,
+#navi ul li a:hover,
+.postmeta a:link, .postmeta a:visited,
+.postinfo a:link, .postinfo a:visited,
+#comments a:link, #comments a:visited, #respond a:link, #respond a:visited,
+.bottombar ul li h2
+{
+	color: #ff3b14;
+}
+.post-title,
+.post-title a:link, .post-title a:visited
+{
+	color: #ff3b14;
+}
+#sidebar ul li ul, #sidebar ul li div,
+#topnavi ul li a:hover,
+#topnavi ul li ul,
+#navi,
+.more-link,
+.arh,
+#slide_panel,
+#comments h3, #respond h3,
+.bypostauthor .fn,
+.wp-pagenavi .current,
+.bottombar ul li ul, .bottombar ul li div
+{
+	background: #ff3b14;
+}
+
+#wrapper {
+	border-top: 7px solid #ff3b14;
+	border-bottom: 7px solid #ff3b14;
+}
+.sticky {
+	border-left: 4px solid #ff3b14;
+}
+.postmeta {
+	border-top: 1px dotted #ff3b14;
+	border-bottom: 1px dotted #ff3b14;
+}
+.commentlist li {
+	border-top: 1px dotted #ff3b14;
+}
+#comments .children li {
+	border-left: 2px solid #ff3b14;
+}

@@ -1,0 +1,152 @@
+.zee_admin_wrap {
+	background: #fff;
+}
+.warning {
+	display: block;
+	padding: 10px;
+	margin: 10px 0;
+	background: #abf5b7 !important;
+	border: 1px solid #2b8a39;
+}
+#zee_admin_head {
+	width: 100%;
+	height: 43px;
+	padding-right: 5px;
+	background: #fff url(images/head.png) repeat-y top right;
+	-moz-border-radius-topright: 5px;
+	-moz-border-radius-bottomright: 5px; 
+	-webkit-border-top-right-radius: 5px;
+	-webkit-border-bottom-right-radius: 5px; 
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+#zee_options_logo {
+	float: right;
+	background: #333;
+	padding-top: 2px;
+	padding-right: 5px;
+}
+#zee_options_logo img {
+	width: 180px;
+	height: 36px;
+}
+#zee_admin_heading {
+	margin-top: -43px;
+}
+.zee-image-bg {
+	width: 98%;
+	padding: 4px 1% 0 1%;
+	background: transparent url(images/zee-logo-bg.png) repeat left top;
+	overflow: hidden;
+}
+#zee-font-bg {
+	padding: 5px 10px;
+	background: #f5f5f5;
+	font-size: 1.3em;
+	margin-top: 10px;
+	border-left: 2px solid #ddd;
+}
+.zee_form{
+	margin-top: 10px !important;
+	float: left;
+	width: 75%;
+}
+.zee_settings table {
+	margin: 0 0 20px 0 !important;
+	background: #fff;
+	border: 1px solid #ddd;
+}
+.zee_settings .form-table tr td, .zee_settings .form-table tr th{
+	border: 1px solid #ddd;
+	padding: 15px !important;
+}
+.zee_settings .form-table tr th {
+	color: #777;
+	font-size: 1.0em;
+	font-weight: bold;
+	background: #f8f8f8;
+}
+.zee_settings .form-table label{ 
+	color: #555;
+	font-size: 1.1em;
+	font-style: italic;
+}
+.zee_settings .form-table input { 
+	margin-bottom: 5px;
+}
+.zee_settings .form-table input[type=text]{ 
+	width: 100%; 
+}
+.zee_settings .form-table textarea{ 
+	width: 100%;
+}
+.zee_settings .form-table .colorpickerfield { 
+	width: 70px !important; 
+}
+.zee_settings .form-table .fontsizerfield { 
+	width: 60px !important; 
+}
+.zee_settings h3 {
+	font-size: 1.0em;
+	background: url(images/bg-header-gray.png) repeat-x #ddd;
+	border: 1px solid #ddd;
+	border-bottom: none;
+	padding: 4px 10px !important;
+	margin: 0 !important;
+	-moz-border-radius-topright: 5px;
+	-moz-border-radius-topleft: 5px; 
+	-webkit-border-top-right-radius: 5px;
+	-webkit-border-top-left-radius: 5px; 
+	border-top-right-radius: 5px;
+	border-top-left-radius: 5px;
+}
+#zee_tabs_navi {
+	padding-left: 5px;
+	margin: 15px 0;
+}
+
+.zee_options_sidebar {
+	margin-top: 25px;
+	width: 23%;
+	margin-left: 77%;
+}
+.zee_options_sidebar dl {
+	margin-bottom: 20px;
+	background: #fff;
+	border: 1px solid #ddd;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+.zee_options_sidebar dt {
+	background: url(images/bg-header-gray.png) repeat-x #ddd;
+	padding: 4px 10px !important;
+	border-bottom: 1px solid #ddd;
+}
+.zee_options_sidebar dt h4 {
+	padding: 0 !important;
+	margin: 0 !important;
+}
+.zee_options_sidebar dd {
+	padding: 10px 15px 5px 15px;
+	margin: 0;
+}
+.zee_options_sidebar dd p {
+	margin: 5px 0 10px 0;
+}
+.zee_options_sidebar dd ul {
+	margin: 5px 0;
+	list-style: inside circle;
+}
+.zee_options_sidebar .subscribe {
+	list-style: none;
+}
+.zee_options_sidebar .subscribe li{
+	padding: 1px 0;
+}
+.zee_options_sidebar .subscribe img{
+	float: left;
+	margin-right: 5px;
+	width: 16px;
+	height: 16px;
+}
