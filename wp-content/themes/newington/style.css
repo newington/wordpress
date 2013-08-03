@@ -11,85 +11,115 @@ Template: twentyeleven
 html {
 }
 body, body.custom-background {
-	margin-top: 0;
-	font-size: 14px;
-	background-color: transparent !important;
+  margin-top: 0;
+  font-size: 14px;
+  background-color: transparent !important;
 }
 #page {
-	background-image: url(light/logo_strip.png) !important;
-	background-repeat: no-repeat !important;
-	padding-top: 22px;
-	margin-top: 5px !important;
+  background-image: url(light/logo_strip.png) !important;
+  background-repeat: no-repeat !important;
+  padding-top: 22px;
+  margin-top: 5px !important;
 }
 header#branding {
-	border-top: 0;
-	margin: 10px auto;
+  border-top: 0;
+  margin: 10px auto;
 }
 #branding hgroup {
-	margin: 0 20px;
+  margin: 0 20px;
 }
 
 h1#site-title {
-	padding-top: 10px;
+  padding-top: 10px;
 }
 #site-title a {
-	font-size: 32px;
+  font-size: 32px;
 }
 #branding #searchform {
-	position: absolute;
-	top: 20px;
-	right: 20px;
-	text-align: right;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  text-align: right;
 }
 h2#site-description {
-	margin-bottom: 0.5em;
+  margin-bottom: 0.5em;
 }
 #left-side {
-	background-color: transparent;
+  background-color: transparent;
 }
 
 #left-side #section-tabs-header {
-	font-family: inherit;
+  font-family: inherit;
 }
 
 #content {
-	margin: 0 34% 0 4%;
+  margin: 0 34% 0 4%;
 }
 #secondary {
-	margin-right: 4%;
+  margin-right: 4%;
 }
 #access div {
-	margin: 0 4%;
+  margin: 0 4%;
 }
 .entry-title {
-	padding-bottom: 0;
-	padding-top: 0;
+  padding-bottom: 0;
+  padding-top: 0;
 }
 
 #respond .form-submit {
- 	margin: 20px 5px 10px
+  margin: 20px 5px 10px
 }
 .entry-content, .entry-summary {
-	padding-top: 0.5em;
+  padding-top: 0.5em;
 }
 
 /* Responsive hacks */
 @media (max-width: 1024px) {
-	/* Simplify the basic layout */
-	#main #content {
-		margin: 0 34% 0 4;
-	}
-	#main #secondary {
-		margin: 0 4% 0 0;
-	}
+  /* Simplify the basic layout */
+  #main #content {
+    margin: 0 34% 0 4;
+  }
+  #main #secondary {
+    margin: 0 4% 0 0;
+  }
 }
 
 @media (max-width: 800px) {
-	/* Simplify the basic layout */
-	#main #content {
-		margin: 0 4%;
-	}=
-	#main #secondary {
-		margin: 0 4%;
-	}
+  /* Simplify the basic layout */
+  #main #content {
+    margin: 0 4%;
+  }
+  #main #secondary {
+    margin: 0 4%;
+  }
+}
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) {
+
+  #page {
+     min-width: 500px;
+  }
+  .right-sidebar #main #content {
+    margin: 0 29% 0 1%;
+    width: 70%;
+  }
+  .right-sidebar #main #secondary {
+    float: right;
+    margin: 0 2% 0 0%;
+    width: 24%;
+  }
+  .left-sidebar #main #content {
+    margin: 0 1% 0 29%;
+    width: 70%;
+  }
+  .left-sidebar #main #secondary {
+    float: right;
+    margin: 0 -1% 0 2%;
+    width: 24%;
+  }
+  /* correction for 'showcase' template */
+  .page-template-showcase-php #main #primary.showcase {
+    float: right;
+    margin: 0 2% 0 2%;
+    width: 96%;
+  }
 }
