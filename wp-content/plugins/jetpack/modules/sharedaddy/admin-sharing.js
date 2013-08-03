@@ -3,59 +3,58 @@
 		function enable_share_button() {
 			$( '.preview a.sharing-anchor' ).unbind( 'mouseenter mouseenter' ).hover( function() {
 				if ( $( this ).data( 'hasappeared' ) !== true ) {
-					var item     = $( this ).parents( 'li:first' ).find( '.inner' );
-					var original = $( this ).parents( '.share-custom' );
-					
+					var item     = $( '.sharing-hidden .inner' );
+					var original = $( this ).parents( 'li' );
+
 					// Create a timer to make the area appear if the mouse hovers for a period
 					var timer = setTimeout( function() {
-	
 						$( item ).css( {
 							left: $( original ).position().left + 'px',
 							top: $( original ).position().top + $( original ).height() + 3 + 'px'
 						} ).slideDown( 200, function() {
 							// Mark the item as have being appeared by the hover
 							$( original ).data( 'hasappeared', true ).data( 'hasoriginal', true ).data( 'hasitem', false );
-							
+
 							// Remove all special handlers
 							$( item ).mouseleave( handler_item_leave ).mouseenter( handler_item_enter );
 							$( original ).mouseleave( handler_original_leave ).mouseenter( handler_original_enter );
-							
+
 							// Add a special handler to quickly close the item
 							$( original ).click( close_it );
 						} );
-						
+
 						// The following handlers take care of the mouseenter/mouseleave for the share button and the share area - if both are left then we close the share area
 						var handler_item_leave = function() {
 							$( original ).data( 'hasitem', false );
-							
+
 							if ( $( original ).data( 'hasoriginal' ) === false ) {
 								var timer = setTimeout( close_it, 800 );
 								$( original ).data( 'timer2', timer );
 							}
 						};
-	
+
 						var handler_item_enter = function() {
 							$( original ).data( 'hasitem', true );
 							clearTimeout( $( original ).data( 'timer2' ) );
-						} 
-						
+						}
+
 						var handler_original_leave = function() {
 							$( original ).data( 'hasoriginal', false );
-							
+
 							if ( $( original ).data( 'hasitem' ) === false ) {
 								var timer = setTimeout( close_it, 800 );
 								$( original ).data( 'timer2', timer );
 							}
 						};
-						
+
 						var handler_original_enter = function() {
 							$( original ).data( 'hasoriginal', true );
 							clearTimeout( $( original ).data( 'timer2' ) );
 						};
-		
+
 						var close_it = function() {
 							item.slideUp( 200 );
-	
+
 							// Clear all hooks
 							$( original ).unbind( 'mouseleave', handler_original_leave ).unbind( 'mouseenter', handler_original_enter );
 							$( item ).unbind( 'mouseleave', handler_item_leave ).unbind( 'mouseenter', handler_item_leave );
@@ -64,7 +63,7 @@
 							return false;
 						};
 					}, 200 );
-					
+
 					// Remember the timer so we can detect it on the mouseout
 					$( this ).data( 'timer', timer );
 				}
@@ -74,13 +73,14 @@
 				$( this ).data( 'timer', false );
 			} );
 		}
-		
+
 		function update_preview() {
 			var item;
-			
+			var button_style = $( '#button_style' ).val();
+
 			// Clear the live preview
 			$( '#live-preview ul.preview li' ).remove();
-			
+
 			// Add label
 			if ( $( '#save-enabled-shares input[name=visible]' ).val() != '' || $( '#save-enabled-shares input[name=hidden]' ).val() != '' )
 				$( '#live-preview ul.preview' ).append( $( '#live-preview ul.archive .sharing-label' ).clone() );
@@ -89,41 +89,45 @@
 			$( 'ul.services-enabled li' ).each( function() {
 				if ( $( this ).hasClass( 'service' ) ) {
 					var service = $( this ).attr( 'id' );
-
-					$( '#live-preview ul.preview' ).append( $( '#live-preview ul.archive .preview-' + service ).clone() );
+					$( '#live-preview ul.preview' ).append( $( '#live-preview ul.archive li.preview-' + service ).clone() );
 				}
 			} );
-			
-			// Add any preview items
+
+			// Add any hidden items
 			if ( $( '#save-enabled-shares input[name=hidden]' ).val() != '' ) {
 				// Add share button
-				$( '#live-preview ul.preview' ).append( $( '#live-preview ul.archive .share-custom' ).clone() );
-				$( '#live-preview ul.preview li.share-custom ul li' ).remove();
-				
-				// Add rest of the items
+				$( '#live-preview ul.preview' ).append( $( '#live-preview ul.archive .share-more' ).parent().clone() );
+
+				$( '.sharing-hidden ul li' ).remove();
+
+				// Add hidden items into the inner panel
 				$( 'ul.services-hidden li' ).each( function( pos, item ) {
 					if ( $( this ).hasClass( 'service' ) ) {
 						var service = $( this ).attr( 'id' );
-						
-						$( '#live-preview ul.preview li.share-custom ul' ).append( $( '#live-preview ul.archive .preview-' + service ).clone() );
-						
-						if ( pos % 2 == 1 )
-							$( '#live-preview ul.preview li.share-custom ul' ).append( '<li class="share-end"></div>' );
+						$( '.sharing-hidden .inner ul' ).append( $( '#live-preview ul.archive .preview-' + service ).clone() );
 					}
 				} );
-				
+
 				enable_share_button();
 			}
 
+			$( '#live-preview div.sharedaddy' ).removeClass( 'sd-social-icon' );
+			$( '#live-preview li.advanced' ).removeClass( 'no-icon' );
+
 			// Button style
-			if ( $( 'select[name=button_style]' ).val() == 'icon' )
-				$( '#live-preview ul.preview .option' ).html( '&nbsp;' );   // Remove the text
-			else if ( $( 'select[name=button_style]' ).val() == 'text' ) {
-				$( '#live-preview ul.preview li.advanced' ).each( function() {
-					if ( $( this ).find( '.option' ).hasClass( 'option-smart-on' ) === false && $( this ).find( '.option' ).hasClass( 'option-smart-like' ) === false )
-						$( this ).attr( 'class', 'advanced preview-item' );
+			if ( 'icon' == button_style ) {
+				$( '#live-preview ul.preview div span' ).html( '&nbsp;' ).parent().addClass( 'no-text' ); // Remove text label
+				$( '#live-preview div.sharedaddy' ).addClass( 'sd-social-icon' );
+			} else if ( 'official' == button_style ) {
+				$( '#live-preview ul.preview .advanced' ).each( function( i ) {
+					if ( !$( this ).hasClass( 'preview-press-this' ) && !$( this ).hasClass( 'preview-email' ) && !$( this ).hasClass( 'preview-print' ) && !$( this ).hasClass( 'share-custom' ) ) {
+						$( this ).find( '.option a span' ).html( '' ).parent().removeClass( 'sd-button' ).parent().attr( 'class', 'option option-smart-on' );
+					}
 				} );
+			} else if ( 'text' == button_style ) {
+				$( '#live-preview li.advanced' ).addClass( 'no-icon' );
 			}
+
 		}
 
 		function sharing_option_changed() {
@@ -131,27 +135,25 @@
 
 			// Loading icon
 			$( this ).parents( 'li:first' ).css( 'backgroundImage', 'url("' + sharing_loading_icon + '")' );
-			
+
 			// Save
 			$( this ).parents( 'form' ).ajaxSubmit( function( response ) {
 				if ( response.indexOf( '<!---' ) >= 0 ) {
 					var button = response.substring( 0, response.indexOf( '<!--->' ) );
 					var preview = response.substring( response.indexOf( '<!--->' ) + 6 );
-				
+
 					if ( $( item ).is( ':submit' ) === true ) {
 						// Update the DOM using a bit of cut/paste technology
-		
+
 						$( item ).parents( 'li:first' ).replaceWith( button );
-							
-						init_handlers();
 					}
 
 					$( '#live-preview ul.archive li.preview-' + $( item ).parents( 'form' ).find( 'input[name=service]' ).val() ).replaceWith( preview );
 				}
-				
+
 				// Update preview
 				update_preview();
-				
+
 				// Restore the icon
 				$( item ).parents( 'li:first' ).removeAttr( 'style' );
 			} );
@@ -161,12 +163,16 @@
 			return true;
 		}
 
+		function showExtraOptions( service ) {
+			jQuery( '.' + service + '-extra-options' ).css( { backgroundColor: '#ffffcc' } ).fadeIn();
+		}
+
+		function hideExtraOptions( service ) {
+			jQuery( '.' + service + '-extra-options' ).fadeOut( 'slow' );
+		}
+
 		function save_services() {
 			$( '#enabled-services h3 img' ).show();
-			
-			// Update the display to reflect the changes
-			$( '#enabled-services li' ).addClass( 'options' );
-			$( '#available-services li' ).removeClass( 'options' );
 
 			// Toggle various dividers/help texts
 			if ( $( '#enabled-services ul.services-enabled li.service' ).length > 0 ) {
@@ -175,21 +181,28 @@
 			else {
 				$( '#drag-instructions' ).show();
 			}
-			
+
 			if ( $( '#enabled-services li.service' ).length > 0 ) {
 				$( '#live-preview .services h2' ).hide();
 			}
 			else {
 				$( '#live-preview .services h2' ).show();
 			}
-			
+
 			// Gather the modules
 			var visible = [], hidden = [];
-			
+
 			$( 'ul.services-enabled li' ).each( function() {
 				if ( $( this ).hasClass( 'service' ) ) {
 					// Ready for saving
 					visible[visible.length] = $( this ).attr( 'id' );
+					showExtraOptions( $( this ).attr( 'id' ) );
+				}
+			} );
+
+			$( 'ul.services-available li' ).each( function() {
+				if ( $( this ).hasClass( 'service' ) ) {
+					hideExtraOptions( $( this ).attr( 'id' ) );
 				}
 			} );
 
@@ -197,15 +210,16 @@
 				if ( $( this ).hasClass( 'service' ) ) {
 					// Ready for saving
 					hidden[hidden.length] = $( this ).attr( 'id' );
+					showExtraOptions( $( this ).attr( 'id' ) );
 				}
 			} );
 
 			// Set the hidden element values
 			$( '#save-enabled-shares input[name=visible]' ).val( visible.join( ',' ) );
 			$( '#save-enabled-shares input[name=hidden]' ).val( hidden.join( ',' ) );
-			
+
 			update_preview();
-			
+
 			// Save it
 			$( '#save-enabled-shares' ).ajaxSubmit( function() {
 				$( '#enabled-services h3 img' ).hide();
@@ -236,7 +250,7 @@
 			},
 			helper: function( event, ui ) {
 				ui.find( '.advanced-form' ).hide();
-				
+
 				return ui.clone();
 			},
 			start: function( event, ui ) {
@@ -264,84 +278,66 @@
 				$( '.advanced-form' ).hide();
 			}
 		} );
-		
-		// Advanced options toggle
-		$( '.options-toggle' ).live( 'click', function() {
-			var was_visible = $( this ).parents( 'li:first' ).find( '.advanced-form' ).is( ':visible' );
-			
-			// Hide everything
-			$( '.advanced-form' ).slideUp( 200 );
 
-			if ( !was_visible )
-				$( this ).parents( 'li:first' ).find( '.advanced-form' ).slideDown( 200 );
-		} );
-		
 		// Live preview 'hidden' button
 		$( '.preview-hidden a' ).click( function() {
 			$( this ).parent().find( '.preview' ).toggle();
 			return false;
 		} );
-		
+
 		// Add service
 		$( '#new-service form' ).ajaxForm( {
 				beforeSubmit: function() {
 					$( '#new-service-form .error' ).hide();
 					$( '#new-service-form img' ).show();
-					$( '#new-service-form input[type=submit]' ).attr( 'disabled', true );
+					$( '#new-service-form input[type=submit]' ).prop( 'disabled', true );
 				},
 				success: function( response ) {
 					$( '#new-service-form img' ).hide();
-					
+
 					if ( response == '1' ) {
 						$( '#new-service-form .inerror' ).removeClass( 'inerror' ).addClass( 'error' );
 						$( '#new-service-form .error' ).show();
-						$( '#new-service-form input[type=submit]' ).attr( 'disabled', false );
+						$( '#new-service-form input[type=submit]' ).prop( 'disabled', false );
 					}
 					else {
-						document.location.reload();
+						document.location = document.location.href.replace( /&create_new_service=true/i, '' );
 					}
 				}
 			}
 		);
-		
+
 		function init_handlers() {
-			// Hook up all advanced options
-			$( '.advanced-form form input[type=checkbox]' ).unbind( 'click' ).click( sharing_option_changed );
-			$( '.advanced-form form select' ).unbind( 'change' ).change( sharing_option_changed );
-			$( '.advanced-form form input[type=submit]' ).unbind( 'click' ).click( sharing_option_changed );
-			
-			$( '.advanced-form form a.remove' ).unbind( 'click' ).click( function() {
-				var form = $( this ).parents( 'form' );
-				
-				form.find( 'input[name=action]' ).val( 'sharing_delete_service' );
-	
+			$( '#services-config a.remove' ).unbind( 'click' ).click( function() {
+				var form = $( this ).parent().next();
+
 				// Loading icon
 				$( this ).parents( 'li:first' ).css( 'backgroundImage', 'url("' + sharing_loading_icon + '")' );
-				
+
 				// Save
-				$( this ).parents( 'form' ).ajaxSubmit( function( response ) {
+				form.ajaxSubmit( function( response ) {
 					// Remove the item
 					form.parents( 'li:first' ).fadeOut( function() {
 						$( this ).remove();
-						
+
 						// Update preview
 						update_preview();
 					} );
 				} );
-				
+
 				return false;
 			} );
 		}
-		
-		$( 'select[name=button_style]' ).change( function() {
+
+		$( '#button_style' ).change( function() {
 			update_preview();
 			return true;
-		} );
-		
+		} ).change();
+
 		$( 'input[name=sharing_label]' ).blur( function() {
-			$('#live-preview ul.preview li.sharing-label').html( $( '<div/>' ).text( $( this ).val() ).html() );
+			$('#live-preview h3.sd-title').html( $( '<div/>' ).text( $( this ).val() ).html() );
 		} );
-		
+
 		init_handlers();
 		enable_share_button();
 	} );
