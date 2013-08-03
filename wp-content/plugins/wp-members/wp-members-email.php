@@ -5,14 +5,14 @@
  * Generates emails sent by the plugin.
  * 
  * This file is part of the WP-Members plugin by Chad Butler
- * You can find out more about this plugin at http://butlerblog.com/wp-members
- * Copyright (c) 2006-2012  Chad Butler (email : plugins@butlerblog.com)
+ * You can find out more about this plugin at http://rocketgeek.com
+ * Copyright (c) 2006-2013  Chad Butler (email : plugins@butlerblog.com)
  * WP-Members(tm) is a trademark of butlerblog.com
  *
  * @package WordPress
  * @subpackage WP-Members
  * @author Chad Butler
- * @copyright 2006-2012
+ * @copyright 2006-2013
  */
 
 
@@ -26,6 +26,7 @@ if ( ! function_exists( 'wpmem_inc_regemail' ) ):
  * @uses apply_filters Calls 'wpmem_email_newmod' filters the new moderated registration email
  * @uses apply_filters Calls 'wpmem_email_appmod' filters the approved registration email
  * @uses apply_filters Calls 'wpmem_email_repass' filters the reset password email
+ * @uses apply_filters Calls 'wpmem_email_headers' filters the email headers (default = null)
  * @uses wp_mail
  *
  * @param int $user_id
@@ -39,13 +40,11 @@ function wpmem_inc_regemail( $user_id, $password, $toggle )
 	$user_email = stripslashes( $user->user_email );
 	$blogname   = wp_specialchars_decode( get_option ( 'blogname' ), ENT_QUOTES );
 	
-	if( WPMEM_USE_EXP == 1 ) {
-		$exp_type = get_user_meta( $user_id, 'exp_type', 'true' );
-		$exp_date = get_user_meta( $user_id, 'expires', 'true' );
-	}
+	$exp_type = ( WPMEM_USE_EXP == 1 ) ? get_user_meta( $user_id, 'exp_type', 'true' ) : '';
+	$exp_date = ( WPMEM_USE_EXP == 1 ) ? get_user_meta( $user_id, 'expires', 'true' )  : '';
 	
 	$wpmem_msurl = get_option( 'wpmembers_msurl', null );
-	$reg_link    = get_user_meta( $user_id, 'wpmem_reg_url', true );
+	$reg_link    = esc_url( get_user_meta( $user_id, 'wpmem_reg_url', true ) );
 
 	$shortcd = array( '[blogname]', '[username]', '[password]', '[reglink]', '[members-area]', '[exp-type]', '[exp-data]' );
 	$replace = array( $blogname, $user_login, $password, $reg_link, $wpmem_msurl, $exp_type, $exp_date );
@@ -90,9 +89,12 @@ function wpmem_inc_regemail( $user_id, $password, $toggle )
 	/* Apply filters (if set) for the sending email address */
 	add_filter( 'wp_mail_from', 'wpmem_mail_from' );
 	add_filter( 'wp_mail_from_name', 'wpmem_mail_from_name' );
+	
+	/* Filter headers */
+	$headers = apply_filters( 'wpmem_email_headers', '' );
 
 	/* Send the message */
-	wp_mail( $user_email, stripslashes( $subj ), stripslashes( $body ), $headers = '' );
+	wp_mail( $user_email, stripslashes( $subj ), stripslashes( $body ), $headers );
 
 }
 endif;
@@ -104,8 +106,9 @@ if( ! function_exists( 'wpmem_notify_admin' ) ):
  *
  * @since 2.3
  *
- * @uses apply_filters Calls 'wpmem_email_notify'
- * @uses apply_filters Calls 'wpmem_notify_addr'
+ * @uses apply_filters Calls 'wpmem_email_notify' filters the admin notification email
+ * @uses apply_filters Calls 'wpmem_notify_addr' filters the address the admin notification is sent to
+ * @uses apply_filters Calls 'wpmem_email_headers' filters the email headers (default = null)
  * @uses wp_mail
  *
  * @param int $user_id
@@ -117,7 +120,7 @@ function wpmem_notify_admin( $user_id, $wpmem_fields )
 	$blogname = wp_specialchars_decode( get_option ( 'blogname' ), ENT_QUOTES );
 	
 	$user_ip  = get_user_meta( $user_id, 'wpmem_reg_ip', true );
-	$reg_link = get_user_meta( $user_id, 'wpmem_reg_url', true );
+	$reg_link = esc_url( get_user_meta( $user_id, 'wpmem_reg_url', true ) );
 	$act_link = get_bloginfo ( 'wpurl' ) . "/wp-admin/user-edit.php?user_id=".$user_id;
 
 	if( WPMEM_USE_EXP == 1 ) {
@@ -131,9 +134,9 @@ function wpmem_notify_admin( $user_id, $wpmem_fields )
 			
 			if( ( $wpmem_fields[$row][2] != 'user_email' ) && ( $wpmem_fields[$row][2] != 'password' ) ) {
 				if( $wpmem_fields[$row][2] == 'user_url' ) {
-					$val  = $user->user_url;
+					$val  = esc_url( $user->user_url );
 				} else {
-					$val  = get_user_meta( $user_id,$wpmem_fields[$row][2], 'true' );
+					$val  = htmlspecialchars( get_user_meta( $user_id,$wpmem_fields[$row][2], 'true' ) );
 				}
 			
 				$field_str.= "$name: $val \r\n";
@@ -167,8 +170,6 @@ function wpmem_notify_admin( $user_id, $wpmem_fields )
 	
 	$arr  = get_option( 'wpmembers_email_notify' );
 	
-	$arr['body'] = apply_filters( 'wpmem_email_notify', $arr['body'] );
-	
 	$subj = str_replace( $shortcd, $replace, $arr['subj'] );
 	$body = str_replace( $shortcd, $replace, $arr['body'] );
 	
@@ -177,15 +178,19 @@ function wpmem_notify_admin( $user_id, $wpmem_fields )
 	
 	$body.= $foot;
 	
+	/* Apply filters for the email body */
+	$body = apply_filters( 'wpmem_email_notify', $body );
+	
 	/* Apply filters (if set) for the sending email address */
 	add_filter( 'wp_mail_from', 'wpmem_mail_from' );
 	add_filter( 'wp_mail_from_name', 'wpmem_mail_from_name' );
 
-	/* Get the admin's email address */
+	/* Get the admin's email address and filter headers */
 	$admin_email = apply_filters( 'wpmem_notify_addr', get_option( 'admin_email' ) );
+	$headers     = apply_filters( 'wpmem_email_headers', '' );
 	
 	/* Send the message */
-	wp_mail( $admin_email, stripslashes( $subj ), stripslashes( $body ), $headers = '' );
+	wp_mail( $admin_email, stripslashes( $subj ), stripslashes( $body ), $headers );
 
 }
 endif;

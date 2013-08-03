@@ -4,14 +4,14 @@
  * CSS for the WP-Members plugin using Kubrick Theme
  * 
  * This file is part of the WP-Members plugin by Chad Butler
- * You can find out more about this plugin at http://butlerblog.com/wp-members
- * Copyright (c) 2006-2012 Chad Butler (email : plugins@butlerblog.com)
+ * You can find out more about this plugin at http://rocketgeek.com
+ * Copyright (c) 2006-2013 Chad Butler (email : plugins@butlerblog.com)
  * WP-Members(tm) is a trademark of butlerblog.com
  *
  * @package WordPress
  * @subpackage WP-Members
  * @author Chad Butler 
- * @copyright 2006-2012
+ * @copyright 2006-2013
  */
 
 /*	
@@ -20,8 +20,11 @@ There are quite a few examples in here of what you can do with the table-less
 forms.  You can build off of this or start from scratch and set your own 
 custom css for the plugin (set the location in the admin panel).
 
-See http://butlerblog.com/2011/07/25/customize-the-wp-members-stylesheet/
+See http://rocketgeek.com/tips-and-tricks/setting-up-a-custom-wp-members-stylesheet/
 for information on how to set up the plugin with a cusotm stylesheet.
+
+For information how to load custom stylesheets with wp_enqueue_style,
+see http://rocketgeek.com/tips-and-tricks/load-a-custom-stylesheet/
 */
 
 /* Error and Dialog Messages */
@@ -91,7 +94,7 @@ for information on how to set up the plugin with a cusotm stylesheet.
 #wpmem_reg label.text, #wpmem_reg label.checkbox, 
 #wpmem_reg label.textarea , #wpmem_reg label.select,
 #wpmem_login label {
-	width:145px;
+	width:150px;
 	float:left;
 	display: block;
 	color:#666;
@@ -178,3 +181,8 @@ for information on how to set up the plugin with a cusotm stylesheet.
 	font-weight:bold;
 }
 #wpmem_reg .req { color: red; }
+
+#wpmem_reg .req-text {
+	float:left;
+	margin: 15px 0px 0px 5px;
+}

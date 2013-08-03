@@ -5,21 +5,23 @@
  * The full user list to a CSV file.
  * 
  * This file is part of the WP-Members plugin by Chad Butler
- * You can find out more about this plugin at http://butlerblog.com/wp-members
- * Copyright (c) 2006-2012  Chad Butler (email : plugins@butlerblog.com)
+ * You can find out more about this plugin at http://rocketgeek.com
+ * Copyright (c) 2006-2013  Chad Butler (email : plugins@butlerblog.com)
  * WP-Members(tm) is a trademark of butlerblog.com
  *
  * @package WordPress
  * @subpackage WP-Members
  * @author Chad Butler
- * @copyright 2006-2012
+ * @copyright 2006-2013
  */
 
 
 /** 
- * Load the WordPress Administration Bootstrap 
+ * WordPress Administration Bootstrap 
  */
-require_once( '../../../wp-admin/admin.php' );
+include( '../../../../wp-load.php' );
+include( '../../../../wp-admin/includes/admin.php' );
+
 
 /**
  * Prevent access by users who should not
@@ -27,6 +29,12 @@ require_once( '../../../wp-admin/admin.php' );
  */
 if ( !current_user_can( 'list_users' ) )
 	wp_die( __( 'Cheatin&#8217; uh?' ) );
+
+
+/**
+ * Output needs to be buffered, start the buffer
+ */
+ob_start();
 
 
 /**
@@ -38,9 +46,8 @@ $user_arr = get_users();
 /**
  * Generate headers and a filename based on date of export
  */
-$today = date("m-d-y"); 
-//$filename = "wp-members-user-export-".$today.".csv";
-$filename = "user-export-".$today.".csv";
+$today = date( "m-d-y" ); 
+$filename = "user-export-" . $today . ".csv";
 header( "Content-type: application/octet-stream" );
 header( "Content-Disposition: attachment; filename=\"$filename\"" );
 
@@ -55,7 +62,7 @@ $wpmem_fields = get_option( 'wpmembers_fields' );
  */
 $hrow = "User ID,Username,";
 for( $row = 0; $row < count( $wpmem_fields ); $row++ ) {
-		$hrow.= $wpmem_fields[$row][1].",";
+	$hrow.= $wpmem_fields[$row][1] . ",";
 }
 
 if( WPMEM_MOD_REG == 1 ) {
@@ -77,35 +84,40 @@ reset( $wpmem_fields );
 
 /**
  * Loop through the array of users,
- * build the data, delimit by commas, 
+ * build the data, delimit by commas, wrap fields with double quotes, 
  * use \n switch for new line
  */
 foreach( $user_arr as $user ) {
 
- 	$data.= $user->ID . "," . $user->user_login . ",";
+ 	$data.= '"' . $user->ID . '","' . $user->user_login . '",';
+	
 	for( $row = 0; $row < count( $wpmem_fields ); $row++ ) {
+	
 		if( $wpmem_fields[$row][2] == 'user_email' ) {
-			$data.= $user->user_email . ",";
+			$data.= '"' . $user->user_email . '",';
 		} else {
-			$data.= get_user_meta( $user->ID, $wpmem_fields[$row][2], true ) . ",";
+			$data.= '"' . get_user_meta( $user->ID, $wpmem_fields[$row][2], true ) . '",';
 		}
+		
 	}
 	
 	if( WPMEM_MOD_REG == 1 ) {
+	
 		if( get_user_meta( $user->ID, 'active', 1 ) ) {
-			$data.= __( 'Yes', 'wp-members' ) . ",";
+			$data.= '"' . __( 'Yes', 'wp-members' ) . '",';
 		} else {
-			$data.= __( 'No', 'wp-members' ) . ",";
+			$data.= '"' . __( 'No', 'wp-members' ) . '",';
 		}
+		
 	}
 
 	if( WPMEM_USE_EXP ==1 ) {
-		$data.= get_user_meta( $user->ID, "exp_type", true ) . ",";
-		$data.= get_user_meta( $user->ID, "expires", true ) . ",";
+		$data.= '"' . get_user_meta( $user->ID, "exp_type", true ) . '",';
+		$data.= '"' . get_user_meta( $user->ID, "expires", true ) . '",';
 	}
 	
-	$data.= $user->user_registered . ",";
-	$data.= get_user_meta( $user->ID, "wpmem_reg_ip", true );
+	$data.= '"' . $user->user_registered . '",';
+	$data.= '"' . get_user_meta( $user->ID, "wpmem_reg_ip", true ) . '"';
 	$data.= "\r\n";
 
 }
@@ -114,4 +126,9 @@ foreach( $user_arr as $user ) {
  * We are done, output the CSV
  */
 echo $data; 
+
+/**
+ * Clear the buffer 
+ */
+ob_flush();
 ?>
