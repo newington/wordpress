@@ -38,7 +38,8 @@ class Mixin_Legacy_Template_Locator extends Mixin
     function get_template_directories()
     {
         return array(
-            'Overrides' => STYLESHEETPATH . DIRECTORY_SEPARATOR . 'nggallery' . DIRECTORY_SEPARATOR,
+			'Child Theme' => get_stylesheet_directory() . DIRECTORY_SEPARATOR . 'nggallery' . DIRECTORY_SEPARATOR,
+			'Parent Theme' => get_template_directory() . DIRECTORY_SEPARATOR . 'nggallery' . DIRECTORY_SEPARATOR,
             'NextGEN' => NGGALLERY_ABSPATH . 'view' . DIRECTORY_SEPARATOR
         );
     }
@@ -124,19 +125,19 @@ class Mixin_Legacy_Template_Locator extends Mixin
             $custom_template .= '.php';
 
         // Find the abspath of the template to render
-        if (!file_exists($custom_template))
+        if (!@file_exists($custom_template))
         {
             foreach ($this->object->get_template_directories() as $dir) {
                 if ($template_abspath)
                     break;
                 $filename = path_join($dir, $custom_template);
-                if (file_exists($filename))
+                if (@file_exists($filename))
                 {
                     $template_abspath = $filename;
                 }
                 elseif (strpos($custom_template, '-template') === FALSE) {
                     $filename = path_join($dir, str_replace('.php', '', $custom_template) . '-template.php');
-                    if (file_exists($filename))
+                    if (@file_exists($filename))
                         $template_abspath = $filename;
                 }
             }

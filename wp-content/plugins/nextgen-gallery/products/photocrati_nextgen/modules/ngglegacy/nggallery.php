@@ -11,7 +11,7 @@ if (!class_exists('nggLoader')) {
 
 		var $version     = NEXTGEN_GALLERY_PLUGIN_VERSION;
 		var $dbversion   = '1.8.1';
-		var $minimum_WP  = '3.5.2';
+		var $minimum_WP  = '3.6';
 		var $donators    = 'http://www.nextgen-gallery.com/donators.php';
 		var $options     = '';
 		var $manage_page;
@@ -119,6 +119,8 @@ if (!class_exists('nggLoader')) {
                 case 'image':
                     require_once (dirname (__FILE__) . '/nggshow.php');
                     break;
+                default:
+                    return;
             }
 			C_NextGEN_Bootstrap::shutdown();
 		}

@@ -14,7 +14,7 @@ class M_DataMapper extends C_Base_Module
 			'photocrati-datamapper',
 			'DataMapper',
 			'Provides a database abstraction layer following the DataMapper pattern',
-			'0.1',
+			'0.2',
 			'http://www.photocrati.com',
 			'Photocrati Media',
 			'http://www.photocrati.com'
@@ -48,14 +48,16 @@ class M_DataMapper extends C_Base_Module
 	 */
 	function set_custom_wp_query($sql, &$wp_query)
 	{
-		// Set the custom query
-		if (($custom_sql = $wp_query->get('custom_sql'))) {
-			$sql = $custom_sql;
-		}
+		if ($wp_query->get('datamapper')) {
+			// Set the custom query
+			if (($custom_sql = $wp_query->get('custom_sql'))) {
+				$sql = $custom_sql;
+			}
 
-		// Perhaps we're to initiate a delete query instead?
-		elseif ($wp_query->get('is_delete')) {
-			$sql = preg_replace("/^SELECT.*FROM/i", "DELETE FROM", $sql);
+			// Perhaps we're to initiate a delete query instead?
+			elseif ($wp_query->get('is_delete')) {
+				$sql = preg_replace("/^SELECT.*FROM/i", "DELETE FROM", $sql);
+			}
 		}
 		
 		return $sql;
@@ -69,8 +71,13 @@ class M_DataMapper extends C_Base_Module
 	 */
 	function set_custom_wp_query_fields($fields, &$wp_query)
 	{
-		$custom_fields = $wp_query->get('fields');
-		return $custom_fields ? $custom_fields : $fields;
+		if ($wp_query->get('datmapper')) {
+			if (($custom_fields = $wp_query->get('fields'))) {
+				$fields = $custom_fields;
+			}
+		}
+
+		return $fields;
 	}
 
 
@@ -82,8 +89,11 @@ class M_DataMapper extends C_Base_Module
 	 */
 	function set_custom_wp_query_where($where, &$wp_query)
 	{
-		$this->add_post_title_where_clauses($where, $wp_query);
-		$this->add_post_name_where_clauses($where, $wp_query);
+		if ($wp_query->get('datamapper')) {
+			$this->add_post_title_where_clauses($where, $wp_query);
+			$this->add_post_name_where_clauses($where, $wp_query);
+		}
+
 		return $where;
 	}
 
@@ -105,6 +115,12 @@ class M_DataMapper extends C_Base_Module
                 array_unshift($group_by_columns, trim($column));
             }
             $retval = "GROUP BY ".implode(', ', $group_by_columns);
+        }
+        // Not all mysql servers allow access to create temporary tables which are used when doing GROUP BY
+        // statements; this can potentially ruin basic queries. If no group_by_columns is set AND the query originates
+        // within the datamapper we strip the "GROUP BY" clause entirely in this filter.
+        else if ($wp_query->get('datamapper')) {
+            $retval = '';
         }
         return $retval;
     }

@@ -12,6 +12,7 @@ class A_NextGen_Basic_Slideshow_Controller extends Mixin_NextGen_Basic_Gallery_C
 		// Get the images to be displayed
         $current_page = (int)$this->param('page', 1);
 
+		// TODO: Shouldn't we be using maximum_entity_count instead?
         $limit = FALSE;
         if (in_array($displayed_gallery->source, array('random_images', 'recent_images')))
             $limit = $displayed_gallery->display_settings['images_per_page'];
@@ -39,7 +40,7 @@ class A_NextGen_Basic_Slideshow_Controller extends Mixin_NextGen_Basic_Gallery_C
 			if ($displayed_gallery->display_settings['flash_enabled'])
             {
 				include_once(path_join(NGGALLERY_ABSPATH, implode(DIRECTORY_SEPARATOR, array('lib', 'swfobject.php'))));
-                $transient_id = $displayed_gallery->to_transient();
+                $transient_id = $displayed_gallery->transient_id;
 				$params['mediarss_link'] = $this->get_router()->get_url(
 					'/nextgen-mediarss?template=playlist_feed&source=displayed_gallery&transient_id=' . $transient_id, false
 				);
@@ -76,17 +77,14 @@ class A_NextGen_Basic_Slideshow_Controller extends Mixin_NextGen_Basic_Gallery_C
 		}
 		else {
             $resource = defined('SCRIPT_DEBUG') ? 'jquery.cycle.all.min.js' : "jquery.cycle.all.js";
-            wp_register_script('jquery.cycle', $this->get_static_url("photocrati-nextgen_basic_gallery#slideshow/{$resource}"));
-			wp_enqueue_script('jquery.cycle'); // registered in module file
+            wp_register_script('jquery-cycle', $this->get_static_url("photocrati-nextgen_basic_gallery#slideshow/{$resource}"), array('jquery'));
+			wp_enqueue_script('jquery-cycle');
 		}
 
 		wp_enqueue_style('nextgen_basic_slideshow_style', $this->get_static_url('photocrati-nextgen_basic_gallery#slideshow/nextgen_basic_slideshow.css'));
-        wp_enqueue_script('waitforimages', $this->get_static_url('photocrati-nextgen_basic_gallery#slideshow/jquery.waitforimages.js'));
-
-        $cssfile = C_NextGen_Settings::get_instance()->CSSfile;
-		wp_enqueue_style('nggallery', NEXTGEN_GALLERY_NGGLEGACY_MOD_URL.'/css/'.$cssfile);
-
+        wp_enqueue_script('waitforimages', $this->get_static_url('photocrati-nextgen_basic_gallery#slideshow/jquery.waitforimages.js'), array('jquery'));
 		$this->call_parent('enqueue_frontend_resources', $displayed_gallery);
+		$this->enqueue_ngg_styles();
 	}
 
 	function is_flash_enabled($displayed_gallery)

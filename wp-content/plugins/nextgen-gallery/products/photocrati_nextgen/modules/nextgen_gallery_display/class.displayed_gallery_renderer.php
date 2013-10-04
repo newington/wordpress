@@ -142,7 +142,7 @@ class Mixin_Displayed_Gallery_Renderer extends Mixin
             }
 
             // Albums ?
-            elseif ($args['album_ids']) {
+            elseif ($args['album_ids'] || $args['album_ids'] === '0') {
                 $args['source'] = 'albums';
                 $args['container_ids'] = $args['album_ids'];
                 unset($args['albums_ids']);
@@ -217,13 +217,20 @@ class Mixin_Displayed_Gallery_Renderer extends Mixin
      */
     function render($displayed_gallery, $return=FALSE, $mode = null)
     {
+        // Simply throwing our rendered gallery into a feed will most likely not work correctly.
+        // The MediaRSS option in NextGEN is available as an alternative.
+        if(is_feed())
+            return '';
+
     		if ($mode == null)
     		{
     			$mode = 'normal';
     		}
-    		
-        // Save the displayed gallery as a transient
-        $displayed_gallery->transient_id = $displayed_gallery->to_transient();
+
+        // Save the displayed gallery as a transient if it hasn't already. Allows for ajax operations
+        // to add or modify the gallery without losing a retrievable ID
+        if (empty($displayed_gallery->transient_id))
+            $displayed_gallery->transient_id = $displayed_gallery->to_transient();
 
         // Get the display type controller
         $controller = $this->get_registry()->get_utility(
@@ -245,6 +252,7 @@ class Mixin_Displayed_Gallery_Renderer extends Mixin
 		elseif (!$controller->cachable) $lookup = FALSE;
 
 		// Try cache lookup, if we're to do so
+		$key = null;
 		$html = FALSE;
 		if ($lookup) {
 			// Some settings affect display types
@@ -277,12 +285,29 @@ class Mixin_Displayed_Gallery_Renderer extends Mixin
 			$current_mode = $controller->get_render_mode();
 			$controller->set_render_mode($mode);
 			$html = $controller->index_action($displayed_gallery, TRUE);
-			C_Photocrati_Cache::set($key, $html);
+			if ($key != null) 
+				C_Photocrati_Cache::set($key, $html);
 			$controller->set_render_mode($current_mode);
+
+			// Compress the html to avoid wpautop problems
+			$html = $this->compress_html($html);
 		}
 
 		if (!$return) echo $html;
 
 		return $html;
     }
+
+	/**
+	 * Removes any un-nessessary whitespace from the HTML
+	 * @param string $html
+	 * @return string
+	 */
+	function compress_html($html)
+	{
+		$html = preg_replace("/>\\s+/", ">", $html);
+		$html = preg_replace("/\\s+</", "<", $html);
+		$html = preg_replace("/<!--(?:(?!-->).)*-->/m", "", $html);
+		return $html;
+	}
 }

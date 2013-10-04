@@ -19,7 +19,7 @@ class M_Gallery_Display extends C_Base_Module
 			'photocrati-nextgen_gallery_display',
 			'Gallery Display',
 			'Provides the ability to display gallery of images',
-			'0.1',
+			'0.2',
 			'http://www.photocrati.com',
 			'Photocrati Media',
 			'http://www.photocrati.com'
@@ -87,8 +87,12 @@ class M_Gallery_Display extends C_Base_Module
 			'A_Display_Settings_Page'
 		);
 
+		$this->_get_registry()->add_adapter(
+			'I_Ajax_Controller',
+			'A_Gallery_Display_Ajax'
+		);
+
 		$this->get_registry()->add_adapter('I_MVC_View', 'A_Gallery_Display_View');
-        $this->get_registry()->add_adapter('I_MVC_View', 'A_Displayed_Gallery_Related_Element');
 	}
 
 	/**
@@ -97,9 +101,80 @@ class M_Gallery_Display extends C_Base_Module
 	function _register_hooks()
 	{
 		// Add a shortcode for displaying galleries
-		add_shortcode('ngg_images', array(&$this, 'display_images'));
+		C_NextGen_Shortcode_Manager::add('ngg_images', array(&$this, 'display_images'));
         add_action('init', array(&$this, '_register_resources'));
         add_action('admin_bar_menu', array(&$this, 'add_admin_bar_menu'), 100);
+        add_filter('the_content', array($this, '_render_related_images'));
+	}
+
+  function _render_related_string()
+  {
+      $settings = C_NextGen_Settings::get_instance();
+      $type = $settings->appendType;
+      $maxImages = $settings->maxImages;
+      $sluglist = array();
+
+      switch ($type) {
+          case 'tags':
+              if (function_exists('get_the_tags'))
+              {
+                  $taglist = get_the_tags();
+                  if (is_array($taglist)) {
+                      foreach ($taglist as $tag) {
+                          $sluglist[] = $tag->slug;
+                      }
+                  }
+              }
+              break;
+          case 'category':
+              $catlist = get_the_category();
+              if (is_array($catlist))
+              {
+                  foreach ($catlist as $cat) {
+                      $sluglist[] = $cat->category_nicename;
+                  }
+              }
+              break;
+      }
+
+      $taglist = implode(',', $sluglist);
+
+      if ($taglist === 'uncategorized' || empty($taglist))
+          return;
+
+      $renderer = C_Component_Registry::get_instance()->get_utility('I_Displayed_Gallery_Renderer');
+      $view     = C_Component_Registry::get_instance()->get_utility('I_Component_Factory')
+                                                      ->create('mvc_view', '');
+      $retval = $renderer->display_images(array(
+          'source' => 'tags',
+          'container_ids' => $taglist,
+          'display_type' => NEXTGEN_GALLERY_BASIC_THUMBNAILS,
+          'images_per_page' => $maxImages,
+          'maximum_entity_count' => $maxImages,
+          'template' => $view->get_template_abspath('photocrati-nextgen_gallery_display#related'),
+          'show_all_in_lightbox' => FALSE,
+          'show_slideshow_link' => FALSE,
+          'disable_pagination' => TRUE,
+          'display_no_images_error' => FALSE
+      ));
+
+      return apply_filters('ngg_show_related_gallery_content', $retval, $taglist);
+  }
+
+	function _render_related_images($content)
+	{
+    $settings = C_NextGen_Settings::get_instance();
+      
+		if ($settings->get('activateTags')) {
+			$related = $this->_render_related_string();
+			
+			if ($related != null) {
+		    $heading = $settings->relatedHeading;
+				$content .= $heading . $related;
+			}
+		}
+		
+		return $content;
 	}
 
     /**
@@ -136,6 +211,12 @@ class M_Gallery_Display extends C_Base_Module
             'nextgen_gallery_display_settings',
             $router->get_static_url('photocrati-nextgen_gallery_display#nextgen_gallery_display_settings.css')
         );
+
+        wp_register_style(
+            'nextgen_gallery_related_images',
+            $router->get_static_url('photocrati-nextgen_gallery_display#nextgen_gallery_related_images.css')
+        );
+        wp_enqueue_style('nextgen_gallery_related_images');
 
         wp_register_script(
             'jquery.nextgen_radio_toggle',
@@ -190,31 +271,31 @@ class M_Gallery_Display extends C_Base_Module
     function get_type_list()
     {
         return array(
+			'A_Gallery_Display_Ajax'		=>	'adapter.gallery_display_ajax.php',
             'A_Display_Settings_Controller' => 'adapter.display_settings_controller.php',
-            'A_Display_Settings_Page' => 'adapter.display_settings_page.php',
-            'A_Displayed_Gallery_Related_Element' => 'adapter.displayed_gallery_related_element.php',
-            'A_Gallery_Display_Factory' => 'adapter.gallery_display_factory.php',
-            'C_Gallery_Display_Installer' => 'class.gallery_display_installer.php',
-            'A_Gallery_Display_View' => 'adapter.gallery_display_view.php',
-            'C_Displayed_Gallery' => 'class.displayed_gallery.php',
-            'C_Displayed_Gallery_Mapper' => 'class.displayed_gallery_mapper.php',
-            'C_Displayed_Gallery_Renderer' => 'class.displayed_gallery_renderer.php',
-            'C_Displayed_Gallery_Source' => 'class.displayed_gallery_source.php',
+            'A_Display_Settings_Page' 		=> 'adapter.display_settings_page.php',
+            'A_Gallery_Display_Factory' 	=> 'adapter.gallery_display_factory.php',
+            'C_Gallery_Display_Installer' 	=> 'class.gallery_display_installer.php',
+            'A_Gallery_Display_View' 		=> 'adapter.gallery_display_view.php',
+            'C_Displayed_Gallery' 			=> 'class.displayed_gallery.php',
+            'C_Displayed_Gallery_Mapper' 	=> 'class.displayed_gallery_mapper.php',
+            'C_Displayed_Gallery_Renderer' 	=> 'class.displayed_gallery_renderer.php',
+            'C_Displayed_Gallery_Source' 	=> 'class.displayed_gallery_source.php',
             'C_Displayed_Gallery_Source_Mapper' => 'class.displayed_gallery_source_mapper.php',
-            'C_Display_Type' => 'class.display_type.php',
-            'C_Display_Type_Controller' => 'class.display_type_controller.php',
-            'C_Display_Type_Mapper' => 'class.display_type_mapper.php',
+            'C_Display_Type' 				=> 'class.display_type.php',
+            'C_Display_Type_Controller' 	=> 'class.display_type_controller.php',
+            'C_Display_Type_Mapper' 		=> 'class.display_type_mapper.php',
             'Hook_Propagate_Thumbnail_Dimensions_To_Settings' => 'hook.propagate_thumbnail_dimensions_to_settings.php',
-            'I_Displayed_Gallery' => 'interface.displayed_gallery.php',
-            'I_Displayed_Gallery_Mapper' => 'interface.displayed_gallery_mapper.php',
-            'I_Displayed_Gallery_Renderer' => 'interface.displayed_gallery_renderer.php',
-            'I_Displayed_Gallery_Source' => 'interface.displayed_gallery_source.php',
+            'I_Displayed_Gallery' 			=> 'interface.displayed_gallery.php',
+            'I_Displayed_Gallery_Mapper' 	=> 'interface.displayed_gallery_mapper.php',
+            'I_Displayed_Gallery_Renderer' 	=> 'interface.displayed_gallery_renderer.php',
+            'I_Displayed_Gallery_Source' 	=> 'interface.displayed_gallery_source.php',
             'I_Displayed_Gallery_Source_Mapper' => 'interface.displayed_gallery_source_mapper.php',
             'I_Display_Settings_Controller' => 'interface.display_settings_controller.php',
-            'I_Display_Type' => 'interface.display_type.php',
-            'I_Display_Type_Controller' => 'interface.display_type_controller.php',
-            'I_Display_Type_Mapper' => 'interface.display_type_mapper.php',
-            'Mixin_Display_Type_Form' => 'mixin.display_type_form.php'
+            'I_Display_Type' 				=> 'interface.display_type.php',
+            'I_Display_Type_Controller' 	=> 'interface.display_type_controller.php',
+            'I_Display_Type_Mapper' 		=> 'interface.display_type_mapper.php',
+            'Mixin_Display_Type_Form' 		=> 'mixin.display_type_form.php'
         );
     }
 }

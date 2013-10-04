@@ -15,7 +15,7 @@ class M_Frame_Communication extends C_Base_Module
 			'photocrati-frame_communication',
 			'Frame/iFrame Inter-Communication',
 			'Provides a means for HTML frames to share server-side events with each other',
-			'0.1',
+			'0.2',
 			'http://www.nextgen-gallery.com',
 			'Photocrati Media',
 			'http://www.photocrati.com',
@@ -35,7 +35,7 @@ class M_Frame_Communication extends C_Base_Module
 
 	function _register_hooks()
 	{
-		add_action('admin_enqueue_scripts', array(&$this, 'enqueue_admin_scripts'));
+		add_action('init', array(&$this, 'enqueue_admin_scripts'));
 
 	}
 

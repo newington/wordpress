@@ -72,9 +72,8 @@ class Grunion_Contact_Form_Plugin {
 
 		// Export to CSV feature
 		if ( is_admin() ) {
-			add_action( 'admin_init',    array( $this, 'download_feedback_as_csv' ) );
-			add_action( 'load-edit.php', array( $this, 'export_form' ) );
-			add_action( 'admin_footer',  array( $this, 'move_export_form_to_bottom' ) );
+			add_action( 'admin_init',            array( $this, 'download_feedback_as_csv' ) );
+			add_action( 'admin_footer-edit.php', array( $this, 'export_form' ) );
 		}
 
 		// custom post type we'll use to keep copies of the feedback items
@@ -342,28 +341,6 @@ class Grunion_Contact_Form_Plugin {
 	}
 
 	/**
-	 * There aren't any usable actions in core to output the "export feedback" form in the correct place,
-	 * so this inline JS moves it from the top of the page to the bottom.
-	 */
-	function move_export_form_to_bottom() {
-		if ( get_current_screen()->id != 'edit-feedback' )
-			return;
-
-		// if there aren't any feedbacks, bail out
-		if ( ! (int) wp_count_posts( 'feedback' )->publish )
-			return;
-
-		echo "
-		<script type='text/javascript'>
-		var menu = document.getElementById( 'feedback-export' ),
-		wrapper = document.getElementsByClassName( 'wrap' )[0];
-		wrapper.appendChild(menu);
-		menu.style.display = 'block';
-		</script>
-		";
-	}
-
-	/**
 	 * Prints the menu
 	 */
 	function export_form() {
@@ -382,7 +359,7 @@ class Grunion_Contact_Form_Plugin {
 				<?php wp_nonce_field( 'feedback_export','feedback_export_nonce' ); ?>
 
 				<input name="action" value="feedback_export" type="hidden">
-				<label for="post"><? _e( 'Select feedback to download', 'jetpack' ) ?></label>
+				<label for="post"><?php _e( 'Select feedback to download', 'jetpack' ) ?></label>
 				<select name="post">
 					<option value="all"><?php esc_html_e( 'All posts', 'jetpack' ) ?></option>
 					<?php echo $this->get_feedbacks_as_options() ?>
@@ -393,6 +370,16 @@ class Grunion_Contact_Form_Plugin {
 			</form>
 		</div>
 
+		<?php
+		// There aren't any usable actions in core to output the "export feedback" form in the correct place,
+		// so this inline JS moves it from the top of the page to the bottom.
+		?>
+		<script type='text/javascript'>
+		var menu = document.getElementById( 'feedback-export' ),
+		wrapper = document.getElementsByClassName( 'wrap' )[0];
+		wrapper.appendChild(menu);
+		menu.style.display = 'block';
+		</script>
 		<?php
 	}
 

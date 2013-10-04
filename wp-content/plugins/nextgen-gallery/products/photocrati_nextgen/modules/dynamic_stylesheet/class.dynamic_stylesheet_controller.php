@@ -17,7 +17,7 @@ class C_Dynamic_Stylesheet_Controller extends C_MVC_Controller
 	function initialize()
 	{
 		parent::initialize();
-		$this->_app = C_NextGen_Global_Settings::get_instance()->dynamic_stylesheet_slug;
+		$this->_app = C_NextGen_Settings::get_instance()->dynamic_stylesheet_slug;
 	}
 
 	static function &get_instance($context=FALSE)
@@ -75,7 +75,7 @@ class Mixin_Dynamic_Stylesheet_Instance_Methods extends Mixin
                 $data = $data->get_entity();
 			$data = $this->object->encode($data);
             wp_enqueue_style(
-                'dyncss-' . $index . '@dynamic',
+                'dyncss-' . $index . $data . '@dynamic',
                 $this->object->get_router()->get_url("/{$this->object->_app}", FALSE) . "/{$index}/{$data}"
             );
 		}

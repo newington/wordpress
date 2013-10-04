@@ -3,6 +3,7 @@
 class A_WordPress_Router extends Mixin
 {
 	var $_site_url = FALSE;
+    var $_home_url = FALSE;
 
 	function initialize()
 	{
@@ -36,7 +37,7 @@ class A_WordPress_Router extends Mixin
 			$retval
 		);
 
-		if ($retval && file_exists($filename) && $retval != $base_url) {
+		if ($retval && @file_exists($filename) && $retval != $base_url) {
 
 			// Remove index.php from the url
 			$retval = $this->object->remove_url_segment('/index.php', $retval);
@@ -56,17 +57,39 @@ class A_WordPress_Router extends Mixin
 	}
 
 
-	function get_base_url()
+	function get_base_url($site_url = FALSE)
 	{
-		if (!$this->_site_url) {
-			$this->_site_url = site_url();
-			if (!get_option('permalink_structure')) {
-				$this->_site_url = $this->object->join_paths(
-					$this->_site_url, '/index.php'
-				);
-			}
-		}
+        $retval = NULL;
+        if ($site_url)
+        {
+            if (!$this->_site_url) {
+                $this->_site_url = site_url();
+				$pattern = get_option('permalink_structure');
+                if (!$pattern OR strpos($pattern, '/index.php') !== FALSE) {
+                    $this->_site_url = $this->object->join_paths(
+                        $this->_site_url, '/index.php'
+                    );
+                }
+            }
+            $retval = $this->_site_url;
+        }
+        else {
+            if (!$this->_home_url) {
+                $this->_home_url = home_url();
+				$pattern = get_option('permalink_structure');
+				if (!$pattern OR strpos($pattern, '/index.php') !== FALSE) {
+                    $this->_home_url = $this->object->join_paths(
+                        $this->_home_url, '/index.php'
+                    );
+                }
+            }
+            $retval = $this->_home_url;
+        }
+        
+    if ($this->object->is_https()) {
+    	$retval = preg_replace('/^http:\\/\\//i', 'https://', $retval, 1);
+    }
 
-		return $this->_site_url;
+		return $retval;
 	}
 }

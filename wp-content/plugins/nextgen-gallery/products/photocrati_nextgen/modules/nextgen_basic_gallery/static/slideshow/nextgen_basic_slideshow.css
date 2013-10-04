@@ -35,9 +35,10 @@ body {
 
 .ngg-slideshow img {
 	max-width: 100% !important; 
-	max-height: 100%; 
+	max-height: 100%;
 	width: auto;
 	height: auto;
+	border: none;
 }
 
 .ngg-slideshow .ngg-gallery-slideshow-image {

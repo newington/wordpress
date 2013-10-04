@@ -7,22 +7,24 @@ class C_NextGen_Settings_Installer
 
 	function __construct()
 	{
-		$this->site_settings = C_NextGen_Global_Settings::get_instance();
 		$this->blog_settings = C_NextGen_Settings::get_instance();
+		$this->site_settings = C_NextGen_Global_Settings::get_instance();
 
-		$this->_global_defaults = array(
+		$this->_global_settings = array(
 			'gallerypath' => 'wp-content/blogs.dir/%BLOG_ID%/files/',
 			'wpmuCSSfile' => 'nggallery.css',
-			'wpmuStyle' => TRUE,
+			'wpmuStyle'   => FALSE,
+			'wpmuRoles'   => FALSE,
+			'wpmuImportFolder' => FALSE,
+			'wpmuZipUpload'    => FALSE,
 			'datamapper_driver'     => 'custom_table_datamapper',
 			'gallerystorage_driver' => 'ngglegacy_gallery_storage',
 			'maximum_entity_count'  => 500,
-			'router_param_slug'     => 'nggallery',
-			'resource_minifier'     => FALSE
+			'router_param_slug'     => 'nggallery'
 		);
 
 		$this->_local_settings = array(
-			'gallerypath'	 => 'wp-content/galleries',
+			'gallerypath'	 => 'wp-content/gallery/',
 			'deleteImg'      => True,              // delete Images
 			'swfUpload'      => True,              // activate the batch upload
 			'usePermalinks'  => False,             // use permalinks for parameters
@@ -36,6 +38,7 @@ class C_NextGen_Settings_Installer
 			'activateTags' => 0,  // append related images
 			'appendType'   => 'tags', // look for category or tags
 			'maxImages'    => 7,      // number of images toshow
+			'relatedHeading'   => __('<h3>Related Images:</h3>', 'nggallery'), // subheading for related images
 
 			// Thumbnail Settings
 			'thumbwidth'   => 120,  // Thumb Width
@@ -46,7 +49,7 @@ class C_NextGen_Settings_Installer
 			// Image Settings
 			'imgWidth'      => 800,   // Image Width
 			'imgHeight'     => 600,   // Image height
-			'imgQuality'    => 85,    // Image Quality
+			'imgQuality'    => 100,   // Image Quality
 			'imgBackup'     => True,  // Create a backup
 			'imgAutoResize' => False, // Resize after upload
 
@@ -55,8 +58,8 @@ class C_NextGen_Settings_Installer
 			'galPagedGalleries' => 0,    // Number of galleries per page (in a album)
 			'galColumns'        => 0,    // Number of columns for the gallery
 			'galShowSlide'      => True, // Show slideshow
-			'galTextSlide'      => __('[Show as slideshow]', 'nggallery'), // Text for slideshow
-			'galTextGallery'    => __('[Show picture list]', 'nggallery'), // Text for gallery
+			'galTextSlide'      => __('[Show slideshow]', 'nggallery'), // Text for slideshow
+			'galTextGallery'    => __('[Show thumbnails]', 'nggallery'), // Text for gallery
 			'galShowOrder'      => 'gallery',   // Show order
 			'galSort'           => 'sortorder', // Sort order
 			'galSortDir'        => 'ASC',       // Sort direction
@@ -111,7 +114,7 @@ class C_NextGen_Settings_Installer
 
 	function install_global_settings($reset=FALSE)
 	{
-		foreach ($this->_global_defaults as $key => $value) {
+		foreach ($this->_global_settings as $key => $value) {
 			if ($reset) $this->site_settings->set($key, NULL);
 			$this->site_settings->set_default_value($key, $value);
 		}
@@ -119,18 +122,26 @@ class C_NextGen_Settings_Installer
 
 	function install_local_settings($reset=FALSE)
 	{
-		if (is_multisite()) {
-			$gallerypath = str_replace(
-				array('%BLOG_ID%', get_current_blog_id()),
-				array('%BLOG_NAME%', get_bloginfo('name')),
-				$this->_global_defaults['gallerypath']
-			);
-			$this->_local_settings['gallerypath'] = $gallerypath;
-		}
-
 		foreach ($this->_local_settings as $key => $value) {
 			if ($reset) $this->blog_settings->set($key, NULL);
 			$this->blog_settings->set_default_value($key, $value);
+		}
+
+		if (is_multisite())
+		{
+			// If this is already network activated we just need to use the existing setting
+			// Note: attempting to use C_NextGen_Global_Settings here may result in an infinite loop,
+			// so get_site_option() is used to check
+			if ($options = get_site_option('ngg_options'))
+				$gallerypath = $options['gallerypath'];
+			else
+				$gallerypath = $this->_global_settings['gallerypath'];
+
+			$gallerypath = $this->gallerypath_replace($gallerypath);
+
+			// a gallerypath setting has already been set, so we explicitly set a default AND set a new value
+			$this->blog_settings->set_default_value('gallerypath', $gallerypath);
+			$this->blog_settings->set('gallerypath', $gallerypath);
 		}
 	}
 
@@ -138,5 +149,22 @@ class C_NextGen_Settings_Installer
 	{
 		$this->install_global_settings($reset);
 		$this->install_local_settings($reset);
+	}
+
+	function get_global_defaults()
+	{
+		return $this->_global_settings;
+	}
+
+	function get_local_defaults()
+	{
+		return $this->_local_settings;
+	}
+
+	function gallerypath_replace($gallerypath)
+	{
+		$gallerypath = str_replace('%BLOG_NAME%', get_bloginfo('name'),  $gallerypath);
+		$gallerypath = str_replace('%BLOG_ID%',   get_current_blog_id(), $gallerypath);
+		return $gallerypath;
 	}
 }

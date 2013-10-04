@@ -64,9 +64,9 @@ class A_Image_Options_Form extends Mixin
             if (!$gallerypath) $gallerypath = $this->object->get_model()->get('gallerypath');
             $fs = $this->get_registry()->get_utility('I_Fs');
             $gallerypath = $fs->get_abspath($gallerypath);
-            if (!file_exists($gallerypath)) {
+            if (!@file_exists($gallerypath)) {
                 @mkdir($gallerypath);
-                $retval = file_exists($gallerypath);
+                $retval = @file_exists($gallerypath);
             }
             
             return $retval;
@@ -90,7 +90,7 @@ class A_Image_Options_Form extends Mixin
 			'delete_image_files_help'		=>	_('When enabled, image files will be removed after a Gallery has been deleted'),
 			'delete_image_files'			=>	$settings->deleteImg,
 			'show_related_images_label'		=>	_('Show Related Images on Posts?'),
-			'show_related_images_help'		=>	_('When enabled, related images will be appended to each post'),
+			'show_related_images_help'		=>	_('When enabled, related images will be appended to each post by matching the posts tags/categories to image tags'),
 			'show_related_images'			=>	$settings->activateTags,
 			'related_images_hidden_label'	=>	_('(Show Customization Settings)'),
 			'related_images_active_label'	=>	_('(Hide Customization Settings)'),
@@ -99,6 +99,8 @@ class A_Image_Options_Form extends Mixin
 			'match_related_image_options'	=>	$this->object->_get_related_image_match_options(),
 			'max_related_images_label'		=>	_('Maximum # of related images to display'),
 			'max_related_images'			=>	$settings->maxImages,
+			'related_images_heading_label'	=>	_('Heading for related images'),
+			'related_images_heading'			=>	$settings->relatedHeading,
 			'sorting_order_label'			=>	_("What's the default sorting method?"),
 			'sorting_order_options'			=>	$this->object->_get_image_sorting_options(),
 			'sorting_order'					=>	$settings->galSort,
@@ -134,30 +136,32 @@ class A_Image_Options_Form extends Mixin
 				$fs               = $this->get_registry()->get_utility('I_Fs');
 				$original_dir     = $fs->get_abspath($this->object->get_model()->get('gallerypath'));
 				$new_dir	  = $fs->get_abspath($image_options['gallerypath']);
-                                $image_options['gallerypath'] = $fs->add_trailing_slash($image_options['gallerypath']);
+        $image_options['gallerypath'] = $fs->add_trailing_slash($image_options['gallerypath']);
 
-				// If the gallery path has changed...
-				if ($original_dir != $new_dir) {
+				// Note: the below file move is disabled because it's quite unreliable as it doesn't perform any checks
+				//       For instance changing gallery path from /wp-content to /wp-content/gallery would attempt a recursive copy and then delete ALL files under wp-content, which would be disastreus
+#				// If the gallery path has changed...
+#				if ($original_dir != $new_dir) {
 
-                    // Try creating the new directory
-                    if ($this->object->_create_gallery_storage_dir($new_dir) AND is_writable($new_dir)) {
+#                    // Try creating the new directory
+#                    if ($this->object->_create_gallery_storage_dir($new_dir) AND is_writable($new_dir)) {
 
-					    // Try moving files
-						$this->object->recursive_copy($original_dir, $new_dir);
-						$this->object->recursive_delete($original_dir);
+#					    // Try moving files
+#						$this->object->recursive_copy($original_dir, $new_dir);
+#						$this->object->recursive_delete($original_dir);
 
-						// Update gallery paths
-						$mapper = $this->get_registry()->get_utility('I_Gallery_Mapper');
-						foreach ($mapper->find_all() as $gallery) {
-							$gallery->path = $image_options['gallerypath'] . $gallery->name;
-							$mapper->save($gallery);
-						}
-					}
-					else {
-						$this->get_model()->add_error("Unable to change gallery path. Insufficient filesystem permissions");
-						$save = FALSE;
-					}
-				}
+#						// Update gallery paths
+#						$mapper = $this->get_registry()->get_utility('I_Gallery_Mapper');
+#						foreach ($mapper->find_all() as $gallery) {
+#							$gallery->path = $image_options['gallerypath'] . $gallery->name;
+#							$mapper->save($gallery);
+#						}
+#					}
+#					else {
+#						$this->get_model()->add_error("Unable to change gallery path. Insufficient filesystem permissions");
+#						$save = FALSE;
+#					}
+#				}
 			}
 			elseif (isset($image_options['gallerypath'])) {
 				unset($image_options['gallerypath']);

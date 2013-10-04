@@ -3,14 +3,6 @@
 class Jetpack_Heartbeat {
 
 	/**
-	 * Jetpack object
-	 * 
-	 * @since 2.3.3
-	 * @var Jetpack 
-	 */
-	var $jetpack = null;
-
-	/**
 	 * Holds the singleton instance of this class
 	 * 
 	 * @since 2.3.3
@@ -42,8 +34,6 @@ class Jetpack_Heartbeat {
 	 * @return Jetpack_Heartbeat 
 	 */
 	private function __construct() {
-		$this->jetpack = Jetpack::init();
-
 		// Add weekly interval for wp-cron
 		add_filter('cron_schedules', array( $this, 'add_cron_intervals' ) );
 
@@ -81,9 +71,9 @@ class Jetpack_Heartbeat {
 		 * - values should be an array that will be imploded to a string
 		 */
 
-		$jetpack = $this->jetpack;
+		$jetpack = Jetpack::init();
 
-		$jetpack->stat( 'active-modules', implode( ',', $this->jetpack->get_active_modules() ) );
+		$jetpack->stat( 'active-modules', implode( ',', $jetpack->get_active_modules() )       );
 		$jetpack->stat( 'active',         JETPACK__VERSION                                     );
 		$jetpack->stat( 'wp-version',     get_bloginfo( 'version' )                            );
 		$jetpack->stat( 'php-version',    PHP_VERSION                                          );
@@ -94,6 +84,7 @@ class Jetpack_Heartbeat {
 		$jetpack->stat( 'qty-pages',      wp_count_posts( 'page' )->publish                    );
 		$jetpack->stat( 'qty-comments',   wp_count_comments()->approved                        );
 		$jetpack->stat( 'is-multisite',   is_multisite() ? 'multisite' : 'singlesite'          );
+		$jetpack->stat( 'identitycrisis', Jetpack::check_identity_crisis( 1 ) ? 'yes' : 'no'   );
 
 		// Only check a few plugins, to see if they're currently active.
 		$plugins_to_check = array(
@@ -118,14 +109,14 @@ class Jetpack_Heartbeat {
 	public function add_cron_intervals( $schedules ) {
 		$schedules['jetpack_weekly'] = array(
 		    'interval' => WEEK_IN_SECONDS,
-		    'display' => __('Jetpack weekly')
+		    'display' => __( 'Jetpack weekly', 'jetpack' ),
 		);
 		return $schedules;
 	}
 
 	public function deactivate() {
 		$timestamp = wp_next_scheduled( $this->cron_name );
-		wp_unschedule_event($timestamp, $this->cron_name );
+		wp_unschedule_event( $timestamp, $this->cron_name );
 	}
 
-}// end class
+}

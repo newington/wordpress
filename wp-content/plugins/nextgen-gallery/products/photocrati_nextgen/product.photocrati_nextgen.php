@@ -17,10 +17,9 @@ class P_Photocrati_NextGen extends C_Base_Product
 		'photocrati-wordpress_routing',
 		'photocrati-security',
 		'photocrati-lzw',
+        'photocrati-nextgen_settings',
 		'photocrati-mvc',
-		'photocrati-nextgen_settings',
 		'photocrati-ajax',
-		'photocrati-resource_minifier',
 		'photocrati-dynamic_stylesheet',
 		'photocrati-frame_communication',
 		'photocrati-datamapper',
@@ -51,9 +50,9 @@ class P_Photocrati_NextGen extends C_Base_Product
 	{
 		parent::define(
 			'photocrati-nextgen',
-			'Photocrati NextGen',
-			'Photocrati NextGen',
-			'2.0',
+			'Photocrati NextGEN',
+			'Photocrati NextGEN',
+			'2.0.31',
 			'http://www.nextgen-gallery.com',
 			'Photocrati Media',
 			'http://www.photocrati.com'
@@ -71,4 +70,3 @@ class P_Photocrati_NextGen extends C_Base_Product
 }
 
 new P_Photocrati_NextGen();
-

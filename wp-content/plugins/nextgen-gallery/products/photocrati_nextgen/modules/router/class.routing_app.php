@@ -50,11 +50,11 @@ class Mixin_Routing_App extends Mixin
 		);
 
 		// We treat wildcards much differently then normal rewrites
-		if (preg_match("/\{[\.\\\*]/", $src)) {
+		if (preg_match("/\\{[\.\\\*]/", $src)) {
 			$pattern  = str_replace('{*}',	'(.*?)',  $src);
 			$pattern  = str_replace('{.*}', '(.*?)',	 $pattern);
-			$pattern  = str_replace('{\w}', '([\w-_]*)', $pattern);
-			$pattern  = str_replace('{\d}', '(\d*)', $pattern);
+			$pattern  = str_replace('{\\w}', '([\\w-_]*)', $pattern);
+			$pattern  = str_replace('{\\d}', '(\\d*)', $pattern);
 			$src = '#'.(strpos($src, '/') === 0 ? '^':'').$pattern.'/?$#';
 			$definition['wildcards'] = TRUE;
 		}
@@ -476,7 +476,7 @@ class Mixin_Routing_App extends Mixin
 		$id					= $id ? preg_quote($id,'#') : "[^/]+";
 		$param_prefix		= preg_quote($settings->router_param_prefix,'#');
 		$param_sep			= preg_quote($settings->router_param_separator,'#');
-		$param_regex		= "#/((?<id>{$id}){$param_sep})?({$param_prefix}[-_]?)?{$quoted_key}{$param_sep}(?<value>[^/\?]+)/?#i";
+		$param_regex		= "#/((?P<id>{$id}){$param_sep})?({$param_prefix}[-_]?)?{$quoted_key}{$param_sep}(?P<value>[^/\?]+)/?#i";
 		$found				= FALSE;
 		$sources			= $url ? array('custom' => $url) : $this->object->get_parameter_sources();
 
@@ -535,7 +535,7 @@ class Mixin_Routing_App extends Mixin
 			$retval = $this->object->get_routed_url();
 		}
 
-		return $retval;
+		return trailingslashit($retval);
 	}
 
 	/**
@@ -806,7 +806,7 @@ class C_Routing_App extends C_Component
     
     function get_routing_settings()
     {
-        $settings	= C_NextGen_Global_Settings::get_instance();
+        $settings	= C_NextGen_Settings::get_instance();
         $object = new stdClass();
         $object->router_param_separator = $settings->router_param_separator;
         $object->router_param_slug = $settings->router_param_slug;

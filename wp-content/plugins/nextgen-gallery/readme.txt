@@ -1,8 +1,8 @@
 === NextGEN Gallery ===
 Contributors: photocrati
 Tags:gallery,image,images,photo,photos,picture,pictures,slideshow,flash,media,thumbnails,photo-albums,nextgen-gallery,nextgen
-Requires at least: 3.5
-Tested up to: 3.5.2
+Requires at least: 3.6
+Tested up to: 3.6
 Stable tag: trunk
 License: GPLv2
 
@@ -119,6 +119,10 @@ For more information, feel free to visit the official website for the NextGEN Ga
 == Frequently Asked Questions ==
 
 
+= Why are my galleries not opening up in a lightbox after I move my site? =
+
+This is often due to the URL paths to the CSS and JavaScript files used by the Lightbox Effects not being changed to relevant addresses based on the new site. This article will help sort out this issue if that is the case: <a href="http://www.nextgen-gallery.com/galleries-opening-lightbox/" target="_blank">Why are my galleries not opening up in a lightbox?</a>. 
+
 = Do you have documentation or tutorials? =
 
 Yes. See <a href="http://www.nextgen-gallery.com/help/" target="_blank">NextGEN Gallery Documentation</a>.
@@ -194,6 +198,131 @@ For more information, feel free to visit the official website for the NextGEN Ga
 
 
 == Changelog ==
+
+= V2.0.31 - 10.03.2013 =
+* NEW:     Restored AJAX pagination for NextGEN Basic ImageBrowser display type
+* Fixed:   Compatibility with WordPress Local SEO by Yoast
+* Fixed:   Inability to upload images if image_slug field was missing in database
+* Fixed:   Integration of NextGEN Basic Thumbnail and NextGEN Basic Slideshow display types
+* Fixed:   Photocrati Resource Manager further adjusted to be third-party friendly
+* Fixed:   Added the ability to find legacy templates in both the child/parent theme directories
+* Fixed:   JavaScript errors in Attach to Post interface
+* Fixed:   Router can handle port numbers in urls
+* Fixed:   Carousel template was linking to NextGEN Basic ImageBrowser view
+* Fixed:   SQL query generated for displayed galleries using tags as source
+* Fixed:   3rd party compat: raise & never lower pcre.backtrack_limit
+
+= V2.0.30 - 09.25.2013 =
+* NEW:     Restored the ability to use imagebrowser display type instead of a lightbox effect
+* Changed: Displayed galleries are no longer rendered in RSS feeds
+* Changed: Removed "Plugin Check" widget from overview page
+* Fixed:   Silence PHP warnings/errors in an output buffer for AJAX actions
+* Fixed:   Compatibility issue with WordPress SEO and broken site maps (and large error_logs)
+* Fixed:   Compatibility issue with AJAX Event Calendar (and possibly others)
+* Fixed:   Adjusted Photocrati Resource Manager to be third-party friendly
+* Fixed:   Fixed empty result set for displayed galleries selecting 'All' tags
+* Fixed:   URL generation for imagebrowser pagination links
+* Fixed:   Ensure that image meta is imported on creation
+* Fixed:   Ensure that transients are removed when an external object cache is used
+* Fixed:   Don't load pluggable.php. This will fix plugin conflicts
+* Fixed:   In Attach to Post interface, galleries created in one tab weren't showing in another
+* Fixed:   Don't output frame events cookie for XML-RPC requests
+
+= V2.0.27 - 09.18.2013 =
+* Fixed:   Reduce performance impact of purging displayed gallery transients
+
+= V2.0.25 - 09.18.2013 =
+* Reverting to the 2.0.21 codebase, due to major performance issues in 2.0.23 and 2.0.24
+
+= V2.0.23 - 09.16.2013 =
+* NEW:     WP-Cron job to periodically clean-up displayed gallery transients
+* NEW:     Added "excluded_container_ids" as parameter for ngg_images shortcode
+* Fixed:   Lightbox effect is honoured by all display types
+* Fixed:   Highslide displays images from the correct displayed galleries
+* Fixed:   Ensure that sub-albums display correctly when the word "album" is part of a slug
+* Fixed:   Ensure that sub-albums display correctly when numerical slugs are used
+* Fixed:   Related images heading only added when Related Images functionality is enabled
+* Fixed:   PHP Warning about undefined index when viewing basic albums
+* Fixed:   AJAX handling is third-party compatible
+* Fixed:   Image date is no longer overwritten when an image is modified
+* Fixed:   Fixed issue with displayed galleries using source='tags'
+* Fixed:   Problem with transient cache not getting flushed properly from Other Options page
+* Fixed:   Use correct gallery/transient ID when ajax pagination is used
+
+= V2.0.21 - 09.09.2013 =
+* NEW:	   Multisite support
+* Changed: Default image quality set to 100 for generated images
+* Changed: Removed dependence on simplehtmldom library
+* Fixed:   Related images functionality works as it did in 1.9.x
+* Fixed:   Don't compress inline JavaScript in post/page content
+* Fixed:   Click-to-advance slideshow behavior for slideshows
+* Fixed:   Security warnings from VaultPress
+* Fixed:   View as Slideshow link works with AJAX pagination
+* Fixed:   Broken links on Overview page
+* Fixed:   Backup images option
+* Fixed:   Stylesheet url generated correctly for Windows hosts
+* Fixed:   Compatibility with NextGen Custom Fields plugin
+* Fixed:   Compatibility with Adsense Explosion plugin
+* Fixed:   Suppress wp_footer notices unless WP_DEBUG is set to TRUE
+
+= V2.0.17 - 08.30.2013 =
+Fixed:     Match legacy behaviour when changing gallery path, i.e. don't move files
+
+= V2.0.14 - 08.27.2013 =
+* NEW:     Added the ability to override thumbnail settings for NextGEN Basic Albums
+* NEW:     Shortcode Manager API, which ensures that shortcodes are outputted as intended
+* Changed: Re-added the ability to select the original image size for widgets
+* Fixed:   Ensure that stylesheet url returned is correct for Windows hosts
+* Fixed:   Broken links and lightbox effects with AJAX pagination
+* Fixed:   Try to ensure that third party plugins don't add content to our dynamic JS
+* Fixed:   Improved reliability of iframely.js
+* Fixed:   Ensure that urls are generated correctly in HTTPs environments
+* Fixed:   Datamapper works correctly in environments where temporary tables aren't supported
+* Fixed:   Fixed an issue with thickbox loading animation when home url differs from site url
+
+= V2.0.11 - 08.19.2013 =
+* NEW:     Added "run_ngg_resource_manager" hook to by-pass our resource manager
+* Changed: Removed "Reset & Uninstall" tab, for now
+* Fixed:   Compatibility with W3 Total Cache. Please flush cache after updating.
+* Fixed:   Conflicts with Photocrati Theme Galleries
+* Fixed:   Blank Attach to Post interface window
+* Fixed:   Fixed ability to change Lightbox Effect settings
+* Fixed:   Implemented techniques to ensure WP_Query variables aren't overwritten
+* Fixed:   Enqueuing AJAX JS libraries twice in wp-admin
+* Fixed:   Encoding issues
+* Fixed:   PHP warnings caused by accessing unserialized data as array
+* Fixed:   Fixed installer issues
+
+= V2.0.7 - 08.09.2013 =
+* NEW:     New resource manager that fixes many plugin and theme incompatibilities
+* NEW:     Styles (custom stylesheets) should reside in wp-content/ngg_styles
+* NEW:     Added option to "Other Options -> Misc" to control maximum images returned
+* Secured: Removed default connector for jQuery FileTree library
+* Changed: Updated the simplehtmldom library to version 1.5
+* Changed: jQuery is now enqueued at the beginning of every request
+* Fixed:   Incompatibilities with BuddyPress
+* Fixed:   Incompatibilities with Events+, bbPress, Custom Permalinks, and many other plugins
+* Fixed:   Incompcatibilities with Member Access, AMember, Magic Fields, and More Fields
+* Fixed:   Incompatibilities with Elegant Themes, Oxygen, Responsive, and many other themes
+* Fixed:   Ensure that gallery images don't have a border by default
+* Fixed:   Conflict between imagebrowser and album urls
+* Fixed:   Reverted default gallerypath to wp-content/gallery/
+* Fixed:   Upgrade-safe way of overriding Styles
+* Fixed:   Generation of AJAX url is now based on slug
+* Fixed:   Restore nggShowGallery and nggShowSlideshow as wrappers to new API
+* Fixed:   Always use domain as specified by WordPress Site URL
+* Fixed:   Use WordPress Home URL over Site URL when appropriate
+* Fixed:   Numerous pagination issues
+* Fixed:   Adjusted our forms to comply with WordPress Firewalls
+* Fixed:   Correct use of select2 DOM selector for maximum compatibility
+* Fixed:   Path and URL calculations for Windows and UNIX environments
+* Fixed:   Ensure that pluggable.php is loaded at the start of every request
+* Fixed:   Fancybox: adjust CSS for further box-sizing protection from themes
+* Fixed:   Use PHP 5.2.1 compatible named pattern matching syntax
+* Fixed:   Remove usage of __DIR__ constant not supported by PHP 5.2.x
+* Fixed:   Removed dependency on mb_string PHP module
+* Fixed:   Allow "No Lightbox" as an option for Lightbox Effects
+* Fixed:   Warning: "Invalid CRT parameters detected" for Windows environments
 
 = V2.0 - 07.30.2013 =
 * NEW:	   Improved user experience throughout the plugin, settings and usage.

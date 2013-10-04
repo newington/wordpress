@@ -57,11 +57,14 @@ class A_NextGen_Basic_Album_Controller extends Mixin
 		else if (($album = $this->param('album'))) {
 
 			// Are we to display a sub-album?
-            if (!is_numeric($album))
             {
                 $mapper = $this->object->get_registry()->get_utility('I_Album_Mapper');
                 $result = array_pop($mapper->select()->where(array('slug = %s', $album))->limit(1)->run_query());
-				$album = $result->{$result->id_field};
+                $album_sub = $result ? $result->{$result->id_field} : null;
+                
+                if ($album_sub != null) {
+                	$album = $album_sub;
+                }
             }
             $displayed_gallery->entity_ids = array();
 			$displayed_gallery->sortorder = array();
@@ -97,12 +100,12 @@ class A_NextGen_Basic_Album_Controller extends Mixin
 
                 // Render legacy template
                 $this->object->add_mixin('Mixin_NextGen_Basic_Templates');
-                $display_settings = $this->prepare_legacy_album_params($display_settings);
+                $display_settings = $this->prepare_legacy_album_params($displayed_gallery->get_entity(), $display_settings);
                 return $this->object->legacy_render($display_settings['template'], $display_settings, $return, 'album');
             }
             else {
                 $params = $display_settings;
-                $albums = $this->prepare_legacy_album_params(array('entities' => $entities));;
+                $albums = $this->prepare_legacy_album_params($displayed_gallery->get_entity(), array('entities' => $entities));;
                 $params['galleries'] = $albums['galleries'];
                 $params['displayed_gallery'] = $displayed_gallery;
                 $params = $this->object->prepare_display_parameters($displayed_gallery, $params);
@@ -120,7 +123,7 @@ class A_NextGen_Basic_Album_Controller extends Mixin
             }
         }
         else {
-            return $this->object->render_partial('photocrati-nextgen_gallery_display#no_images_found');
+            return $this->object->render_partial('photocrati-nextgen_gallery_display#no_images_found', array(), $return);
         }
     }
 
@@ -144,38 +147,56 @@ class A_NextGen_Basic_Album_Controller extends Mixin
 	}
 
 
-    function prepare_legacy_album_params($params)
+    function prepare_legacy_album_params($displayed_gallery, $params)
     {
         $image_mapper = $this->object->get_registry()->get_utility('I_Image_Mapper');
         $storage      = $this->object->get_registry()->get_utility('I_Gallery_Storage');
         $image_gen    = $this->object->get_registry()->get_utility('I_Dynamic_Thumbnails_Manager');
 
-        // legacy templates expect these dimensions
-        $image_gen_params       = array(
-            'width'             => 91,
-            'height'            => 68,
-            'crop'              => TRUE
-        );
+        if (empty($displayed_gallery->display_settings['override_thumbnail_settings']))
+        {
+            // legacy templates expect these dimensions
+            $image_gen_params = array(
+                'width'  => 91,
+                'height' => 68,
+                'crop'   => TRUE
+            );
+        }
+        else {
+            // use settings requested by user
+            $image_gen_params = array(
+                'width'     => $displayed_gallery->display_settings['thumbnail_width'],
+                'height'    => $displayed_gallery->display_settings['thumbnail_height'],
+                'quality'   => $displayed_gallery->display_settings['thumbnail_quality'],
+                'crop'      => $displayed_gallery->display_settings['thumbnail_crop'],
+                'watermark' => $displayed_gallery->display_settings['thumbnail_watermark']
+            );
+        }
 
         // Transform entities
-        $params['galleries']    = $params['entities'];
+        $params['galleries'] = $params['entities'];
         unset($params['entities']);
+
         foreach ($params['galleries'] as &$gallery) {
 
             // Get the preview image url
-           $gallery->previewurl = '';
-            if ($gallery->previewpic && $gallery->previewpic > 0) {
-                if (($image = $image_mapper->find(intval($gallery->previewpic)))) {
-                    $gallery->previewurl    = $storage->get_image_url($image, $image_gen->get_size_name($image_gen_params));
-                    $gallery->previewname   = $gallery->name;
+            $gallery->previewurl = '';
+            if ($gallery->previewpic && $gallery->previewpic > 0)
+            {
+                if (($image = $image_mapper->find(intval($gallery->previewpic))))
+                {
+                    $gallery->previewurl = $storage->get_image_url($image, $image_gen->get_size_name($image_gen_params));
+                    $gallery->previewname = $gallery->name;
                 }
             }
 
             // Get the page link. If the entity is an album, then the url will
 			// look like /nggallery/album--slug.
             $id_field = $gallery->id_field;
-			if ($gallery->is_album) {
-                if ($gallery->pageid > 0) $gallery->pagelink = get_post_permalink($gallery->pageid);
+			if ($gallery->is_album)
+            {
+                if ($gallery->pageid > 0)
+                    $gallery->pagelink = get_post_permalink($gallery->pageid);
                 else {
                     $gallery->pagelink = $this->object->set_param_for(
                         $this->object->get_routed_url(TRUE),
@@ -188,7 +209,8 @@ class A_NextGen_Basic_Album_Controller extends Mixin
 			// Otherwise, if it's a gallery then it will look like
 			// /nggallery/album--slug/gallery--slug
 			else {
-                if ($gallery->pageid > 0) $gallery->pagelink = get_post_permalink($gallery->pageid);
+                if ($gallery->pageid > 0)
+                    $gallery->pagelink = get_post_permalink($gallery->pageid);
                 else {
                     $pagelink = $this->object->get_routed_url(TRUE);
                     $parent_album = $this->object->get_parent_album_for($gallery->$id_field);
@@ -198,6 +220,14 @@ class A_NextGen_Basic_Album_Controller extends Mixin
                             'album',
                             $parent_album->slug
                         );
+                    }
+                    // Legacy compat: use an album slug of 'all' if we're missing a container_id
+                    else if($displayed_gallery->container_ids === array('0')
+                         || $displayed_gallery->container_ids === array('')) {
+                        $pagelink = $this->object->set_param_for($pagelink, 'album', 'all');
+                    }
+                    else {
+                        $pagelink = $this->object->set_param_for($pagelink, 'album', 'album');
                     }
                     $gallery->pagelink = $this->object->set_param_for(
                         $pagelink,
@@ -210,7 +240,8 @@ class A_NextGen_Basic_Album_Controller extends Mixin
 			// The router by default will generate param segments that look like,
 			// /gallery--foobar. We need to convert these to the admittingly
 			// nicer links that ngglegacy uses
-            if ($gallery->pageid <= 0) $gallery->pagelink = $this->object->prettify_pagelink($gallery->pagelink);
+            if ($gallery->pageid <= 0)
+                $gallery->pagelink = $this->object->prettify_pagelink($gallery->pagelink);
 
             // Let plugins modify the gallery
             $gallery = apply_filters('ngg_album_galleryobject', $gallery);
@@ -228,16 +259,19 @@ class A_NextGen_Basic_Album_Controller extends Mixin
 
 	function prettify_pagelink($pagelink)
 	{
-		$param_separator = C_NextGen_Global_Settings::get_instance()->get('router_param_separator');
+		$param_separator = C_NextGen_Settings::get_instance()->get('router_param_separator');
+
 		$regex = implode('', array(
 			'#',
 			'/(gallery|album)',
-			preg_quote($param_separator),
+			preg_quote($param_separator, '#'),
 			'([^/?]+)',
 			'#'
 		));
-
-		return preg_replace($regex, '/\2', $pagelink);
+		
+		$pagelink = preg_replace($regex, '/\2', $pagelink);
+		
+		return $pagelink;
 	}
 
 
@@ -258,8 +292,7 @@ class A_NextGen_Basic_Album_Controller extends Mixin
         wp_enqueue_style('nextgen_basic_album_style', $this->object->get_static_url('photocrati-nextgen_basic_album#nextgen_basic_album.css'));
         wp_enqueue_script('jquery.dotdotdot', $this->object->get_static_url('photocrati-nextgen_basic_album#jquery.dotdotdot-1.5.7-packed.js'), array('jquery'));
 
-		$cssfile = C_NextGen_Settings::get_instance()->get('CSSFile');
-		wp_enqueue_style('nggallery', NEXTGEN_GALLERY_NGGLEGACY_MOD_URL.'/css/'.$cssfile);
+		$this->enqueue_ngg_styles();
 
     }
 

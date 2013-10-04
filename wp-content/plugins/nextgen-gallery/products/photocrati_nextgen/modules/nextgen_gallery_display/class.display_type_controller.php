@@ -75,7 +75,7 @@ class Mixin_Display_Type_Controller extends Mixin
         $this->object->_add_script_data(
             'ngg_common',
             'nextgen_lightbox_settings',
-            array('static_path' => $this->object->get_static_relpath('', 'lightbox')),
+            array('static_path' => $this->object->get_static_relpath('', 'photocrati-lightbox')),
             TRUE,
             FALSE
         );
@@ -141,6 +141,14 @@ class Mixin_Display_Type_Controller extends Mixin
         );
 
         $this->object->enqueue_lightbox_resources($displayed_gallery);
+	}
+
+	function enqueue_ngg_styles()
+	{
+		wp_enqueue_style(
+			'nggallery',
+			C_NextGen_Style_Manager::get_instance()->get_selected_stylesheet_url()
+		);
 	}
 	
 	function get_render_mode()

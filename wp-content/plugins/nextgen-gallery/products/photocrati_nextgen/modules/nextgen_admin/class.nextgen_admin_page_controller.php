@@ -82,6 +82,7 @@ class Mixin_NextGen_Admin_Page_Instance_Methods extends Mixin
 	 */
 	function enqueue_backend_resources()
 	{
+		wp_enqueue_script('jquery');
 		$this->object->enqueue_jquery_ui_theme();
 		wp_enqueue_script('jquery-ui-accordion');
 		wp_enqueue_script(
@@ -91,8 +92,8 @@ class Mixin_NextGen_Admin_Page_Instance_Methods extends Mixin
             '2.0.7',
             TRUE
         );
-		wp_register_script('iris', $this->get_router()->get_url('/wp-admin/js/iris.min.js', FALSE), array('jquery-ui-draggable', 'jquery-ui-slider', 'jquery-touch-punch'));
-		wp_register_script('wp-color-picker', $this->get_router()->get_url('/wp-admin/js/color-picker.js', FALSE), array('iris'));
+		wp_register_script('iris', $this->get_router()->get_url('/wp-admin/js/iris.min.js', FALSE, TRUE), array('jquery-ui-draggable', 'jquery-ui-slider', 'jquery-touch-punch'));
+		wp_register_script('wp-color-picker', $this->get_router()->get_url('/wp-admin/js/color-picker.js', FALSE, TRUE), array('iris'));
 		wp_localize_script('wp-color-picker', 'wpColorPickerL10n', array(
 			'clear' => __( 'Clear' ),
 			'defaultString' => __( 'Default' ),
@@ -117,7 +118,7 @@ class Mixin_NextGen_Admin_Page_Instance_Methods extends Mixin
 
 	function enqueue_jquery_ui_theme()
 	{
-		$settings = C_NextGen_Global_Settings::get_instance();
+		$settings = C_NextGen_Settings::get_instance();
 		wp_enqueue_style(
 			$settings->jquery_ui_theme,
 			is_ssl() ?
@@ -183,7 +184,7 @@ class Mixin_NextGen_Admin_Page_Instance_Methods extends Mixin
 	function get_forms()
 	{
 		$forms = array();
-		$form_manager = $this->get_registry()->get_utility('I_Form_Manager');
+        $form_manager = C_Form_Manager::get_instance();
 		foreach ($form_manager->get_forms($this->object->get_form_type()) as $form) {
 			$forms[] = $this->get_registry()->get_utility('I_Form', $form);
 		}

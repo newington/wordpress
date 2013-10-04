@@ -121,9 +121,16 @@ class Mixin_Url_Manipulation extends Mixin
 	 */
 	function construct_url_from_parts($parts)
 	{
+        // let relative paths be relative, and full paths full
+        $prefix = '';
+        if (!empty($parts['scheme']) && !empty($parts['host'])) {
+            $prefix = $parts['scheme'] . '://' . $parts['host'];
+            if (!empty($parts['port']))
+                $prefix .= ':' . $parts['port'];
+        }
+
 		$retval =  $this->object->join_paths(
-			isset($parts['scheme']) && $parts['host'] ?
-				"{$parts['scheme']}://{$parts['host']}" : '',
+            $prefix,
 			isset($parts['path']) ? $parts['path'] : ''
 		);
 		if (isset($parts['query']) && $parts['query']) $retval .= "?{$parts['query']}";
@@ -144,9 +151,9 @@ class Mixin_Url_Manipulation extends Mixin
 	function strip_param_segments($request_uri, $remove_slug=TRUE)
 	{
 		$retval		 = $request_uri ? $request_uri : '/';
-		$settings	 = C_NextGen_Global_Settings::get_instance();
+		$settings	 = C_NextGen_Settings::get_instance();
 		$sep		 = preg_quote($settings->router_param_separator, '#');
-		$param_regex = "#((?<id>\w+){$sep})?(?<key>\w+){$sep}(?<value>.+)/?$#";
+		$param_regex = "#((?P<id>\w+){$sep})?(?<key>\w+){$sep}(?P<value>.+)/?$#";
 		$slug		 = $settings->router_param_slug && $remove_slug ? '/' . preg_quote($settings->router_param_slug,'#') : '';
 		$slug_regex	 = '#'.$slug.'/?$#';
 

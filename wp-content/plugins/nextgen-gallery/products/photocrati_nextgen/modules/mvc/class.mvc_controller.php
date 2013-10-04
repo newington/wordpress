@@ -97,7 +97,7 @@ class Mixin_MVC_Controller_Instance_Methods extends Mixin
 	{
 		$time = strtotime($time);
 		if (!headers_sent()) {
-			header('Expires: '.strftime("%a, %d %b %Y %T %Z", $time));
+			header('Expires: '.strftime("%a, %d %b %Y %H:%M:%S %Z", $time));
 		}
 	}
 
@@ -247,7 +247,7 @@ class Mixin_MVC_Controller_Instance_Methods extends Mixin
      */
     function render()
     {
-        if (!headers_sent()) header('Content-Type: '.$this->object->_content_type);
+        if (!headers_sent()) header('Content-Type: ' . $this->object->_content_type . '; charset=' . get_option('blog_charset'), true );
     }
 
 
