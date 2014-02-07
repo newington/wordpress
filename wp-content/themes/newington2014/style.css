@@ -14,13 +14,13 @@
 
 /* Hack of the responsive bits - customising the 1008px stuff */
 
-@media screen and (min-width: 990px) {
+@media screen and (min-width: 673px) {
   .search-box-wrapper {
     padding-left: 182px;
   }
 
   .main-content {
-    display: none;
+    display: block;
     float: left;
   }
 
@@ -85,7 +85,7 @@
   }
 
   .secondary-navigation li {
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    border-top: 1px solid rgba(255,255,255,0.2);
     position: relative;
   }
 
@@ -145,8 +145,8 @@
 
   .footer-sidebar .widget {
     -webkit-box-sizing: border-box;
-    -moz-box-sizing:    border-box;
-    box-sizing:         border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
     float: left;
     padding: 0 30px;
     width: 25%;
