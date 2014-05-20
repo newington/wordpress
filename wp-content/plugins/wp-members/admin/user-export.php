@@ -6,21 +6,25 @@
  * 
  * This file is part of the WP-Members plugin by Chad Butler
  * You can find out more about this plugin at http://rocketgeek.com
- * Copyright (c) 2006-2013  Chad Butler (email : plugins@butlerblog.com)
+ * Copyright (c) 2006-2014  Chad Butler
  * WP-Members(tm) is a trademark of butlerblog.com
  *
  * @package WordPress
  * @subpackage WP-Members
  * @author Chad Butler
- * @copyright 2006-2013
+ * @copyright 2006-2014
  */
 
 
+ /**
+  * Exports selected users.
+  *
+  * @since 2.8.7
+  *
+  * @param array $user_arr The array of users.
+  */
 function wpmem_export_selected( $user_arr )
 {
-	// start with clean headers...
-	header_remove(); 
-
 	/**
 	 * Output needs to be buffered, start the buffer
 	 */
@@ -37,6 +41,7 @@ function wpmem_export_selected( $user_arr )
 	header( "Content-Disposition: attachment; filename=\"$filename\"" );
 	header( "Content-Type: text/csv; charset=" . get_option( 'blog_charset' ), true );
 
+	echo "\xEF\xBB\xBF"; // UTF-8 BOM
 
 	// get the fields
 	$wpmem_fields = get_option( 'wpmembers_fields' );
@@ -72,8 +77,9 @@ function wpmem_export_selected( $user_arr )
 		
 		for( $row = 0; $row < count( $wpmem_fields ); $row++ ) {
 			
-			if( $wpmem_fields[$row][2] == 'user_email' ) {
-				$data.= '"' . $user_info->user_email . '",';
+			$wp_user_fields = array( 'user_email', 'user_nicename', 'user_url', 'display_name' );
+			if( in_array( $wpmem_fields[$row][2], $wp_user_fields ) ) {
+				$data.= '"' . $user_info->$wpmem_fields[$row][2] . '",';
 			} else {
 				$data.= '"' . get_user_meta( $user, $wpmem_fields[$row][2], true ) . '",';
 			}
@@ -119,20 +125,17 @@ function wpmem_export_selected( $user_arr )
 }
 
 
-
+/**
+ * Exports all users
+ *
+ * @since 2.8.7
+ */
 function wpmem_export_all_users()
 {
-
-	// start with clean headers...
-	header_remove(); 
-
-
 	/**
 	 * Output needs to be buffered, start the buffer
 	 */
 	ob_start();
-
-
 
 	/**
 	 * Get all of the users
@@ -150,7 +153,8 @@ function wpmem_export_all_users()
 	header( "Content-Disposition: attachment; filename=" . $filename );
 	header( "Content-Type: text/csv; charset=" . get_option( 'blog_charset' ), true );
 
-
+	echo "\xEF\xBB\xBF"; // UTF-8 BOM
+	
 	/**
 	 * get the fields
 	 */
@@ -191,9 +195,10 @@ function wpmem_export_all_users()
 		$data.= '"' . $user->ID . '","' . $user->user_login . '",';
 		
 		for( $row = 0; $row < count( $wpmem_fields ); $row++ ) {
-		
-			if( $wpmem_fields[$row][2] == 'user_email' ) {
-				$data.= '"' . $user->user_email . '",';
+			
+			$wp_user_fields = array( 'user_email', 'user_nicename', 'user_url', 'display_name' );
+			if( in_array( $wpmem_fields[$row][2], $wp_user_fields ) ) {
+				$data.= '"' . $user->$wpmem_fields[$row][2] . '",';
 			} else {
 				$data.= '"' . get_user_meta( $user->ID, $wpmem_fields[$row][2], true ) . '",';
 			}

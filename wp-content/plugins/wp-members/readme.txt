@@ -2,8 +2,8 @@
 Contributors: cbutlerjr
 Tags: authentication, captcha, community, content, login, password, register, registration, restriction, security, user, users, membership, access, block, permissions, members
 Requires at least: 3.1
-Tested up to: 3.8
-Stable tag: 2.8.8
+Tested up to: 3.9
+Stable tag: 2.9.1
 License: GPLv2
 
 WP-Members&trade; is a free membership management framework for WordPress&reg; that restricts content to registered users.
@@ -98,21 +98,112 @@ The FAQs are maintained at http://rocketgeek.com/plugins/wp-members/users-guide/
 
 WP-Members&trade; is a trademark of butlerblog.com.
 
-There are a number of commercial vendors offering products called WP-Members&trade; or a derivative thereof.  These products are neither free, nor open source.  The original plugin hosted here has been publicly available since 2006 and in no way associated with any of these vendors.  Tagging your support request in the wordpress.org forums attaches it to this plugin.  If you are seeking support for one of these commercial products, you should seek support from the vendor.  If you got it from a site other than http://wordpress.org/extend/plugins/wp-members or http://butlerblog.com/ , then it isn't WP-Members&trade;.
+There are a number of commercial vendors offering products called WP-Members&trade; or a derivative thereof.  Most of these products are neither free, nor are all of them open source.  The original plugin hosted here has been publicly available since 2006 and in no way associated with any of these vendors.  Tagging your support request in the wordpress.org forums attaches it to this plugin.  If you are seeking support for one of these commercial products, you should seek support from the vendor.  If you got it from a site other than [here](http://wordpress.org/extend/plugins/wp-members) then it isn't WP-Members&trade;.
 
 An [official statement is available here](http://butlerblog.com/regarding-wp-members).
+
+= Regarding RocketGeek.com =
+
+Premium priority support is available at the plugin's site [RocketGeek.com](http://rocketgeek.com).  A site membership includes priority support, members-only forum access, plugin extensions, and a custom code snippet library.  [RocketGeek.com](http://rocketgeek.com) is the only site officially managed for this plugin's support.
 
 
 == Upgrade Notice ==
 
-WP-Members 2.8.8 is a release with mostly minor fixes. See release notes for specific information.
+WP-Members 2.9.1 is a minor update from 2.9.0 consisting of mostly bug fixes, cleanup, and some translation updates.
+WP-Members 2.9 is a major update with changes to the form building functions, translation strings, and several additional fixes and updates.  Please test prior to updating a production site.
 
 == Screenshots ==
 
-Rather than bloat your plugin download with screenshots, we will be offering screenshots and videos at the plugin's homepage: http://rocketgeek.com
+1. The default when viewing a blocked post - the plugin will deliver a login screen and registration form in place of blocked content (this default can be changed to other options).
+
+2. Admin Panel - Options Tab - the various option settings for the plugin.
+
+3. Admin Panel - Fields Tab - the plugin field manager allows you to manage (or delete) the installed extra fields and field order, and also add your own custom fields.
+
+4. Admin Panel - Dialogs Tab - the major dialogs that the plugin uses for error and other messages can be edited in the plugin's admin panel.
+
+5. Admin Panel - Emails Tab - all of the emails that are sent by the plugin can be edited in the admin panel.
+
+6. Posts > All Posts - The plugin adds a column to the list of posts and pages to display if a post or page is unblocked or blocked (the opposite of whatver you have set for the plugin's default in the options tab).
+
+7. Posts > Edit Post - The plugin adds a meta box to the post/page editor allowing you to set an individual post to be blocked or unblocked (the opposite of whatver your default setting is).
 
 
 == Changelog ==
+
+= 2.9.1 =
+
+This is primarily a cleanup and fix update with a few new features.
+
+* Added WP-Members registration fields to WordPress Users > Add New screen.
+* Fixed wpmem_test_shortcode error for TOS.
+* Plugin options tab - lists notify address for notify admin setting
+* Updated default password change success message - removed need to re-login string.
+* Make dropdown values in wpmem_create_formfield function translatable strings for localization
+* Changed "logout" to "log out"
+* Update to register function to check for unset values for WP native fields.
+* Moved the path constants to be defined earlier.
+* Added $action parameter to most of the login form filters, allows more direct filtering based on form state (login, password reset, password change).
+
+= 2.9.0 =
+
+This is a major update focusing on upgrades to the form building functions, but also includes a number of other changes and improvements.
+
+Major updates
+
+* New form building functions include new hooks and a more customizable form building process.
+* Form functions moved from wp-members-dialogs.php to new file forms.php
+* Sidebar login form also rebuilt in the same way the login and register forms were changed.
+* Legacy (old table based) forms completely removed in 2.9
+* Updates to error and dialog messages, removed unnecessary html tags
+
+Changes in wp-members-core.php
+
+* updated calling of wpmem_test_shortcode, now it works like has_shortcode, put off deprecating at this time.
+* updated shortcode to include tos page, allow for new tags (wpmem_field, wpmem_logged_in) (added new shortcode calls in wp-members.php), and accept id attribute for fields. Added $tag argument, can use shortcode_atts_{$shortcode} filter
+* moved wpmem_test_shortcode to utilities.php
+* added new action hooks: wpmem_pwd_change and wpmem_pwd_reset
+* added new filter hook: wpmem_regchk
+
+Changes in wp-members.php
+
+* a pretty major overhaul of this file. Moved all but four declarations that weren't already in functions into the init function. Only two constants are declared before the function. This initialization comes after the theme is setup, so pre-initilization needs, such as loading pluggable functions can be declared in the theme's functions.php file. Pluggable functions do not need to be loaded only from the wp-members-pluggable.php file.
+* The file name of the wp-members-pluggable.php file is loaded in a filter hook, wpmem_plugins_file, so you could call it something else or load it from another location.
+* New action hooks: wpmem_pre_init, wpmem_after_init, wpmem_pre_admin_init, wpmem_after_admin_init
+* New filter hook: wpmem_settings
+
+Miscellaneous Changes
+
+* Updates to the html for some of the admin to better fit the new WP admin layout. Old html was compatible, but the new works better.
+* Updates to the options tab to better group options
+* Updates to native (wp-login.php) registration to include require field indication
+* Review of output, localized a few missed strings
+* Implementation of changes in localization of field names. English values are now stored in the db (except for custom fields that would be whatever language the user creates the field as). Fields are then translated when displayed, rather than stored as translated strings.
+* Updated user profile to fix some issues with checkbox and required fields in users.php
+* Updated user export to include wp_users table fields user_url, user_nicename, and display_name fields
+* Code cleanup in wpmem_block function
+* Updated autoexcerpt function
+* New filter hooks for post editor meta box titles: wpmem_admin_post_meta_title, wpmem_admin_page_meta_title
+* Some updates to existing stylesheets
+* Added new stylesheets, including two with non-floated elements. Generic, non-floated stylesheet new default for fresh installs
+
+
+= 2.8.10 = 
+
+This is a security update the closes 2 reported XSS vulnerabilities.  This update also includes a fix for using SSL with reCAPTCHA.
+
+= 2.8.9 =
+
+This is an interim update with some changes that need to get done prior to the 2.9 release.  Note: This is the last version that will be compatible with WordPress 3.1.  Also, this will be the last version to contain the legacy table based forms.  These have been deprecated since version 2.8.0.
+
+* Added a Twenty Fourteen stylesheet based on the new WP default theme.
+* Twenty Fourteen installs as the default stylesheet with a new install
+* User export fix - the new user export functions from 2.8.7 were inadvertenly incompatible with PHP 5.2.4 (WP minimum requirements)
+* Admin options tab style/layout updates to work better with new WP (3.8) admin theme
+* Moved the plugin's texurize process into wpmem_securify rather than in the form functions. This is going to happen in 2.9, and doing it as an interim update will allow users to test 2.9 with pluggable functions.
+* Added the texturize process to the shortcode function for the same reason as above, plus this runs on the User List extension as well.
+* Made the shortcode function pluggable
+* Improved the auto excerpt function
 
 = 2.8.8 =
 
