@@ -1,9 +1,9 @@
 === Jetpack by WordPress.com ===
 Contributors: automattic, alternatekev, andy, apeatling, azaozz, barry, beaulebens, blobaugh, cfinke, chellycat, danielbachhuber, daniloercoli, designsimply, eoigal, ethitter, gibrown, georgestephanis, hew, hugobaeta, iammattthomas, jblz, jeherve, jkudish, Joen, johnjamesjacoby, jshreve, kraftbj, lancewillett, martinremy, matt, matveb, mcsf, mdawaffe, migueluy, nickmomrik, obenland, pento, richardmtl, stephdau, tmoorewp, Viper007Bond, westi, yoavf
 Tags: WordPress.com, statistics, stats, views, tweets, twitter, widget, gravatar, hovercards, profile, equations, latex, math, maths, youtube, shortcode, archives, audio, blip, bliptv, dailymotion, digg, flickr, googlevideo, google, googlemaps, kyte, kytetv, livevideo, redlasso, rockyou, rss, scribd, slide, slideshare, soundcloud, vimeo, shortlinks, wp.me, subscriptions, notifications, notes, json, api, rest, mosaic, gallery, slideshow, videopress, monitor, search, omnisearch, sso, jet pack
-Stable tag: 2.9.3
+Stable tag: 3.0.1
 Requires at least: 3.8
-Tested up to: 3.9.1
+Tested up to: 3.9.2
 
 Supercharge your WordPress site with powerful features previously only available to WordPress.com users.
 
@@ -90,6 +90,36 @@ Learn more (and get detailed instructions) in our [contribute guide](http://jetp
 Jetpack 3.0 is full of enhancements and bug fixes, including a new Administrative User Interface. Upgrade today!
 
 == Changelog ==
+
+= 3.0.2 =
+* Bug Fix: RTL Jetpack Admin UI
+* Bug Fix: Related Posts link for more info working
+* Bug Fix: Likes button styling
+* Bug Fix: Removed PHP warning when deactivating plugins
+* Bug Fix: Removed un neccesery description
+* Bug Fix: Removed the SSL error on Jetpack Admin UI
+* Bug Fix: WP Engine oauth error
+* Bug Fix: Removed PHP warning on open graph gallery pages
+* Bug Fix: Depreciated Akismet function called
+* Bug Fix: Removed PHP scrict error on the mobile menu
+* Bug Fix: Calling developer mode is easier to do 
+* Bug Fix: Categories tab works in languages other then English
+* Bug Fix: Contact form sends email that is not marked as spam
+* Bug Fix: Remove UI for Reblog settings. 
+* Enhancement: Updated Languages Files. 
+* Enhancement: Better settings link
+* Enhancement: Make module categories filter more visible when active
+* Enhancement: Link to the contact form
+* Enhancement: Stats Smiley doesn't show by default
+
+= 3.0.1 =
+* Bugfix: AtD: A wpcom-only function got synced by mistake and caused a few errors. Fixed.
+* Bugfix: Post By Email: Add static keyword to a function.
+* Bugfix: ShareDaddy: In the admin-side configuration of sharing links, we used a Path icon instead of Pinterest. Oops!
+* Bugfix: ShareDaddy: We inadvertently appended `via @jetpack` to some twitter shares. This is no longer the case.
+* Bugfix: Related Posts: Tidying up and relocation of the `resync` button formerly on the more info modal.
+* Bugfix: Infinite Scroll: Work better with core's MediaElement.js
+* Bugfix: Heartbeat: Undeclared variable fixed.
 
 = 3.0 =
 * New User Interface for managing modules and settings
