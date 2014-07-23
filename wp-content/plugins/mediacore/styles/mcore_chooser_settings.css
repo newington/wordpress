@@ -18,7 +18,9 @@
 .icon32#mcore-logo {
 	background: url('../images/mcore-logo.png') no-repeat center;
 }
-
+#message.error {
+	color: #dd3d36;
+}
 #mcore-settings .mcore-url {
 	display:inline-block;
 	font-weight: 500;
@@ -33,7 +35,9 @@
 	padding: 8px 14px;
 	margin-left: 20px;
 }
-
+#mcore-settings .mcore-url.error {
+	border: 1px solid #dd3d36 !important;
+}
 #mcore-settings .mcore-url {
 	margin-left: 0;
 }

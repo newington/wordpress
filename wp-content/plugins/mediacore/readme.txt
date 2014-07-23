@@ -4,14 +4,14 @@ Tags: video, videos, audio, podcasting, progressive streaming, embed, mediacore,
       embedding, vimeo, youtube, thumbnails, images, widget, widgets, plugin,
       plugins, free, cms, collections, code, editor, thumbnail, wordpress,
       admin, administration, api
-Requires at least: 3.9-alpha
-Tested up to: 3.9-alpha
-Stable tag: 2.5a
+Requires at least: 3.8
+Tested up to: 3.9.1
+Stable tag: 2.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Embed videos, audio, documents and images into your WordPress posts and pages.
-Available for existing MediaCore users or sign up for a FREE account.
+Available for existing MediaCore users.
 
 == Description ==
 
@@ -25,13 +25,11 @@ site.
 
 = Harness the power of video learning =
 
-Video is a powerful and effective way to engage your audience whether they’re
-students or educators. It holds their attention, encourages peer to peer
-learning and reinforces learning.
-
-MediaCore excels at making it simple to take advantage of video to support
-teaching and learning anywhere, anytime. Our new plugin brings this simplicity
-directly into WordPress.
+Video is transforming education, and MediaCore helps hundreds of educational
+institutions around the world embrace it. The MediaCore Video Platform puts
+powerful video learning and sharing tools into the hands of every student and
+professor — empowering them to easily capture, manage and share video privately
+and securely across all platforms and mobile devices.
 
 = Key Features of the WordPress plugin =
 
@@ -68,9 +66,7 @@ interactive experience. Supported documents include: PDFs, Microsoft Word
 
 = Need a MediaCore account? =
 
-* If you don’t already have a MediaCore account
- <a href="http://mediacore.com/free" target="_blank">sign up</a> for a free educator
- account.
+* If you don’t already have a MediaCore account <a href="http://www.mediacore.com/demo" target="_blank">request a demo</a> today.
 
 = Useful Teaching with Video Resources =
 
@@ -89,6 +85,9 @@ interactive experience. Supported documents include: PDFs, Microsoft Word
  for instructions on how to install and use this plugin.
 
 == Changelog ==
+
+= 2.6 =
+* Make plugin compatible with WP 3.9
 
 = 2.4 =
 * Fix user capabilities

@@ -14,13 +14,22 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-
-#mcore-image-buttons {
-	position: absolute;
-	width: 72px;
-	height: 42px;
-	z-index: 160000;
+.mcore-chooser-img:hover {
+	cursor: pointer;
 }
-#mcore-image-buttons:hover {
+#mcore-image-toolbar {
+	position: absolute;
+	display: none;
+	margin: 0;
+	background: black;
+	background-color: rgba(0,0,0,.6);
+}
+#mcore-edit-button,
+#mcore-delete-button {
+	margin: 2px;
+	width: 30px;
+	height: 30px;
+	color: white;
+	font-size: 30px;
 	cursor: pointer;
 }
