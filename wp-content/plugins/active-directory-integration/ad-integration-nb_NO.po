@@ -1,0 +1,1271 @@
+# Active Directory Integration for WordPress [GERMAN]
+# Copyright (C) 2009 Christoph Steindorff, ECW GmbH
+# This file is distributed under the same license as the "Active Directory Integration for WordPress" package.
+# Christoph Steindorff <cst@ecw.de>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Active Directory Integration 0.9.3\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-09-29 11:55+0200\n"
+"PO-Revision-Date: 2014-09-29 12:06+0100\n"
+"Last-Translator: Christoph Steindorff <christoph@steindorff.de>\n"
+"Language-Team: Norsk <info@ecw.de>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nb_NO\n"
+"X-Generator: Poedit 1.5.5\n"
+
+#: ad-integration.php:618 admin.php:77
+msgid "Active Directory Integration"
+msgstr "Active Directory Integrasjon"
+
+#: ad-integration.php:850
+msgid ""
+"<strong>ERROR</strong>: This user exists in Active Directory, but has not "
+"been granted access to this installation of WordPress."
+msgstr ""
+"<strong>FEIL</strong>: Denne brukeren finnes i Active Directory, men har "
+"ikke rettigheter til å installere WordPress."
+
+#: ad-integration.php:981
+msgid "Active Directory Integration Help"
+msgstr "Active Directory integrasjonshjelp"
+
+#: ad-integration.php:982
+msgid "Overview"
+msgstr "Oversikt"
+
+#: ad-integration.php:983
+msgid "FAQ"
+msgstr "FAQ"
+
+#: ad-integration.php:984
+msgid "Changelog"
+msgstr "Endringslogg"
+
+#: ad-integration.php:985
+msgid "Support-Forum"
+msgstr "Supportforum"
+
+#: ad-integration.php:986
+msgid "Bug Tracker"
+msgstr "Bugtracker"
+
+#: ad-integration.php:1046
+msgid "User Disabled"
+msgstr "Brukerkontoen er deaktivert"
+
+#: ad-integration.php:1049
+msgid ""
+"If selected, the user can not log in and his e-mail address will be changed "
+"for security reasons. The e-mail address is restored if the user is "
+"reenabled."
+msgstr ""
+"Hvis denne er valgt kan ikke brukeren logge på, og e-postadressen vil bli "
+"endret av sikkerhetshensyn. E-postadressen vil bli lagt inn igjen hvis "
+"brukeren blir aktivert."
+
+#: ad-integration.php:1053
+msgid "Information on last disabling: "
+msgstr "Informasjon om siste deaktivering:"
+
+#: ad-integration.php:1057
+msgid ""
+"Attention: This flag is automatically set (or unset) by Bulk Import and its "
+"state may change on next run of Bulk Import."
+msgstr ""
+"Viktig melding: Dette flagget blir automatisk satt (eller fjernet) under "
+"masseimporten og statusen vil kanskje endre seg ved neste masseimport."
+
+#: ad-integration.php:1081
+#, php-format
+msgid "User manually disabled by \"%s\"."
+msgstr "Brukeren manuelt deaktivert av \"%s\"."
+
+#: ad-integration.php:1131
+msgid "Additional Informations"
+msgstr "Annen informasjon"
+
+#: ad-integration.php:1193
+msgid "Your password"
+msgstr "Passord"
+
+#: ad-integration.php:1196
+msgid ""
+"If you want to save the changes on \"Additional Informations\" back to the "
+"Active Directory you must enter your password."
+msgstr ""
+"Hvis du ønsker å lagre endringene under \"Annen informasjon\" tilbake til "
+"Active Directory må du oppgi et passord."
+
+#: ad-integration.php:1306
+msgid ""
+"No password given, so additional attributes are not written back to Active "
+"Directory"
+msgstr ""
+"Intet passord ble lagt inn, så andre attributter vil ikke bli skrevet "
+"tilbake til Active Directory"
+
+#: ad-integration.php:1333
+msgid ""
+"Error on writing additional attributes back to Active Directory. Wrong "
+"password?"
+msgstr ""
+"Feil ved skriving av andre attributter tilbake til Active Directory. Feil "
+"passord?"
+
+#: ad-integration.php:1346
+msgid ""
+"Error on writing additional attributes back to Active Directory. Please "
+"contact your administrator."
+msgstr ""
+"Feil ved skriving av andre attributter tilbake til Active Directory. Kontakt "
+"administrator."
+
+#: ad-integration.php:1407
+msgid "ADI User"
+msgstr "Brukerkonto"
+
+#: ad-integration.php:1408
+msgid "Disabled"
+msgstr "Deaktivert"
+
+#: ad-integration.php:1564
+#, php-format
+msgid "Setting Key '%s' has been deleted."
+msgstr "Innstilling '%s' har blitt slettet."
+
+#: ad-integration.php:1568
+#, php-format
+msgid "Error deleting Setting Key '%s'."
+msgstr "Feil ved sletting av innstilling '%s'."
+
+#: ad-integration.php:1980
+msgid "Common Name"
+msgstr "Common Name"
+
+#: ad-integration.php:1981
+msgid "First name"
+msgstr "Fornavn"
+
+#: ad-integration.php:1982
+msgid "Initials"
+msgstr "Initialer"
+
+#: ad-integration.php:1983
+msgid "Last name"
+msgstr "Etternavn"
+
+#: ad-integration.php:1984 admin.php:266
+msgid "Display name"
+msgstr "Visningsnavn"
+
+#: ad-integration.php:1985 admin.php:477
+msgid "Description"
+msgstr "Beskrivelse"
+
+#: ad-integration.php:1986
+msgid "Office"
+msgstr "Kontor"
+
+#: ad-integration.php:1987
+msgid "Telephone number"
+msgstr "Telefonnummer"
+
+#: ad-integration.php:1988
+msgid "E-mail"
+msgstr "E-post"
+
+#: ad-integration.php:1989
+msgid "Web Page"
+msgstr "Nettside"
+
+#: ad-integration.php:1992
+msgid "User logon name"
+msgstr "Brukernavn"
+
+#: ad-integration.php:1995
+msgid "Street"
+msgstr "Gate"
+
+#: ad-integration.php:1996
+msgid "P.O. Box"
+msgstr "P.O. Box"
+
+#: ad-integration.php:1997
+msgid "City"
+msgstr "By"
+
+#: ad-integration.php:1998
+msgid "State"
+msgstr "Fylke"
+
+#: ad-integration.php:1999
+msgid "ZIP/Postal cide"
+msgstr "ZIP/Postal code"
+
+#: ad-integration.php:2000
+msgid "Country abbreviation"
+msgstr "Landsforkortelse"
+
+#: ad-integration.php:2001
+msgid "Country"
+msgstr "Land"
+
+#: ad-integration.php:2002
+msgid "Country code (number)"
+msgstr "Land (nummer)"
+
+#: ad-integration.php:2005
+msgid "Home"
+msgstr "Hjem"
+
+#: ad-integration.php:2006
+msgid "Home (other)"
+msgstr "Hjem (andre)"
+
+#: ad-integration.php:2007
+msgid "Pager"
+msgstr "Personsøker"
+
+#: ad-integration.php:2008
+msgid "Pager (other)"
+msgstr "Personsøker (andre)"
+
+#: ad-integration.php:2009
+msgid "Mobile"
+msgstr "Mobiltelefon"
+
+#: ad-integration.php:2010
+msgid "Mobile (Other)"
+msgstr "Mobiltelefon (andre)"
+
+#: ad-integration.php:2011
+msgid "Fax"
+msgstr "Faks"
+
+#: ad-integration.php:2012
+msgid "Fax (other)"
+msgstr "Faks (andre)"
+
+#: ad-integration.php:2013
+msgid "IP Phone"
+msgstr "IP-telefon"
+
+#: ad-integration.php:2014
+msgid "IP Phone (other)"
+msgstr "IP-telefon (andre)"
+
+#: ad-integration.php:2015
+msgid "Notes"
+msgstr "Notater"
+
+#: ad-integration.php:2018
+msgid "Title"
+msgstr "Tittel"
+
+#: ad-integration.php:2019
+msgid "Department"
+msgstr "Avdeling"
+
+#: ad-integration.php:2020
+msgid "Company"
+msgstr "Selskap"
+
+#: ad-integration.php:2021
+msgid "Manager"
+msgstr "Leder"
+
+#: ad-integration.php:2022
+msgid "Direct reports"
+msgstr "Direkte rapporter"
+
+#: ad-integration.php:3064 ad-integration.php:3147
+msgid "Account blocked"
+msgstr "Konto sperret"
+
+#: ad-integration.php:3065
+#, php-format
+msgid ""
+"Someone tried to login to %s (%s) with your username (%s) - but in vain. For "
+"security reasons your account is now blocked for %d seconds."
+msgstr ""
+"Noen forsøkte å logge på %s (%s) med brukernavn (%s) uten å lykkes. Av "
+"sikkerhetshensyn er brukerkontoen sperret i %d sekunder."
+
+#: ad-integration.php:3067 ad-integration.php:3152
+msgid ""
+"THIS IS A SYSTEM GENERATED E-MAIL, PLEASE DO NOT RESPOND TO THE E-MAIL "
+"ADDRESS SPECIFIED ABOVE."
+msgstr ""
+"DETTE ER EN SYSTEMGENERERT E-POST. VENNLIGST IKKE SVAR TIL E-POSTADRESSEN "
+"SPESIFISERT OVER."
+
+#: ad-integration.php:3148
+#, php-format
+msgid ""
+"Someone tried to login to %s (%s) with the username \"%s\" (%s %s) - but in "
+"vain. For security reasons this account is now blocked for %d seconds."
+msgstr ""
+"Noen forsøkte å logge på %s (%s) med brukernavn \"%s\" (%s %s) uten å "
+"lykkes. Av sikkerhetshensyn er brukerkontoen sperret i %d sekunder."
+
+#: ad-integration.php:3150
+#, php-format
+msgid "The login attempt was made from IP-Address: %s"
+msgstr "Det ble gjort et forsøk på å logge på fra følgende IP-adresse: %s"
+
+#: ad-integration.php:3271
+msgid "Powered by WordPress"
+msgstr "Drevet av WordPress"
+
+#: ad-integration.php:3273
+msgid "Account blocked for"
+msgstr "Konto sperret i"
+
+#: ad-integration.php:3273 admin.php:152
+msgid "seconds"
+msgstr "sekunder"
+
+#: admin.php:13
+msgid "Access denied."
+msgstr "Tilgang nektet."
+
+#: admin.php:79
+msgid "Active Directory Integration Settings"
+msgstr "Innstillinger for Active Directory integrasjon"
+
+#: admin.php:86
+msgid "ATTENTION: You have no LDAP support. This plugin won´t work."
+msgstr ""
+"Viktig melding: Du mangler støtte for LDAP. Innstikket vil ikke fungere."
+
+#: admin.php:87
+msgid "You must install or enable LDAP support in PHP."
+msgstr "Du må installere og slå på LDAP-støtte i PHP."
+
+#: admin.php:88
+msgid "Further information: "
+msgstr "Mer informasjon:"
+
+#: admin.php:99
+msgid "Server"
+msgstr "Tjener"
+
+#: admin.php:100
+msgid "User"
+msgstr "Brukerkonto"
+
+#: admin.php:101 admin.php:352
+msgid "Authorization"
+msgstr "Autorisasjon"
+
+#: admin.php:102
+msgid "Security"
+msgstr "Sikkerhet"
+
+#: admin.php:103 admin.php:496
+msgid "User Meta"
+msgstr "Metadata for bruker"
+
+#: admin.php:104
+msgid "Bulk Import"
+msgstr "Masseimport"
+
+#: admin.php:109 admin.php:722
+msgid "Test Tool"
+msgstr "Testverktøy"
+
+#: admin.php:121
+msgid "Active Directory Server"
+msgstr "Active Directory tjener"
+
+#: admin.php:125
+msgid "Domain Controllers"
+msgstr "Domenekontrollere"
+
+#: admin.php:128
+msgid ""
+"Domain Controllers (separate with semicolons, e.g. \"dc1.company.local;dc2."
+"company.local\")"
+msgstr ""
+"Domenekontrollere (delt med semikolon, e.g. \"dc1.company.local;dc2.company."
+"local\")"
+
+#: admin.php:133
+msgid "Port"
+msgstr "Port"
+
+#: admin.php:137
+msgid "Port on which the AD listens (defaults to \"389\")"
+msgstr "Port som AD lytter på (standard er \"389\")"
+
+#: admin.php:142
+msgid "Use TLS"
+msgstr "Bruk TLS"
+
+#: admin.php:145
+msgid ""
+"Secure the connection between the WordPress and the Active Directory Servers "
+"using TLS. Note: To use TLS, you must set the LDAP Port to 389."
+msgstr ""
+"Sikre forbindelsen mellom Wordpress og Active Directory tjeneren med TLS. "
+"PS! For å bruke TLS må du bruke LDAP port 389."
+
+#: admin.php:150
+msgid "LDAP Network Timeout"
+msgstr "LDAP nettverkstidsavbrudd"
+
+#: admin.php:154
+msgid ""
+"Time in seconds after connection attempt to Active Directory times out and "
+"WordPress falls back to local authorization (defaults to \"5\")."
+msgstr ""
+"Tid i sekunder etter et tidsavbrudd i tilkoblingen mot Active Directory hvor "
+"Wordpress faller tilbake til å bruke lokal autorisasjon (som standard satt "
+"til \"5\")."
+
+#: admin.php:159
+msgid "Base DN"
+msgstr "Base DN"
+
+#: admin.php:163
+msgid ""
+"Base DN (e.g. \"ou=unit,dc=domain,dc=tld\" or \"cn=users,dc=domain,dc=tld\")"
+msgstr ""
+"Base DN (f.eks. \"ou=unit,dc=domain,dc=tld\" eller \"cn=users,dc=domain,"
+"dc=tld\")"
+
+#: admin.php:169 admin.php:338 admin.php:387 admin.php:464 admin.php:619
+#: admin.php:709
+msgid "Save Changes"
+msgstr "Lagre endringer"
+
+#: admin.php:184
+msgid "User specific settings"
+msgstr "Brukerspesifikke innstillinger"
+
+#: admin.php:188
+msgid "Account Suffix"
+msgstr "Brukerkontosuffiks"
+
+#: admin.php:191
+msgid ""
+"Account Suffix (will be appended to all usernames in the Active Directory "
+"authentication process; e.g., \"@company.local\".)"
+msgstr ""
+"Kontosuffiks (vil bli lagt til brukernavnet i autentiseringsprossessen mot "
+"Active Directory, f.eks. \"@domain.tld\")."
+
+#: admin.php:192
+msgid ""
+"If you have multiple account suffixes like @emea.company.local, @africa."
+"company.local seperate them by a semicolon (;) and put the main (@company."
+"local) at the last position (e.g. \"@emea.company.local;@africa.company."
+"local;@company.local\")."
+msgstr ""
+"Hvis du har flere brukerkontosufikser som @emea.company.local, @africa."
+"company.local, del dem med semikolon  (;) og sett hoveddomenet (@company."
+"local) til slutt (e.g. \"@emea.company.local;@africa.company.local;@company."
+"local\")."
+
+#: admin.php:193
+msgid "<strong>Don't forget to set the @.</strong>"
+msgstr "<strong>Husk å skrive inn @.</strong>"
+
+#: admin.php:197
+msgid ""
+"Append account suffix to new created usernames. If checked, the account "
+"suffix (see above) will be appended to the usernames of new created users."
+msgstr ""
+"Legg til brukerkontosuffikset til nye brukerkonti. Hvis denne er valgt, vil "
+"suffikset (se over) legges til nye brukerkonti som opprettes."
+
+#: admin.php:202
+msgid "Automatic User Creation"
+msgstr "Opprette brukerkonto automatisk"
+
+#: admin.php:205
+msgid ""
+"Should a new user be created automatically if not already in the WordPress "
+"database?"
+msgstr ""
+"Skal brukerkonti automatisk opprettes hvis de ikke allerede finnes i "
+"WordPresss-databasen?"
+
+#: admin.php:207
+msgid ""
+"Created users will obtain the role defined under \"New User Default Role\" "
+"on the <a href=\"options-general.php\">General Options</a> page."
+msgstr ""
+"Nye brukerkonti vil få rollene definert under \"Standardrolle for ny bruker"
+"\" på siden <a href=\"options-general.php\">Generelle innstillinger</a>."
+
+#: admin.php:209
+msgid "This setting is separate from the Role Equivalent Groups option, below."
+msgstr "Denne innstillinger er forskjellig fra rollegruppe-valget nedenfor."
+
+#: admin.php:212
+msgid ""
+"<b>Users with role equivalent groups will be created even if this setting is "
+"turned off</b> (because if you didn't want this to happen, you would leave "
+"that option blank.)"
+msgstr ""
+"<b>Brukere i rollegrupper vil bli opprettet selv om denne innstillingen er "
+"slått av</b> (fordi hvis du ikke ønsket at dette skulle skje, så ville du "
+"latt dette valget stå tomt.)"
+
+#: admin.php:217
+msgid "Automatic User Update"
+msgstr "Oppdater brukerkonto automatisk"
+
+#: admin.php:220
+msgid ""
+"Should the users be updated in the WordPress database everytime they logon?"
+"<br /><b>Works only if Automatic User Creation is turned on.</b>"
+msgstr ""
+"Skal brukerne oppdateres i WordPress-databasen hver gang de logger på?<br /"
+"><b>Fungerer bare hvis Opprette brukerkonto automatisk er slått på.</b>"
+
+#: admin.php:225
+msgid "Auto Update User Description"
+msgstr "Oppdatert brukerbeskrivelsen automatisk"
+
+#: admin.php:228
+msgid ""
+"Should the users descriptions be updated in the WordPress database everytime "
+"they logon?<br /><b>Works only if Automatic User Creation <b>and</b> "
+"Automatic User Update is turned on.</b>"
+msgstr ""
+"Skal brukerbeskrivelsen oppdateres i Wordpress-databasen ved hver pålogging?"
+"<br /><b>Fungerer bare hvis Opprette brukerkonto automatisk</b> og "
+"<b>Oppdater brukerkonto automatisk</b> er slått på."
+
+#: admin.php:233
+msgid "Default email domain"
+msgstr "Standard e-postdomene"
+
+#: admin.php:236
+msgid ""
+"If the Active Directory attribute 'mail' is blank, a user's email will be "
+"set to username@whatever-this-says"
+msgstr ""
+"Hvis Active Directory-egenskapen mail er tom, settes brukerens e-post til "
+"brukernavn@denne-innstillingens-verdi"
+
+#: admin.php:241
+msgid "Email Address Conflict Handling"
+msgstr "Konflikt med e-postadresser"
+
+#: admin.php:244
+msgid "Prevent (recommended)"
+msgstr "Forhindre (anbefalt)"
+
+#: admin.php:245
+msgid "Allow (UNSAFE)"
+msgstr "Tillat (USIKKERT)"
+
+#: admin.php:246
+msgid "Create"
+msgstr "Opprett"
+
+#: admin.php:248
+msgid "Choose how to handle email address conflicts."
+msgstr "Velg hvordan konflikter med e-postadresser skal håndteres."
+
+#: admin.php:250
+msgid ""
+"Prevent: User is not created, if his email address is already in use by "
+"another user. (recommended)"
+msgstr ""
+"Forhindre: Brukeren blir ikke opprettet hvis e-postadressen allerede er "
+"tilordnet en annen bruker. (anbefalt)"
+
+#: admin.php:251
+msgid "Allow: Allow users to share one email address. (UNSAFE)"
+msgstr "Tillat: Tillat brukere å dele en e-postadresse. (USIKKERT)"
+
+#: admin.php:252
+msgid ""
+"Create: In case of conflict, the new user is created with a unique email "
+"address."
+msgstr "Opprett: Ved konflikt, opprett en ny bruker med unik e-postadresse."
+
+#: admin.php:258
+msgid "Prevent Email Change"
+msgstr "Forhindre endring på e-postadressen"
+
+#: admin.php:261
+msgid ""
+"Prevents users authenticated by Active Directory from changing their email "
+"address in WordPress. This does not apply to administrators."
+msgstr ""
+"Forhindre at brukere som er autentisert mot Active Directory endrer e-"
+"postadresse i Wordpress. Dette gjelder ikke administratorer."
+
+#: admin.php:269
+msgid "LDAP Attribute: "
+msgstr "LDAP-egenskaper:"
+
+#: admin.php:270
+msgid "sAMAccountName (the username)"
+msgstr "sAMAccountName (brukernavn)"
+
+#: admin.php:271
+msgid "displayName"
+msgstr "displayName"
+
+#: admin.php:272
+msgid "description"
+msgstr "description"
+
+#: admin.php:273
+msgid "givenName (firstname)"
+msgstr "givenName (fornavn)"
+
+#: admin.php:274
+msgid "SN (lastname)"
+msgstr "SN (etternavn)"
+
+#: admin.php:275
+msgid "givenName SN (firstname lastname)"
+msgstr "givenName SN (fornavn etternavn)"
+
+#: admin.php:276
+msgid "CN (Common Name, the whole name)"
+msgstr "CN (Common Name, fullt navn)"
+
+#: admin.php:277
+msgid "mail"
+msgstr "mail (E-postadresse)"
+
+#: admin.php:279
+msgid "Choose user's Active Directory attribute to be used as display name."
+msgstr ""
+"Velg hvilken Active Directory-egenskap som skal brukes som visningsnavn."
+
+#: admin.php:284
+msgid "Show User Status"
+msgstr "Vis brukerstatus"
+
+#: admin.php:287
+msgid "Show additional columns (ADI User, disabled) in the user list."
+msgstr "Vis andre kolonner (ADI bruker, deaktivert) i brukerlisten."
+
+#: admin.php:293
+msgid "Password handling"
+msgstr "Passordhåndtering"
+
+#: admin.php:298
+msgid "Enable local password changes"
+msgstr "Slå på passordendring lokalt"
+
+#: admin.php:301
+msgid ""
+"Allow users to change their local (<strong>non AD</strong>) WordPress "
+"password"
+msgstr ""
+"Tillat brukere å endre sitt lokale (<strong>ikke AD</strong>) WordPress-"
+"passord"
+
+#: admin.php:303
+msgid ""
+"<strong>If activated, a password change will update the local WordPress "
+"database only. No changes in Active Directory will be made.</strong>"
+msgstr ""
+"<strong>Hvis denne er slått på vil endre passord bare oppdateres i WordPress-"
+"databasen. Ingen endringer skrives til Active Diretory.</strong>"
+
+#: admin.php:309
+msgid "Set local password on first successfull login"
+msgstr "Sett lokalt passord ved første pålogging"
+
+#: admin.php:312
+msgid ""
+"First time a user logs on successfully and is created, his local WordPress "
+"password is set to the one used for this login."
+msgstr ""
+"Første gang en bruker logger på og blir opprettet, vil det lokalt Wordpress-"
+"passordet settes til til det samme som denne påloggingen."
+
+#: admin.php:314
+msgid ""
+"If this option is deactivated a random password for this user will be set."
+msgstr ""
+"Hvis dette valget slås av, vil et tilfeldig passord settes for brukerkontoen."
+
+#: admin.php:316
+msgid "<b>Works only if \"Automatic User Creation\" is turned on.</b>"
+msgstr ""
+"<b>Fungerer bare hvis \"Opprette brukerkonto automatisk\" er slått på.</b>"
+
+#: admin.php:322
+msgid "Automatic Password Update"
+msgstr "Oppdater passord automatisk"
+
+#: admin.php:325
+msgid ""
+"Every time a user logs on successfully, his local WordPress password is set "
+"to the one used for this login."
+msgstr ""
+"Hver gang en bruker logger på, vil det lokalt Wordpress-passordet settes til "
+"til det samme som denne påloggingen."
+
+#: admin.php:327
+msgid ""
+"Note: Activating this option makes little sense when \"Enable local password "
+"changes\" is turned on."
+msgstr ""
+"Viktig melding: Å slå på dette valget har liten hensikt hvis \"Endre lokalt "
+"passord\" er slått på."
+
+#: admin.php:329
+msgid ""
+"<b>Works only if \"Automatic User Creation\" and \"Automatic User Update\" "
+"is turned on.</b>"
+msgstr ""
+"<b>Fungerer bare hvis \"Opprette brukerkonto automatisk\" og \"Oppdater "
+"brukerkonto automatisk\" er slått på.</b>"
+
+#: admin.php:356
+msgid "Authorize by group membership"
+msgstr "Autorisasjon med gruppemedlemskap"
+
+#: admin.php:359
+msgid ""
+"Users are authorized for login only when they are members of a specific AD "
+"group."
+msgstr "Brukere får logge på bare hvis de er medlem av spesifikke AD-grupper."
+
+#: admin.php:361 admin.php:667
+msgid "Group(s)"
+msgstr "Gruppe(r)"
+
+#: admin.php:364
+msgid ""
+"Seperate multiple groups by semicolon (e.g. \"domain-users;WP-Users;test-"
+"users\")."
+msgstr ""
+"Del flere grupper med semikolon (e.g. \"domain-users;WP-Users;test-users\")."
+
+#: admin.php:370
+msgid "Role Equivalent Groups"
+msgstr "Rollegrupper"
+
+#: admin.php:374
+msgid ""
+"List of Active Directory groups which correspond to WordPress user roles."
+msgstr ""
+"Liste over Active Directory-grupper og korresponderende WordPress-roller."
+
+#: admin.php:375
+msgid ""
+"When a user is first created, his role will correspond to what is specified "
+"here.<br/>Format: AD-Group1=WordPress-Role1;AD-Group1=WordPress-Role1;...<br/"
+"> E.g., \"Soc-Faculty=faculty\" or \"Faculty=faculty;Students=subscriber"
+"\"<br/>A user will be created based on the first match, from left to right, "
+"so you should obviously put the more powerful groups first."
+msgstr ""
+"Når en bruker ført er opprettet vil rollen korrespondere til det som er satt "
+"her.<br />Format: AD-Group1=WordPress-Role1;AD-Group1=WordPress-Role1;...<br/"
+"> E.g., \"Soc-Faculty=faculty\" eller \"Faculty=faculty;Students=subscriber"
+"\"<br/>Brukeren blir opprettet basert på første treff fra venstre til høyre, "
+"så du bør sette inn rollene med mest rettigheter først."
+
+#: admin.php:376
+msgid "NOTES"
+msgstr "Notater"
+
+#: admin.php:378
+msgid ""
+"WordPress stores roles as lower case (\"Subscriber\" is stored as "
+"\"subscriber\")"
+msgstr ""
+"WordPress lagrer roller med små bokstaver på engelsk "
+"(Administrator=administrator, Redaktoør=editor, Forfatter=author, "
+"Bidragsyter=contributor und Abonnent=subscriber)."
+
+#: admin.php:379
+msgid "Active Directory groups are case-sensitive."
+msgstr ""
+"Active Directory-grupper skiller på store og små bokstaver (case-sensitive)."
+
+#: admin.php:380
+msgid ""
+"Group memberships cannot be checked across domains.  So if you have two "
+"domains, instr and qc, and qc is the domain specified above, if instr is "
+"linked to qc, I can authenticate instr users, but not check instr group "
+"memberships."
+msgstr ""
+"Gruppemedlemskap kan ikke kontrolleres på kryss av domener. Ønsker du å "
+"bruker to domener, instr og qc, og qc er domenet spesifisert over, hvis "
+"instr er koblet til qc, kan brukere autentiseres i instr, men "
+"gruppemedlemskap kan ikke kontrolleres."
+
+#: admin.php:401
+msgid "Fallback to local password"
+msgstr "Lokalt passord som reserve"
+
+#: admin.php:404
+msgid ""
+"Fallback to local (WordPress) password check if authentication against AD "
+"fails.</br>If turned on users can logon even if Active Directory server is "
+"unreachable. But this might be a security risk (for example, if the local "
+"password is outdated). <b>It's recommended to turn this off.</b>"
+msgstr ""
+"Bruk lokalt (WordPress) passord hvis autentisering mot AD feiler.<br />Er "
+"denne slått på kan brukere logge på selv om Active Directory ikke er "
+"tilgjengelig. Dette innebærer også en sikkerhetsrisiko (for eksempel hvis "
+"lokale passord er utdatert). <b>Det anbefales at dette valget slås av.</b>"
+
+#: admin.php:409
+msgid "Enable lost password recovery"
+msgstr "Slå på gjenvinning av glemt passord"
+
+#: admin.php:417
+msgid "Brute Force Protection"
+msgstr "Beskyttelse mot Brute Force-angrep"
+
+#: admin.php:418
+msgid ""
+"For security reasons you can use the following options to prevent brute "
+"force attacks on your user accounts."
+msgstr ""
+"For sikkerhetens skyld kan du bruke følgende innstillinger for å forhindre "
+"brute force-angrep på brukerkonti."
+
+#: admin.php:423
+msgid "Maximum number of allowed login attempts"
+msgstr "Maksimalt antall tillatte påloggingsforsøk"
+
+#: admin.php:427
+msgid ""
+"Maximum number of failed login attempts before a user account is blocked. If "
+"empty or \"0\" Brute Force Protection is turned off."
+msgstr ""
+"Maksimalt antall mislykkede påloggingsforsøk før brukerkontoen låses. Hvis "
+"tom eller \"0\" vil beskyttelse mot Brute Force-angrep være slått av."
+
+#: admin.php:432
+msgid "Blocking Time"
+msgstr "Sperretid"
+
+#: admin.php:436
+msgid ""
+"Number of seconds an account is blocked after the maximum number of failed "
+"login attempts is reached."
+msgstr ""
+"Antall sekunder som kontoen blir låst etter maksimalt antall tillatte "
+"påloggingsforsøk."
+
+#: admin.php:441
+msgid "User Notification"
+msgstr "Brukermeldinger"
+
+#: admin.php:444
+msgid "Notify user by e-mail when his account is blocked."
+msgstr "Varsle brukeren på e-post når kontoen har blitt låst."
+
+#: admin.php:449
+msgid "Admin Notification"
+msgstr "Administratormeldinger"
+
+#: admin.php:452
+msgid "Notify admin(s) by e-mail when an user account is blocked."
+msgstr "Varsle administrator(er) på e-post når en brukerkonto blir låst."
+
+#: admin.php:454
+msgid "E-mail addresses for notifications:"
+msgstr "E-post adresse for meldinger:"
+
+#: admin.php:458
+msgid ""
+"Seperate multiple addresses by semicolon (e.g. \"admin@company.com;"
+"me@mydomain.org\"). If left blank, notifications will be sent to the blog-"
+"administrator only."
+msgstr ""
+"Del opp flere adresser med semikolon (e.g. \"admin@company.com;me@mydomain."
+"org\"). Hvis tom vil varslet kun bli sendt til blogg-administrator."
+
+#: admin.php:473
+msgid "Commonn attributes"
+msgstr "Active Directory-egenskaper"
+
+#: admin.php:476
+msgid "AD Attribute"
+msgstr "Active Directory-egenskap"
+
+#: admin.php:497
+msgid ""
+"User attributes from the AD are can be stored as User Meta Data. These "
+"attributes can then be used in your themes and they can be shown on the "
+"profile page of your users."
+msgstr ""
+"Egenskaper fra AD kan lagres som metadata på brukeren. Disse egenskapene kan "
+"da brukes i temaet og vises på profilsiden til brukeren."
+
+#: admin.php:498
+msgid ""
+"The attributes are only stored in the WordPress database if you activate "
+"\"Automatic User Creation\" and are only updated if you activate \"Automatic "
+"User Update\" on tab \"User\"."
+msgstr ""
+"Egenskapene lagres bare i WordPress-databasen hvis du slår på \"Opprette "
+"brukerkonto automatisk\", og oppdateres bare hvis \"Oppdater brukerkonto "
+"automatisk\" er slått på under fanen \"Brukerkonto\"."
+
+#: admin.php:506
+msgid "Additional User Attributes"
+msgstr "Andre brukerkontoegenskaper"
+
+#: admin.php:508
+msgid ""
+"Enter additional AD attributes (one per line), followed by their type and "
+"the associated meta key seperated by a colon (:)."
+msgstr ""
+"Legg inn andre AD attributter (en for hver linje) etterfulgt av typen og "
+"tilhørende meta key delt med kolon (:)."
+
+#: admin.php:509
+msgid ""
+"Additional Attributes that should appear on the user profile must also be "
+"placed in \"Attributes to show\"."
+msgstr ""
+"Andre egenskaper som skal dukker opp på brukerkontoprofilen må legge inn "
+"under \"Egenskaper som vises\"."
+
+#: admin.php:511
+msgid ""
+"Format: <i>&lt;attribute_name&gt;:&lt;type&gt;:&lt;meta key&gt;</i> where "
+"<i>&lt;type&gt;</i> can be one of the following: <i>string, list, integer, "
+"bool, octet, time, timestamp, cn</i>."
+msgstr ""
+"Format: <i>&lt;egenskapsnavn&gt;:&lt;type&gt;:&lt;meta key&gt;</i> hvos "
+"<i>&lt;type&gt;</i> har en av disse verdiene: <i>string, list, integer, "
+"bool, octet, time, timestamp, cn</i>."
+
+#: admin.php:513
+msgid ""
+"If no <i>&lt;meta key&gt;</i> is given the AD attributes will be stored as "
+"<i>adi_&lt;attribute_name&gt;</i>."
+msgstr ""
+"Hvis ingen <i>&lt;meta key&gt;</i> er oppgitt, vil AD egenskapen lagres som "
+"<i>adi_&lt;evenskapsnavn&gt;</i>."
+
+#: admin.php:515 admin.php:552
+msgid "Example:"
+msgstr "Eksempel:"
+
+#: admin.php:517
+msgid ""
+"lastlogon:timestamp:last_logon_time\n"
+"whencreated:time:user_created_on\n"
+"homephone:string\n"
+"otherhomephone:list\n"
+"manager:cn"
+msgstr ""
+"lastlogon:timestamp:last_logon_time\n"
+"whencreated:time:user_created_on\n"
+"homephone:string\n"
+"otherhomephone:list\n"
+"manager:cn"
+
+#: admin.php:520
+msgid "Show Common Attributes"
+msgstr "Vis vanlige egenskaper "
+
+#: admin.php:522
+msgid "Notice: Attributes of type <i>octet</i> are stored base64 encoded."
+msgstr ""
+"Viktig melding: Egenskaper av type <i>octet</i> lagres med base64-koding."
+
+#: admin.php:527
+msgid "Overwrite with empty values"
+msgstr "Overskriv med tomme verdier"
+
+#: admin.php:530
+msgid ""
+"Overwrite local values even if the attribute values in Active Directory are "
+"empty."
+msgstr ""
+"Overskriv lokale verdier selv om egenskapsverdien i Active Directory er tom."
+
+#: admin.php:535
+msgid "Show Attributes"
+msgstr "Vis egenskaper"
+
+#: admin.php:538
+msgid "Show user attributes from AD in user profile."
+msgstr "Vis brukerkontoegenskaper fra AD i profilen."
+
+#: admin.php:545
+msgid "Attributes to show"
+msgstr "Egenskaper som vises"
+
+#: admin.php:547
+msgid ""
+"Enter the AD attributes (one per line) followed by a description seperated "
+"by a colon (:) to be shown at the end of the user profile page. If no "
+"description is given the descriptions for standard attributes (see below) is "
+"used. If there is no description for the attribute then the attribute name "
+"itself will be displayed."
+msgstr ""
+"Legg inn AD egenskaper (en for hver linje) etterfulgt av beskrivelse delt "
+"med colon (:) som skal vises på profilsiden. Hvis ingen beskrivelse er lagt "
+"inn, brukes beskrivelsen fra egenskapene som er standard (se under). Hvis "
+"det ikke finnes noen beskrivelse for egenskapen, vises navnet på egenskapen."
+
+#: admin.php:548
+msgid ""
+"The attributes to be shown must appear on the list of Additional User "
+"Attributes."
+msgstr ""
+"Egenskapen som skal vises må finnes i listen over Andre "
+"brukerkontoegenskaper."
+
+#: admin.php:549
+msgid ""
+"If want to make some attributes editable and written back to AD on profile "
+"update add a trailing \":*\" (Sync Back must be turned on, see below)."
+msgstr ""
+"Hvis du ønsker at noen egenskaper skal være redigerbare og skrives tilbake "
+"til AD når profilen oppdateres, legg på \":*\" til slutt (Oppdatert AD må "
+"være slått på, se under)."
+
+#: admin.php:550
+msgid ""
+"If you enter something that is not in the list of Additional User Attributes "
+"it will be treated as normal text. Use this to structure the output."
+msgstr ""
+"Hvis du skriver inn noe som ikke står på listen over Andre "
+"brukerkontoegenskaper, vil det bli behandlet som vanlig tekst. Bruk dette "
+"for å strukturere innholdet."
+
+#: admin.php:554
+msgid ""
+"lastlogon\n"
+"whencreated:User Created on\n"
+"&lt;h4&gt;A headline&lt;/h4&gt;\n"
+"homephone:Phone (home):*\n"
+"otherhomephone::*\n"
+"manager:Manager"
+msgstr ""
+"lastlogon\n"
+"whencreated:User Created on\n"
+"&lt;h4&gt;A headline&lt;/h4&gt;\n"
+"homephone:Phone (home):*\n"
+"otherhomephone::*\n"
+"manager:Manager"
+
+#: admin.php:562
+msgid "Sync Back"
+msgstr "Oppdater AD"
+
+#: admin.php:567
+msgid "Sync Back to AD"
+msgstr "Synkroniser tilbake til AD"
+
+#: admin.php:570
+msgid ""
+"Sync changed values of attributes marked with an asterisk (*) back to Active "
+"Directory on update of user profile."
+msgstr ""
+"Synkroniser endrede verdier på egenskaper merker med asterisk (*) tilbake "
+"til Active Directory når profilen oppdateres."
+
+#: admin.php:575
+msgid "Use Global Sync User"
+msgstr "Bruk en global oppdateringsbruker"
+
+#: admin.php:578
+msgid ""
+"Use a Global Sync User for all writes to AD. Leave this unchecked to ask for "
+"the users password on every sync back/profile update."
+msgstr ""
+"Bruk en global oppdateringsbruker for å skrive endringer til AD. Du må oppgi "
+"passord hver gang profilen må oppdateres hvis denne ikke er huket av."
+
+#: admin.php:581
+msgid ""
+"NOTICE: The password of the Global Sync User is stored encrypted, but USE AT "
+"YOUR OWN RISK. To get around this you must give your users the permission to "
+"change their own AD attributes. See FAQ for details."
+msgstr ""
+"Viktig melding: Passord til den globale oppdateringsbrukeren lagres krypter, "
+"men BRUK DENNE PÅ EGEN RISIKO. For å komme rundt dette må du gi brukeren "
+"rettigheter til å endre sine egne AD egenskaper. Se FAQ for detaljer."
+
+#: admin.php:586
+msgid "Global Sync User"
+msgstr "Global oppdateringsbruker"
+
+#: admin.php:590
+msgid ""
+"Username of an AD account with write permissions for the users in the Active "
+"Directory (e.g. administrator@company.local)."
+msgstr ""
+"Brukernavnet til en AD-konto med skriverettigheter for brukerne i Active "
+"Directory (e.g. administrator@company.local)."
+
+#: admin.php:595
+msgid "Global Sync User Password"
+msgstr "Passord for global oppdateringbruker"
+
+#: admin.php:599
+msgid "Password for Global Sync User."
+msgstr "Passordet for global oppdateringsbruker"
+
+#: admin.php:600 admin.php:690
+msgid "Leave empty if password should not be changed."
+msgstr "La denne stå tom hvis passordet ikke skal endres."
+
+#: admin.php:608
+msgid "Perform SyncBack for all users"
+msgstr "Oppdater AD for alle brukere"
+
+#: admin.php:610
+msgid ""
+"Click on the following link to perform a SyncBack of all users to Active "
+"Directory. \"Global Sync User\" and \"Global Sync User Password\" must be "
+"set (but it is not necessary to turn on \"Use Global Sync User\")."
+msgstr ""
+"Klikk på følgende lenke for å utføre en oppdatering for alle brukere mot "
+"Active Directory. \"Global oppdateringbruker\" og \"Passordet for global "
+"oppdateringsbruker\" må være satt (men det er ikke nødvendig å slå på \"Bruk "
+"global oppdateringsbruker\")."
+
+#: admin.php:633
+msgid "User Bulk Import & Update"
+msgstr "Masseimportering og oppdatering av brukere"
+
+#: admin.php:634
+msgid ""
+"You can import/update the users from Active Directory, for example by using "
+"a cron job."
+msgstr ""
+"Du kan importere/oppdatere brukere fra Active Directory, for eksempel ved "
+"hjelp av en cron-jobb."
+
+#: admin.php:640
+msgid "Enable Bulk Import & Update"
+msgstr "Slå på masseimportering og oppdatering av brukere"
+
+#: admin.php:647
+msgid "Auth Code"
+msgstr "Autorisasjonskode"
+
+#: admin.php:651
+msgid "Select this to generate a new Auth Code."
+msgstr "Velg denne for å generere en ny autorisasjonskode."
+
+#: admin.php:656
+msgid "Bulk Import URL"
+msgstr "Masseimportering-URL"
+
+#: admin.php:660
+msgid "Use this URL in your cron jobs."
+msgstr "Du kan bruke denne URL-en i en cron-jobb."
+
+#: admin.php:665
+msgid "Import members of security groups"
+msgstr "Importer medlemmer i sikkerhetsgrupper."
+
+#: admin.php:670
+msgid ""
+"The members of the security groups entered here, will be imported or updated "
+"autimatically if the Bulk Import URL is opened. Seperate multiple groups by "
+"semicolon (e.g. \"company user;WP-Users;test-users\")."
+msgstr ""
+"Medlemmer i sikkerhetsgruppene du oppgir her vil bli importert og oppdatert "
+"automatisk når masseimporterings-URL-en åpnes. Skill gruppene med semikolon "
+"(e.g. \"company user;WP-Users;test-users\")."
+
+#: admin.php:671
+msgid ""
+"If you want to include the users of the built in user group \"domain users\" "
+"you have to enter \"domain users;id:513\" (see FAQ for details)."
+msgstr ""
+"Hvis du ønsker å inkludere brukere i den innebygde gruppen \"domain users\", "
+"kan du skrive inn \"domain users;id:513\" (se FAQ for detaljer)."
+
+#: admin.php:676
+msgid "Bulk Import User"
+msgstr "Masseimporter brukere"
+
+#: admin.php:680
+msgid ""
+"Username of an AD account with read permissions for the users in the Active "
+"Directory (e.g. \"ldapuser@company.local\")."
+msgstr ""
+"Brukernavnet til en AD-konto med leserettigheter for brukerne i Active "
+"Directory (e.g. \"ldapuser@company.local\")."
+
+#: admin.php:685
+msgid "Bulk Import User Password"
+msgstr "Passord til masseimportbruker"
+
+#: admin.php:689
+msgid "Password for Bulk Import User."
+msgstr "Passordet til masseimporteringsbrukeren."
+
+#: admin.php:695
+msgid "Auto Disable Users"
+msgstr "Deaktiver brukere automatisk"
+
+#: admin.php:698
+msgid ""
+"Disable users previously authenticated by ADI if they are not imported "
+"anymore or if they are disabled in AD."
+msgstr ""
+"Deaktiver brukere som tidligere har vært autentisert av ADI hvis de ikke er "
+"blitt importert lenger eller er deaktivert i AD."
+
+#: admin.php:700
+msgid ""
+"<b>Disabled users can only be reenabled manually by administrators on users "
+"profile page or by Bulk Import.</b>"
+msgstr ""
+"<b>Deaktiverte brukere kan bare bli aktivert manuelt av administratorer på "
+"profilsiden eller ved masseimport.</b>"
+
+#: admin.php:723
+msgid ""
+"Enter a username and password to test logon. If you click the button below, "
+"a new window with detailed debug information opens. <strong>Be sure, that no "
+"unauthorized person can see the output.</strong>"
+msgstr ""
+"Sett inn brukernavn og passord for å teste pålogging. hvis du trykker på "
+"knappen under åpnes et nytt vindu med detaljer og diagnoseinformasjon. "
+"<strong>Pass på at ingen uautoriserte personer kan se denne informasjonen.</"
+"strong>"
+
+#: admin.php:729
+msgid "Username"
+msgstr "Bruker"
+
+#: admin.php:738
+msgid "Password"
+msgstr "Passord"
+
+#: admin.php:747
+msgid "Perform Test"
+msgstr "Kjør Test"
+
+#~ msgid "Bind User"
+#~ msgstr "Bind User"
+
+#, fuzzy
+#~ msgid ""
+#~ "Username for non-anonymous requests to AD (e.g. \"ldapuser@company.local"
+#~ "\"). Leave empty for anonymous requests."
+#~ msgstr ""
+#~ "Benutzername für nicht-anonyme Zugriffe auf das AD (z.B. "
+#~ "\"ldapuser@domain.tld\"). Leer lassen für anonyme Zugriffe."
+
+#~ msgid "Bind User Password"
+#~ msgstr "Bind User Kennwort"
+
+#~ msgid "Password for non-anonymous requests to AD"
+#~ msgstr "Kennwort für nicht-anonyme Zugrriffe auf das AD"
