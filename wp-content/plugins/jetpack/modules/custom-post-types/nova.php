@@ -11,7 +11,7 @@
  */
 
 /*
- * Put the following code in your themee's Food Menu Page Template to customize the markup of the menu.
+ * Put the following code in your theme's Food Menu Page Template to customize the markup of the menu.
 
 if ( class_exists( 'Nova_Restaurant' ) ) {
 	Nova_Restaurant::init( array(
@@ -391,12 +391,12 @@ class Nova_Restaurant {
 	 */
 	function set_custom_font_icon() {
 	?>
-        <style type="text/css">
-            #menu-posts-nova_menu_item .wp-menu-image:before {
-                font-family: 'nova-font' !important;
-                content: '\e603' !important;
-            }
-        </style>
+	<style type="text/css">
+	#menu-posts-nova_menu_item .wp-menu-image:before {
+		font-family: 'nova-font' !important;
+		content: '\e603' !important;
+	}
+	</style>
 	<?php
 	}
 

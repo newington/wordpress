@@ -68,7 +68,7 @@ class Publicize extends Publicize_Base {
 				<div class="jetpack-text-container">
 					<h4>
 					<p><?php printf(
-						esc_html( wptexturize( __( "To use Publicize, you'll need to link your %s account to your WordPress.com account using the button to the right.", 'jetpack' ) ) ),
+						esc_html( wptexturize( __( "To use Publicize, you'll need to link your %s account to your WordPress.com account using the link below.", 'jetpack' ) ) ),
 						'<strong>' . esc_html( $blog_name ) . '</strong>'
 					); ?></p>
 					<p><?php echo esc_html( wptexturize( __( "If you don't have a WordPress.com account yet, you can sign up for free in just a few seconds.", 'jetpack' ) ) ); ?></p>
@@ -80,6 +80,21 @@ class Publicize extends Publicize_Base {
 			</div>
 		</div>
 		<?php
+	}
+
+	/**
+	 * Remove a Publicize connection
+	 */
+	function disconnect( $service_name, $connection_id, $_blog_id = false, $_user_id = false, $force_delete = false ) {
+		Jetpack::load_xml_rpc_client();
+		$xml = new Jetpack_IXR_Client();
+		$xml->query( 'jetpack.deletePublicizeConnection', $connection_id );
+
+		if ( ! $xml->isError() ) {
+			Jetpack_Options::update_option( 'publicize_connections', $xml->getResponse() );
+		} else {
+			return false;
+		}
 	}
 
 	function get_connections( $service_name, $_blog_id = false, $_user_id = false ) {
@@ -161,14 +176,8 @@ class Publicize extends Publicize_Base {
 				check_admin_referer( 'keyring-request', 'kr_nonce' );
 				check_admin_referer( "keyring-request-$service_name", 'nonce' );
 
-				Jetpack::load_xml_rpc_client();
-				$xml = new Jetpack_IXR_Client();
-				$xml->query( 'jetpack.deletePublicizeConnection', $id );
+				$this->disconnect( $service_name, $id );
 
-				if ( !$xml->isError() ) {
-					$response = $xml->getResponse();
-					Jetpack_Options::update_option( 'publicize_connections', $response );
-				}
 				add_action( 'admin_notices', array( $this, 'display_disconnected' ) );
 				break;
 			}
