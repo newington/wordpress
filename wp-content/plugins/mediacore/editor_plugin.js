@@ -35,10 +35,14 @@
 			t.url = pluginUrl;
 
 			t.btnClass = 'mcore-chooser-image';
-			t.shortcodeStr = '[mediacore height="315px" public_url="%public_url%" thumb_url="%thumb_url%" title="%title%" width="560px"]';
+			t.defaultWidth = 400;
+			t.defaultHeight = 225;
+			t.shortcodeStr = '[mediacore height="%height%" public_url="%public_url%" thumb_url="%thumb_url%" title="%title%" width="%width%"]';
 			t.shortcodeRegex = /\[mediacore height="[^"]*" public_url="[^"]*" thumb_url="[^"]*" title="[^"]*" width="[^"]*"\]/gi;
-			t.imageStr = '<img class="mcore-chooser-image" alt="%alt%" src="%src%" data-public-url="%public_url%" data-mce-placeholder="1" />';
+			t.imageStr = '<img class="mcore-chooser-image" alt="%alt%" src="%src%" data-public-url="%public_url%" width="%width%" height="%height%" data-mce-placeholder="1" />';
 			t.imageRegex = /<img class="mcore-chooser-image"[^>]*>/gi;
+			t.widthRegex = /width=\"[0-9]+\"/gi;
+			t.heightRegex = /height=\"[0-9]+\"/gi;
 			t.shortcodes = [];
 			t.DOM = tinymce.DOM;
 
@@ -61,7 +65,9 @@
 						var sc = t.shortcodeStr.
 						replace(/%public_url%/, media.public_url).
 						replace(/%thumb_url%/, media.thumb_url).
-						replace(/%title%/, media.title);
+						replace(/%title%/, media.title).
+						replace(/%width%/, t.defaultWidth).
+						replace(/%height%/, t.defaultHeight);
 					t.editor.execCommand('mceInsertContent', false, sc);
 					});
 					t.chooser.on('error', function(err) {
@@ -156,11 +162,17 @@
 			this.shortcodes = content.match(this.shortcodeRegex);
 			var el, imgHtml;
 			for (var i = 0, code; code = this.shortcodes[i]; ++i) {
+				//determine width and height based on the image
+				var width = this.getAttrValueFromStr('width', code) || t.defaultWidth;
+				var height = this.getAttrValueFromStr('height', code) || t.defaultHeight;
+				//update the img markup
 				imgHtml = this.imageStr.
 					replace(/%alt%/, tinymce.DOM.encode(
 						this.getAttrValueFromStr('title', code))).
 					replace(/%src%/, this.getAttrValueFromStr('thumb_url', code)).
-					replace(/%public_url%/, this.getAttrValueFromStr('public_url', code));
+					replace(/%public_url%/, this.getAttrValueFromStr('public_url', code)).
+					replace(/%width%/, width).
+					replace(/%height%/, height);
 				el = document.createElement('div');
 				el.innerHTML = imgHtml;
 				content = content.replace(code, imgHtml);
@@ -178,7 +190,7 @@
 		getAttrValueFromStr: function(attr, str) {
 			var re = new RegExp(attr + '="([^"]*)"', 'i');
 			var result = re.exec(str);
-			if (!result.length) {
+			if (!result || !result.length) {
 				return '';
 			}
 			return result[1];
@@ -194,10 +206,18 @@
 			this.imageRegex.lastIndex = 0;
 			var images = content.match(this.imageRegex) || [];
 			for (var i = 0, img; img = images[i]; ++i) {
+
+				//determine width and height based on the image
+				var width = this.getAttrValueFromStr('width', img) || t.defaultWidth;
+				var height = this.getAttrValueFromStr('height', img) || t.defaultHeight;
+
+				//update the shortcode string
 				shortcode = this.shortcodeStr.
 					replace(/%public_url%/, this.getAttrValueFromStr('data-public-url', img)).
 					replace(/%thumb_url%/, this.getAttrValueFromStr('src', img)).
-					replace(/%title%/, this.getAttrValueFromStr('alt', img));
+					replace(/%title%/, this.getAttrValueFromStr('alt', img)).
+					replace(/%width%/, width).
+					replace(/%height%/, height);
 				content = content.replace(img, shortcode);
 			}
 			return content;
@@ -295,7 +315,7 @@
 				author : 'MediaCore <info@mediacore.com>',
 				authorurl: 'http://mediacore.com',
 				longname : 'MediaCore Chooser',
-				version : '2.6'
+				version : '2.7.2'
 			};
 		}
 	});
