@@ -1,0 +1,14 @@
+/*
+Theme Name:     SocialBuddy Child Theme
+Theme URI: 		http://herothemes.com/
+Description:    Child theme for SocialBuddy 
+Author: 		Chris Mooney (Swish Themes)
+Author URI: 	http://herothemes.com
+Template:       socialbuddy
+Version:        1.0.0
+*/
+
+@import url("../socialbuddy/style.css");
+
+
+/* ------- Insert custom styles below this line ------- */
