@@ -1,0 +1,23 @@
+body {
+	background: orange;
+}
+
+#access .menu li a {
+	color: orange;
+}
+
+#access .menu ul.children > li:hover > a,
+#access .menu ul.sub-menu > li:hover > a,
+#access .menu > ul > li:hover > a,
+#access .menu > li:hover > a {
+	color: white;
+	background: orange;
+}
+
+#access .menu ul.children li a,
+#access .menu ul.sub-menu li a
+{
+	background: #333;
+	border-bottom: dotted 1px #555;
+	color: orange;
+}

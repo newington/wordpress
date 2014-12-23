@@ -1,0 +1,169 @@
+/*
+ Theme Name:     Newington 2014
+ Description:    Newington 2014 Theme
+ Author:         Myles Carrick
+ Author URI:     http://mylescarrick.com
+ Template:       twentyfourteen
+ Version:        1.0.0
+*/
+
+@import url("../twentyfourteen/style.css");
+
+/* =Theme customization starts here
+-------------------------------------------------------------- */
+
+
+@media screen and (min-width: 600px) and (orientation:landscape) {
+  .header-main {
+    padding-right: 0;
+  }
+
+  .search-toggle {
+    margin-right: 0;
+  }
+
+  /* Fixed Header */
+
+  .masthead-fixed .site-header {
+    position: fixed;
+    top: 0;
+  }
+
+  .admin-bar.masthead-fixed .site-header {
+    top: 32px;
+  }
+
+  .masthead-fixed .site-main {
+    margin-top: 48px;
+  }
+
+  /* Navigation */
+
+  .site-navigation li .current_page_item > a,
+  .site-navigation li .current_page_ancestor > a,
+  .site-navigation li .current-menu-item > a,
+  .site-navigation li .current-menu-ancestor > a {
+    color: #fff;
+  }
+
+  /* Primary Navigation */
+
+  .primary-navigation {
+    float: right;
+    font-size: 11px;
+    margin: 0 1px 0 -12px;
+    padding: 0;
+    text-transform: uppercase;
+  }
+
+  .primary-navigation .menu-toggle {
+    display: none;
+    padding: 0;
+  }
+
+  .primary-navigation .nav-menu {
+    border-bottom: 0;
+    display: block;
+  }
+
+  .primary-navigation.toggled-on {
+    border-bottom: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  .primary-navigation li {
+    border: 0;
+    display: inline-block;
+    height: 48px;
+    line-height: 48px;
+    position: relative;
+  }
+
+  .primary-navigation a {
+    display: inline-block;
+    padding: 0 12px;
+    white-space: nowrap;
+  }
+
+  .primary-navigation ul ul {
+    background-color: #24890d;
+    float: left;
+    margin: 0;
+    position: absolute;
+    top: 48px;
+    left: -999em;
+    z-index: 99999;
+  }
+
+  .primary-navigation li li {
+    border: 0;
+    display: block;
+    height: auto;
+    line-height: 1.0909090909;
+  }
+
+  .primary-navigation ul ul ul {
+    left: -999em;
+    top: 0;
+  }
+
+  .primary-navigation ul ul a {
+    padding: 18px 12px;
+    white-space: normal;
+    width: 176px;
+  }
+
+  .primary-navigation li:hover > a,
+  .primary-navigation li.focus > a {
+    background-color: #24890d;
+    color: #fff;
+  }
+
+  .primary-navigation ul ul a:hover,
+  .primary-navigation ul ul li.focus > a {
+    background-color: #41a62a;
+  }
+
+  .primary-navigation ul li:hover > ul,
+  .primary-navigation ul li.focus > ul {
+    left: auto;
+  }
+
+  .primary-navigation ul ul li:hover > ul,
+  .primary-navigation ul ul li.focus > ul {
+    left: 100%;
+  }
+
+  .primary-navigation .menu-item-has-children > a,
+  .primary-navigation .page_item_has_children > a {
+    padding-right: 26px;
+  }
+
+  .primary-navigation .menu-item-has-children > a:after,
+  .primary-navigation .page_item_has_children > a:after {
+    -webkit-font-smoothing: antialiased;
+    content: "\f502";
+    display: inline-block;
+    font: normal 8px/1 Genericons;
+    position: absolute;
+    right: 12px;
+    top: 22px;
+    vertical-align: text-bottom;
+  }
+
+  .primary-navigation li .menu-item-has-children > a,
+  .primary-navigation li .page_item_has_children > a {
+    padding-right: 20px;
+    width: 168px;
+  }
+
+  .primary-navigation .menu-item-has-children li.menu-item-has-children > a:after,
+  .primary-navigation .menu-item-has-children li.page_item_has_children > a:after,
+  .primary-navigation .page_item_has_children li.menu-item-has-children > a:after,
+  .primary-navigation .page_item_has_children li.page_item_has_children > a:after {
+    content: "\f501";
+    right: 8px;
+    top: 20px;
+  }
+}
