@@ -1,0 +1,6 @@
+.DS_Store
+*.komodoproject
+*.sublime-project
+*.sublime-workspace
+*.komodotools
+node_modules/**/*
