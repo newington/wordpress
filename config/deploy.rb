@@ -1,15 +1,15 @@
 # config valid only for Capistrano 3.1
 lock '3.2.1'
 
-set :application, 'newingtonblogs'
+set :application, 'tupou'
 set :repo_url, 'git@github.com:newington/wordpress.git'
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
-set :branch, 'newington41'
+set :branch, 'tupou41'
 
 # Default deploy_to directory is /var/www/my_app
-set :deploy_to, '/var/www/wordpress_apps/newingtonblogs'
+set :deploy_to, '/var/www/wordpress_apps/tupou'
 
 set :git_shallow_clone, 1
 
