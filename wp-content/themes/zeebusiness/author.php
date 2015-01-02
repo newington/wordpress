@@ -1,14 +1,12 @@
 <?php get_header(); ?>
 
-		<div id="content">
+<?php // Retrieve Current Author
+	$author = (get_query_var('author_name')) ? get_user_by('slug', get_query_var('author_name')) : get_userdata(get_query_var('author'));
+?>
+	<div id="content">
 		
-		<?php 
-		$options = get_option('themezee_options');
-		if(is_home() and isset($options['themeZee_show_slider']) and $options['themeZee_show_slider'] == 'true') {
-				locate_template('/slide.php', true);
-			}
-		?>
-		 
+		<h2 class="arh"><?php _e('Archive for', 'themezee_lang'); ?> <?php echo $author->display_name; ?></h2>
+
 		<?php if (have_posts()) : while (have_posts()) : the_post();
 		
 			get_template_part( 'loop', 'index' );
@@ -24,10 +22,11 @@
 					<span class="post_links"><?php next_posts_link(__('&laquo; Older Entries', 'themezee_lang')) ?> &nbsp; <?php previous_posts_link (__('Recent Entries &raquo;', 'themezee_lang')) ?></span>
 				</div>
 			<?php }?>
+			
 
 		<?php endif; ?>
 			
-		</div>
+	</div>
 		
 	<?php get_sidebar(); ?>
 <?php get_footer(); ?>	

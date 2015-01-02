@@ -2,7 +2,7 @@
 Theme Name: zeeBusiness
 Theme URI: http://themezee.com/zeebusiness
 Description: zeeBusiness is a two column wordpress theme in an elegant bold design with strong colors. It comes with three navigation menus (top, main and foot), five sidebar areas (blog, pages, 3x footer) and a Featured Posts Slider. You can choose between eleven color schemes or use the colorpicker to get every color you want. Other features are a Custom Logo Upload, 125x125 Banner Advertising Widget, SocialMedia Buttons Widget, Dropdown Navigation, Theme Option Panel, Threaded Comments, Sitemap Page Template, Slider Page Template and Fullwidth Page Template. Enjoy :)
-Version: 1.1
+Version: 1.4
 Author: ThemeZee
 Author URI: http://themezee.com
 Tags: custom-background, custom-colors, custom-header, custom-menu, theme-options, threaded-comments, black, blue, brown, gray, green, orange, pink, purple, red, silver, tan, white, yellow, dark, light, editor-style, full-width-template, translation-ready, sticky-post, fixed-width, two-columns, one-column, right-sidebar
@@ -34,11 +34,10 @@ html {
 	font-size: 100.01%;
 }
 body {
-	font-family: Arial, Tahoma;
+	font-family: Arial, Tahoma, Verdana;
 	font-size: 0.9em;
 	border: 0;
 	color: #222;
-	background: #eee;
 }
 ul, ol {
 	list-style: none;
@@ -91,7 +90,6 @@ input, textarea {
 .fullwidth {
 	width: 860px !important;
 }
-
 /*============================ SIDEBAR ============================*/
 #sidebar {
 	margin-top: 10px;
@@ -99,12 +97,19 @@ input, textarea {
 	margin-left: 570px;
 	padding: 20px;
 }
-#sidebar ul li h2 {
+#sidebar .widgettitle {
 	color: #c41010;
 	font-size: 1.5em;
 	padding: 5px 0;
 	font-weight: bold;
-	font-family: 'Nobile', Arial;
+	font-family: 'Nobile', Arial, Tahoma, Verdana;
+}
+#sidebar .widgettitle a {
+	color: #c41010;
+	text-decoration: underline !important;
+}
+#sidebar .widgettitle a:hover {
+	text-decoration: none !important;
 }
 #sidebar ul li {
 	margin-bottom: 20px;
@@ -149,12 +154,13 @@ input, textarea {
 	margin-left: 10px;
 	background: none;
 }
+/*============================ WIDGETS ============================*/
 /* Theme SocialMedia Widget */
-#socialmedia_buttons img{
+.widget-social-icons img{
 	margin: 4px;
 }
 /* Theme Ads Widget */
-#ads img{
+.widget-ads img {
 	margin: 1px;
 }
 /* Theme Search Widget */
@@ -195,15 +201,19 @@ input, textarea {
 	padding: 0 10px 10px 10px;
 	font-size: 2.0em;
 	color: #c41010;
-	font-family: 'Nobile', Arial;
+	font-family: 'Nobile', Arial, Tahoma, Verdana;
 }
 #logo img {
 	margin-bottom: 10px;
+}
+#logo a {
+	text-decoration: none;
 }
 /*============================ TOP NAVIGATION ============================*/
 #topnavi {
 	float: right;
 	margin: 5px 15px;
+	font-family: Arial, Tahoma, Verdana;
 }
 #topnav, #topnav ul{
 	margin: 0;
@@ -221,7 +231,6 @@ input, textarea {
 	padding: 10px 15px;
 	font-size: 1.0em;
 	font-weight: bold;
-	font-family: tahoma, arial;
 	text-decoration: none;
 	color: #333;
 }
@@ -272,7 +281,7 @@ input, textarea {
 	margin-top: -2px;
 	padding: 0 5px;
 	background: #c41010;
-	font-family: tahoma, arial;
+	font-family: Arial, Tahoma, Verdana;
 }
 #nav, #nav ul{
 	margin: 0;
@@ -379,13 +388,13 @@ input, textarea {
 }
 .post-title {
 	padding-bottom: 2px;
-	font-family: 'Nobile', Arial, Verdana, sans-serif, Helvetica;
+	font-family: 'Nobile', Arial, Tahoma, Verdana;
 	font-size: 2.0em;
 	color: #c41010;
 }
 .page-title {
 	font-size: 2.4em;
-	font-family: 'Nobile', Arial, Verdana, sans-serif, Helvetica;
+	font-family: 'Nobile', Arial, Tahoma, Verdana;
 }
 .post-title a:link, .post-title a:visited {
 	color: #c41010;
@@ -395,7 +404,7 @@ input, textarea {
 	color: #111 !important;
 }
 .entry {
-	padding: 10px 0;
+	padding: 5px 0;
 	line-height: 1.5em;
 }
 .entry h1, .comment h1  {
@@ -443,11 +452,9 @@ input, textarea {
 }
 .postmeta {
 	font-size: 0.9em;
-	margin-bottom: 5px;
 	padding: 5px;
 	border-top: 1px dotted #c41010;
 	border-bottom: 1px dotted #c41010;
-	
 }
 .postmeta a:link, .postmeta a:visited { 
 	color: #c41010;
@@ -458,7 +465,7 @@ input, textarea {
 	text-decoration: none;
 }
 .postinfo {
-	margin: 10px 0;
+	margin: 5px 0 10px 0;
 	padding: 5px 10px;
 	font-size: 0.9em;
 	border: 1px solid #ddd;
@@ -471,6 +478,33 @@ input, textarea {
 .postinfo a:hover, .postinfo a:active {
 	color:#444;
 	text-decoration: underline;
+}
+.author_box {
+	border: 1px solid #ddd;
+	margin: 20px 0 30px 0;
+	padding: 12px;
+}
+.author_image {
+	float: left;
+	margin-right: 15px;
+}
+.author_image img {
+	margin: 0;
+	padding: 3px;
+	border: 1px solid #ddd;
+}
+.author_info h5 {
+	font-size: 1.2em;
+	font-weight: bold;
+	margin-bottom: 5px;
+	color: #444;
+}
+.author_description {
+	color: #666;
+}
+.author_website {
+	margin-top: 10px;
+	font-size: 0.9em;
 }
 /*============================ Text Elements ============================*/
 .entry ul, .comment ul{
@@ -660,6 +694,28 @@ blockquote:after{
 .gallery-caption {
 	padding: 0 5px;
 }
+#image-nav span {
+	display: block;
+	margin: 10px 0;
+}
+#image-nav .nav-previous {
+	float: left;
+}
+#image-nav .nav-next {
+	float: right;
+}
+#image-nav .nav-previous a, #image-nav .nav-next a{
+	padding: 7px 12px;
+	font-size: 0.9em;
+	font-weight: bold;
+	border: 1px solid #ddd;
+	background: url(images/button.png) repeat-x #ddd;
+	color: #333 !important;
+	text-decoration: none;
+}
+#image-nav .nav-previous a:hover, #image-nav .nav-next a:hover {
+	background: url(images/button_hover.png) repeat-x #fff;
+}
 /*============================ Featured Posts Slider ============================*/
 #content-slider {
 	margin: 0 0 30px 0;
@@ -695,7 +751,7 @@ blockquote:after{
 }
 #slide_keys a:link, #slide_keys a:visited {
 	font-size: 1.2em;
-	font-family: arial, verdana;
+	font-family: Arial, Tahoma, Verdana;
 	cursor: pointer;
 	margin-right: 5px;
 	padding: 4px;
@@ -787,7 +843,7 @@ blockquote:after{
 	text-decoration: underline !important;
 }
 #cancel-comment-reply-link:link, #cancel-comment-reply-link:visited  {
-	color: #fff !important;
+	color: #666 !important;
 }
 .bypostauthor .fn{
 	background: #c41010;
@@ -889,57 +945,57 @@ blockquote:after{
 	margin-right: 20px;
 	width: 270px;
 }
-.bottombar {
+#bottombar {
 	margin-top: 20px;
 	padding: 10px 0;
 	border-top: 2px solid #ddd;
 }
-.bottombar ul li h2 {
+#bottombar .widgettitle {
 	color: #c41010;
 	font-size: 1.3em;
 	padding: 5px 0;
 	font-weight: bold;
-	font-family: 'Nobile', Arial;
+	font-family: 'Nobile', Arial, Tahoma, Verdana;
 }
-.bottombar ul li {
+#bottombar ul li {
 	margin-bottom: 20px;
 }
-.bottombar ul li ul, .bottombar ul li div{
+#bottombar ul li ul, #bottombar ul li div{
 	margin-bottom: 5px;
 	padding: 10px;
 	background: #c41010;
 	color: #fff;
 }
-.bottombar ul li div ul, .bottombar ul li div ul li {
+#bottombar ul li div ul, #bottombar ul li div ul li {
 	border: none;
 	margin: 0;
 	padding: 0;
 }
-.bottombar ul li ul {
+#bottombar ul li ul {
 	list-style: square inside;
 	color: #bbb;
 }
-.bottombar a, .bottombar ul {
+#bottombar a, #bottombar ul {
 	font-size: 1.0em;
 }
-.bottombar a:link, .bottombar a:visited  {
+#bottombar a:link, #bottombar a:visited  {
 	color:#fff;
 	text-decoration: none;
 }
-.bottombar a:hover, .bottombar a:active {
+#bottombar a:hover, #bottombar a:active {
 	color:#eee;
 	text-decoration: underline;
 }
-.bottombar ul ul li {
+#bottombar ul ul li {
 	margin: 5px 10px;
 	padding: 0;
 	border: 0;
 }
-.bottombar ul ul ul {
+#bottombar ul ul ul {
 	border: none;
 	padding: 0;
 }
-.bottombar .children {
+#bottombar .children {
 	margin-top: 10px;
 	margin-left: 10px;
 	background: none;
@@ -949,7 +1005,6 @@ blockquote:after{
 	clear: both;
 	margin: 0;
 	padding: 15px 0 10px 10px;
-	font-family: tahoma, arial;
 	color: #333;
 	background: #fff;
 	border-top: 2px solid #ddd;

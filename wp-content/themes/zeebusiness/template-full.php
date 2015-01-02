@@ -11,7 +11,7 @@ Template Name: Page Fullwidth
 		
 			<div id="page-<?php the_ID(); ?>" <?php post_class(); ?>>
 				
-				<h2><?php the_title(); ?></h2>
+				<h2 class="page-title"><?php the_title(); ?></h2>
 				<?php edit_post_link(__( 'Edit', 'themezee_lang' )); ?>
 
 				<div class="entry">

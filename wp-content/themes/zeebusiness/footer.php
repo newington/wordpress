@@ -1,7 +1,7 @@
 	<div class="clear"></div>
-	</div>
+	</div><!-- end #wrap -->
 		<?php if(is_active_sidebar('sidebar-footer-left') or is_active_sidebar('sidebar-footer-center') or is_active_sidebar('sidebar-footer-right')) : ?>
-		<div class="bottombar">
+		<div id="bottombar">
 			<ul id="bottombar_left">
 				<?php dynamic_sidebar('sidebar-footer-left'); ?>
 			</ul>
@@ -15,6 +15,7 @@
 		</div>
 		<?php endif; ?>
 		
+		<?php themezee_footer_before(); // hook before #footer ?>
 		<div id="footer">
 			<?php 
 				$options = get_option('themezee_options');
@@ -29,8 +30,12 @@
 			</div>
 		</div>
 		<div class="clear"></div>
-</div>
-	<div class="credit_link"><a href="<?php echo THEMEZEE_INFO; ?>"><?php _e('Wordpress Theme by ThemeZee', 'themezee_lang'); ?></a></div>
+		<?php themezee_footer_after(); // hook after #footer ?>
+		
+</div><!-- end #wrapper -->
+<?php themezee_wrapper_after(); // hook after #wrapper ?>
+
+	<div class="credit_link"><?php themezee_credit_link(); ?></div>
 	<?php wp_footer(); ?>
 </body>
 </html>

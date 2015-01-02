@@ -7,9 +7,9 @@ function themezee_load_custom_css() {
 	// Load PredefinedColor CSS
 	if ( !isset($options['themeZee_color_activate']) or $options['themeZee_color_activate'] != 'true' ) {
 		$cssfile = $options['themeZee_stylesheet'] <> '' ? $options['themeZee_stylesheet'] : 'standard.css';
-		$stylesheet = get_stylesheet_directory_uri() . '/includes/css/colorschemes/' . $cssfile;
-		wp_register_style('zee_color_scheme', $stylesheet, array('zee_stylesheet'));
-		wp_enqueue_style( 'zee_color_scheme');
+		$stylesheet = get_template_directory_uri() . '/includes/css/colorschemes/' . $cssfile;
+		wp_register_style('zeeBusiness_colorscheme', $stylesheet, array('zeeBusiness_stylesheet'));
+		wp_enqueue_style( 'zeeBusiness_colorscheme');
 	}
 }
 add_action('wp_enqueue_scripts', 'themezee_load_custom_css');

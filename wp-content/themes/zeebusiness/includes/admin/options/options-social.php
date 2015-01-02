@@ -4,7 +4,7 @@
 		$themezee_sections = array();
 
 		$themezee_sections[] = array("id" => "themeZee_buttons",
-					"name" => __('Social Media Buttons', 'themezee_lang'));
+					"name" => __('Social Media Icons', 'themezee_lang'));
 					
 		return $themezee_sections;
 	}
@@ -13,7 +13,7 @@
 		
 		$themezee_settings = array();
 		
-		### SOCIALMEDIA BUTTONS SETTINGS
+		### SOCIALMEDIA ICON SETTINGS
 		#######################################################################################
 						
 		$themezee_settings[] = array("name" => "Twitter",
@@ -40,6 +40,13 @@
 		$themezee_settings[] = array("name" => "Pinterest",
 						"desc" => __('Enter the URL to your Pinterest profile.', 'themezee_lang'),
 						"id" => "themeZee_social_pinterest",
+						"std" => "",
+						"type" => "text",
+						"section" => "themeZee_buttons");
+						
+		$themezee_settings[] = array("name" => "Instagram",
+						"desc" => __('Enter the URL to your Instagram profile.', 'themezee_lang'),
+						"id" => "themeZee_social_instagram",
 						"std" => "",
 						"type" => "text",
 						"section" => "themeZee_buttons");
@@ -89,13 +96,6 @@
 		$themezee_settings[] = array("name" => "Wordpress",
 						"desc" => __('Enter the URL to your Wordpress.com Blog here.', 'themezee_lang'),
 						"id" => "themeZee_social_wordpress",
-						"std" => "",
-						"type" => "text",
-						"section" => "themeZee_buttons");
-						
-		$themezee_settings[] = array("name" => "Gowalla",
-						"desc" => __('Enter the URL to your Gowalla Profile here.', 'themezee_lang'),
-						"id" => "themeZee_social_gowalla",
 						"std" => "",
 						"type" => "text",
 						"section" => "themeZee_buttons");

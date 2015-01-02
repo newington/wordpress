@@ -1,0 +1,695 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: zeeBusiness\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-03-03 16:25+0100\n"
+"PO-Revision-Date: 2013-03-03 16:25+0100\n"
+"Last-Translator: Ulrich Pogson <grapplerulrich@gmail.com>\n"
+"Language-Team: ThemeZee <contact@themezee.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e;_x;_ex;_n;esc_attr_e;esc_attr__\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: Poedit 1.5.5\n"
+
+#: 404.php:9
+msgid "404 Error: Not found"
+msgstr ""
+
+#: 404.php:12
+msgid ""
+"The page you trying to reach does not exist, or has been moved. Please use "
+"the menus or the search box to find what you are looking for"
+msgstr ""
+
+#: 404.php:17 template-sitemap.php:28
+msgid "Latest Posts"
+msgstr ""
+
+#: 404.php:28 template-sitemap.php:39
+msgid "Pages"
+msgstr ""
+
+#: archive.php:5 archive.php:6 author.php:8
+msgid "Archive for"
+msgstr ""
+
+#: archive.php:7
+msgid "Author Archive"
+msgstr ""
+
+#: archive.php:8
+msgid "Tag Archive for"
+msgstr ""
+
+#: archive.php:9 sidebar.php:15 template-sitemap.php:49
+msgid "Archives"
+msgstr ""
+
+#: archive.php:23 author.php:22 index.php:24 search.php:20
+msgid "&laquo; Older Entries"
+msgstr ""
+
+#: archive.php:23 author.php:22 index.php:24 search.php:20
+msgid "Recent Entries &raquo;"
+msgstr ""
+
+#: comments.php:4
+msgid "Enter password to view comments."
+msgstr ""
+
+#: comments.php:10 functions.php:176 image.php:14
+msgid "No comments"
+msgstr ""
+
+#: comments.php:10 functions.php:176 image.php:14
+msgid "One comment"
+msgstr ""
+
+#: comments.php:10 functions.php:176 image.php:14
+#, php-format
+msgid "% comments"
+msgstr ""
+
+#: comments.php:33
+msgid "Comments are closed."
+msgstr ""
+
+#: functions.php:65
+msgid "Top Navigation"
+msgstr ""
+
+#: functions.php:66
+msgid "Main Navigation"
+msgstr ""
+
+#: functions.php:67
+msgid "Footer Navigation"
+msgstr ""
+
+#: functions.php:79
+msgid "Sidebar Blog"
+msgstr ""
+
+#: functions.php:80
+msgid "Sidebar Pages"
+msgstr ""
+
+#: functions.php:83
+msgid "Footer Left"
+msgstr ""
+
+#: functions.php:84
+msgid "Footer Center"
+msgstr ""
+
+#: functions.php:85
+msgid "Footer Right"
+msgstr ""
+
+#: functions.php:137
+#, php-format
+msgid "Page %s"
+msgstr ""
+
+#: functions.php:151
+msgid "Wordpress Theme by ThemeZee"
+msgstr ""
+
+#: functions.php:177 page.php:10 template-full.php:15 template-sitemap.php:15
+#: template-slider.php:22
+msgid "Edit"
+msgstr ""
+
+#: functions.php:185
+msgid "Category: "
+msgstr ""
+
+#: functions.php:186
+msgid "Tags: "
+msgstr ""
+
+#: image.php:35
+msgid "Previous"
+msgstr ""
+
+#: image.php:36
+msgid "Next"
+msgstr ""
+
+#: image.php:37
+msgid "Return to Gallery"
+msgstr ""
+
+#: image.php:37
+msgid "Return to"
+msgstr ""
+
+#: loop.php:10
+msgid "Read more"
+msgstr ""
+
+#: search.php:6 search.php:26
+msgid "Search results for "
+msgstr ""
+
+#: search.php:31
+msgid ""
+"No matches. Please try again, or use the navigation menus to find what you "
+"search for."
+msgstr ""
+
+#: template-sitemap.php:44
+msgid "Categories"
+msgstr ""
+
+#: template-sitemap.php:54
+msgid "Posts by Category"
+msgstr ""
+
+#: template-sitemap.php:57
+msgid "Category"
+msgstr ""
+
+#: includes/admin/theme-admin.php:5 includes/admin/theme-admin.php:27
+msgid "Theme Options"
+msgstr ""
+
+#: includes/admin/theme-admin.php:30
+msgid "Theme settings updated successfully."
+msgstr ""
+
+#: includes/admin/theme-admin.php:53
+msgid "Save Changes"
+msgstr ""
+
+#: includes/admin/theme-admin.php:71
+msgid "Theme Data"
+msgstr ""
+
+#: includes/admin/theme-admin.php:73
+msgid "Name"
+msgstr ""
+
+#: includes/admin/theme-admin.php:74
+msgid "Version"
+msgstr ""
+
+#: includes/admin/theme-admin.php:75
+msgid "(Changelog)"
+msgstr ""
+
+#: includes/admin/theme-admin.php:76
+msgid "Author"
+msgstr ""
+
+#: includes/admin/theme-admin.php:81
+msgid "Upgrade"
+msgstr ""
+
+#: includes/admin/theme-admin.php:84
+msgid "Check out the PRO Version"
+msgstr ""
+
+#: includes/admin/theme-admin.php:85
+msgid "Join the Theme Club and get Support"
+msgstr ""
+
+#: includes/admin/theme-admin.php:90
+msgid "About ThemeZee"
+msgstr ""
+
+#: includes/admin/theme-admin.php:92
+msgid "ThemeZee provides several stunning <b>Freemium WordPress Themes</b>."
+msgstr ""
+
+#: includes/admin/theme-admin.php:93
+msgid ""
+"That means you can download and use every theme <b>for FREE</b>, and only "
+"pay to get more features, better theme tutorials and advanced theme support!"
+msgstr ""
+
+#: includes/admin/theme-admin.php:94
+msgid "Visit ThemeZee.com now"
+msgstr ""
+
+#: includes/admin/theme-admin.php:98
+msgid "Subscribe Now"
+msgstr ""
+
+#: includes/admin/theme-admin.php:100
+msgid ""
+"Subscribe now and get informed about each <b>Theme Release</b> from ThemeZee."
+msgstr ""
+
+#: includes/admin/theme-admin.php:102
+msgid "RSS Feed"
+msgstr ""
+
+#: includes/admin/theme-admin.php:103
+msgid "Email Subscription"
+msgstr ""
+
+#: includes/admin/theme-admin.php:104
+msgid "Follow me on Twitter"
+msgstr ""
+
+#: includes/admin/theme-admin.php:105
+msgid "Become a Facebok Fan"
+msgstr ""
+
+#: includes/admin/theme-admin.php:120
+msgid "Thank you for installing this theme!"
+msgstr ""
+
+#: includes/admin/theme-admin.php:122
+msgid "Welcome to"
+msgstr ""
+
+#: includes/admin/theme-admin.php:124
+msgid ""
+"First of all, the number of options might alarm you, <b>but don't panic</b>. "
+"Everything is organized and documented well enough for you."
+msgstr ""
+
+#: includes/admin/theme-admin.php:129
+msgid "Want more features?"
+msgstr ""
+
+#: includes/admin/theme-admin.php:131
+msgid "Check out"
+msgstr ""
+
+#: includes/admin/theme-admin.php:132
+msgid ""
+"The <b>PRO Version</b> provide additional features to <b>customize</b> and "
+"configure your Theme."
+msgstr ""
+
+#: includes/admin/theme-admin.php:142
+msgid "Learn more about the PRO Version"
+msgstr ""
+
+#: includes/admin/theme-admin.php:147
+msgid "Need support?"
+msgstr ""
+
+#: includes/admin/theme-admin.php:149
+msgid "Join the Theme Club"
+msgstr ""
+
+#: includes/admin/theme-admin.php:150
+msgid ""
+"You want <b>top-notch Support</b> for installing and configuring your Theme? "
+"Become a <b>Member</b>!"
+msgstr ""
+
+#: includes/admin/theme-admin.php:158
+msgid "Learn more about the Theme Club"
+msgstr ""
+
+#: includes/admin/theme-admin.php:165
+msgid "Not happy with"
+msgstr ""
+
+#: includes/admin/theme-admin.php:167
+msgid "ThemeZee.com provide several other <b>free WordPress Themes</b>."
+msgstr ""
+
+#: includes/admin/theme-admin.php:168
+msgid "Click here to browse through all of my themes."
+msgstr ""
+
+#: includes/admin/theme-admin.php:276
+msgid "Upload Image"
+msgstr ""
+
+#: includes/admin/theme-functions.php:9
+msgid "Welcome"
+msgstr ""
+
+#: includes/admin/theme-functions.php:10
+msgid "General"
+msgstr ""
+
+#: includes/admin/theme-functions.php:11
+msgid "Colors"
+msgstr ""
+
+#: includes/admin/theme-functions.php:12
+msgid "Post Slider"
+msgstr ""
+
+#: includes/admin/theme-functions.php:13
+msgid "Social Media"
+msgstr ""
+
+#: includes/admin/theme-functions.php:14
+msgid "Ads"
+msgstr ""
+
+#: includes/admin/theme-functions.php:112
+msgid "Use this Image"
+msgstr ""
+
+#: includes/admin/options/options-ads.php:7
+msgid "125x125 Sidebar Banner"
+msgstr ""
+
+#: includes/admin/options/options-ads.php:19
+msgid "Rotate banners?"
+msgstr ""
+
+#: includes/admin/options/options-ads.php:20
+msgid "Check this to randomly rotate the ad spots."
+msgstr ""
+
+#: includes/admin/options/options-ads.php:26
+#: includes/admin/options/options-ads.php:40
+#: includes/admin/options/options-ads.php:54
+#: includes/admin/options/options-ads.php:68
+#: includes/admin/options/options-ads.php:82
+#: includes/admin/options/options-ads.php:96
+#: includes/admin/options/options-ads.php:110
+#: includes/admin/options/options-ads.php:124
+msgid "Ad Spot Image URL"
+msgstr ""
+
+#: includes/admin/options/options-ads.php:27
+#: includes/admin/options/options-ads.php:41
+#: includes/admin/options/options-ads.php:55
+#: includes/admin/options/options-ads.php:69
+#: includes/admin/options/options-ads.php:83
+#: includes/admin/options/options-ads.php:97
+#: includes/admin/options/options-ads.php:111
+#: includes/admin/options/options-ads.php:125
+msgid "Enter the image URL for this ad spot."
+msgstr ""
+
+#: includes/admin/options/options-ads.php:33
+#: includes/admin/options/options-ads.php:47
+#: includes/admin/options/options-ads.php:61
+#: includes/admin/options/options-ads.php:75
+#: includes/admin/options/options-ads.php:89
+#: includes/admin/options/options-ads.php:103
+#: includes/admin/options/options-ads.php:117
+#: includes/admin/options/options-ads.php:131
+msgid "Ad Spot Destination"
+msgstr ""
+
+#: includes/admin/options/options-ads.php:34
+#: includes/admin/options/options-ads.php:48
+#: includes/admin/options/options-ads.php:62
+#: includes/admin/options/options-ads.php:76
+#: includes/admin/options/options-ads.php:90
+#: includes/admin/options/options-ads.php:104
+#: includes/admin/options/options-ads.php:118
+#: includes/admin/options/options-ads.php:132
+msgid "Enter the URL where this ad spot points to."
+msgstr ""
+
+#: includes/admin/options/options-colors.php:7
+msgid "Predefined Color Schemes"
+msgstr ""
+
+#: includes/admin/options/options-colors.php:10
+msgid "Custom Colors"
+msgstr ""
+
+#: includes/admin/options/options-colors.php:18
+msgid "Black"
+msgstr ""
+
+#: includes/admin/options/options-colors.php:19
+msgid "Blue"
+msgstr ""
+
+#: includes/admin/options/options-colors.php:20
+msgid "Darkblue"
+msgstr ""
+
+#: includes/admin/options/options-colors.php:21
+msgid "Darkgreen"
+msgstr ""
+
+#: includes/admin/options/options-colors.php:22
+msgid "Green"
+msgstr ""
+
+#: includes/admin/options/options-colors.php:23
+msgid "Grey"
+msgstr ""
+
+#: includes/admin/options/options-colors.php:24
+msgid "Orange"
+msgstr ""
+
+#: includes/admin/options/options-colors.php:25
+msgid "Purple"
+msgstr ""
+
+#: includes/admin/options/options-colors.php:26
+msgid "Red"
+msgstr ""
+
+#: includes/admin/options/options-colors.php:27
+msgid "Yellow"
+msgstr ""
+
+#: includes/admin/options/options-colors.php:28
+msgid "Standard"
+msgstr ""
+
+#: includes/admin/options/options-colors.php:36
+msgid "Please select your color scheme here."
+msgstr ""
+
+#: includes/admin/options/options-colors.php:44
+msgid "Active Custom Colors?"
+msgstr ""
+
+#: includes/admin/options/options-colors.php:45
+msgid "Check this to activate the Custom Color Function."
+msgstr ""
+
+#: includes/admin/options/options-colors.php:53
+msgid "Color"
+msgstr ""
+
+#: includes/admin/options/options-colors.php:54
+msgid "Select the color of your theme here."
+msgstr ""
+
+#: includes/admin/options/options-general.php:7
+msgid "Layout Settings"
+msgstr ""
+
+#: includes/admin/options/options-general.php:19
+msgid "Paste the full Image URL of your logo."
+msgstr ""
+
+#: includes/admin/options/options-general.php:25
+msgid "Footer Content"
+msgstr ""
+
+#: includes/admin/options/options-general.php:26
+msgid "Enter here the content which is displayed in the footer."
+msgstr ""
+
+#: includes/admin/options/options-general.php:32
+msgid "Custom CSS"
+msgstr ""
+
+#: includes/admin/options/options-general.php:33
+msgid "Place your Custom CSS code here."
+msgstr ""
+
+#: includes/admin/options/options-slider.php:7
+msgid "Featured Posts Slider"
+msgstr ""
+
+#: includes/admin/options/options-slider.php:25
+msgid "Show Post Slider?"
+msgstr ""
+
+#: includes/admin/options/options-slider.php:26
+msgid "Check this if you want to show the Featured Post Slider."
+msgstr ""
+
+#: includes/admin/options/options-slider.php:32
+msgid "Slider Title"
+msgstr ""
+
+#: includes/admin/options/options-slider.php:33
+msgid "Enter here your headline which is displayed above the featured posts."
+msgstr ""
+
+#: includes/admin/options/options-slider.php:51
+msgid " Slider Content"
+msgstr ""
+
+#: includes/admin/options/options-slider.php:57
+msgid "Show recent posts"
+msgstr ""
+
+#: includes/admin/options/options-slider.php:58
+msgid "Show popular posts"
+msgstr ""
+
+#: includes/admin/options/options-slider.php:61
+msgid "Slider Category"
+msgstr ""
+
+#: includes/admin/options/options-slider.php:62
+msgid ""
+"Select a category which posts are displayed at the featured posts slider ."
+msgstr ""
+
+#: includes/admin/options/options-slider.php:69
+msgid "Number of Posts"
+msgstr ""
+
+#: includes/admin/options/options-slider.php:70
+msgid "Enter the number how much posts should be displayed in the post slider."
+msgstr ""
+
+#: includes/admin/options/options-social.php:7
+msgid "Social Media Icons"
+msgstr ""
+
+#: includes/admin/options/options-social.php:20
+msgid "Enter the URL to your Twitter Profile here."
+msgstr ""
+
+#: includes/admin/options/options-social.php:27
+msgid "Enter the URL to your Facebook Profile here."
+msgstr ""
+
+#: includes/admin/options/options-social.php:34
+msgid "Enter the URL to your Google+ profile."
+msgstr ""
+
+#: includes/admin/options/options-social.php:41
+msgid "Enter the URL to your Pinterest profile."
+msgstr ""
+
+#: includes/admin/options/options-social.php:48
+msgid "Enter the URL to your Instagram profile."
+msgstr ""
+
+#: includes/admin/options/options-social.php:55
+msgid "Enter the URL to your LinkedIn Profile here."
+msgstr ""
+
+#: includes/admin/options/options-social.php:62
+msgid "Enter the URL to your Xing Profile here."
+msgstr ""
+
+#: includes/admin/options/options-social.php:69
+msgid "Enter the URL to your MySpace Profile here."
+msgstr ""
+
+#: includes/admin/options/options-social.php:76
+msgid "Enter the URL to your Blogger Profile here."
+msgstr ""
+
+#: includes/admin/options/options-social.php:83
+msgid "Enter the URL to your Tumblr Blog here."
+msgstr ""
+
+#: includes/admin/options/options-social.php:90
+msgid "Enter the URL to your Typepad Blog here."
+msgstr ""
+
+#: includes/admin/options/options-social.php:97
+msgid "Enter the URL to your Wordpress.com Blog here."
+msgstr ""
+
+#: includes/admin/options/options-social.php:104
+msgid "Enter the URL to your Flickr Profile here."
+msgstr ""
+
+#: includes/admin/options/options-social.php:111
+msgid "Enter the URL to your Soundcloud Profile here."
+msgstr ""
+
+#: includes/admin/options/options-social.php:118
+msgid "Enter the URL to your Spotify Profile here."
+msgstr ""
+
+#: includes/admin/options/options-social.php:125
+msgid "Enter the URL to your Last.fm Profile here."
+msgstr ""
+
+#: includes/admin/options/options-social.php:132
+msgid "Enter the URL to your Youtube Profile here."
+msgstr ""
+
+#: includes/admin/options/options-social.php:139
+msgid "Enter the URL to your Vimeo Profile here."
+msgstr ""
+
+#: includes/admin/options/options-social.php:146
+msgid "Enter the URL to your DeviantART Profile here."
+msgstr ""
+
+#: includes/admin/options/options-social.php:153
+msgid "Enter the URL to your Dribbble Profile here."
+msgstr ""
+
+#: includes/admin/options/options-social.php:160
+msgid "Enter the URL to your Delicious Profile here."
+msgstr ""
+
+#: includes/admin/options/options-social.php:167
+msgid "Enter the URL to your Digg Profile here."
+msgstr ""
+
+#: includes/admin/options/options-social.php:174
+msgid "Enter the URL to your Reddit Profile here."
+msgstr ""
+
+#: includes/admin/options/options-social.php:181
+msgid "Enter the URL to your StumpleUpon Profile here."
+msgstr ""
+
+#: includes/admin/options/options-social.php:188
+msgid "Enter your RSS URL (e.g. Feedburner Feed) here."
+msgstr ""
+
+#: includes/admin/options/options-social.php:195
+msgid "Enter your Email URL (e.g. Feedburner Email Subscription) here."
+msgstr ""
+
+#: includes/admin/options/options-social.php:202
+msgid "Enter the URL to your Friendfeed Profile here."
+msgstr ""
+
+#: includes/admin/options/options-social.php:209
+msgid "Enter your Skype Contact here."
+msgstr ""
+
+#: includes/widgets/theme-widget-ads.php:6
+msgid "Show your 125x125 Banner Ads"
+msgstr ""
+
+#: includes/widgets/theme-widget-ads.php:52
+#: includes/widgets/theme-widget-socialmedia.php:175
+msgid "Go to WP-Admin-> Appearance-> Theme Options to configure this widget"
+msgstr ""
+
+#: includes/widgets/theme-widget-ads.php:72
+#: includes/widgets/theme-widget-socialmedia.php:200
+msgid "Title:"
+msgstr ""
+
+#: includes/widgets/theme-widget-ads.php:75
+#: includes/widgets/theme-widget-socialmedia.php:203
+msgid "Open links in a new window"
+msgstr ""
+
+#: includes/widgets/theme-widget-socialmedia.php:5
+msgid "Show your Social Media Buttons"
+msgstr ""

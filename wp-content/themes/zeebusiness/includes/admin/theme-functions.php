@@ -1,12 +1,16 @@
 <?php
-
+	
+	// Define Theme URL
+	define('ZEE_THEME_URL', 'http://themezee.com/zeebusiness/');
+	
 	// Define all Settings Pages Tabs
 	function themezee_get_settings_page_tabs() {
 		$tabs = array(
+			'welcome' => __('Welcome', 'themezee_lang'),
 			'general' => __('General', 'themezee_lang'),
 			'colors' => __('Colors', 'themezee_lang'),
 			'slider' => __('Post Slider', 'themezee_lang'),
-			'social' => __('Social Buttons', 'themezee_lang'),
+			'social' => __('Social Media', 'themezee_lang'),
 			'ads' => __('Ads', 'themezee_lang')
 		);
 		return $tabs;

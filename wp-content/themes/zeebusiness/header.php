@@ -5,15 +5,17 @@
 	<meta http-equiv="Content-Type" content="<?php bloginfo('html_type'); ?>; charset=<?php bloginfo('charset'); ?>" />
 	<link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
 	
-	<title><?php bloginfo('name'); if(is_home() || is_front_page()) { echo ' - '; bloginfo('description'); } else { wp_title(); } ?></title>
+	<title><?php wp_title('|', true, 'right'); ?></title>
 
-<?php if ( is_singular() ) wp_enqueue_script( 'comment-reply' ); ?>
 <?php wp_head(); ?>
 </head>
 
 <body <?php body_class(); ?>>
+
+<?php themezee_wrapper_before(); // hook before #wrapper ?>
 <div id="wrapper">
 
+	<?php themezee_header_before(); // hook before #header ?>
 	<div id="header">
 
 		<div id="head">
@@ -29,11 +31,12 @@
 			<div id="topnavi">
 				<?php 
 				// Get Navigation out of Theme Options
-					wp_nav_menu(array('theme_location' => 'top_navi', 'container' => false, 'menu_id' => 'topnav', 'echo' => true, 'fallback_cb' => '', 'before' => '', 'after' => '', 'link_before' => '', 'link_after' => '', 'depth' => 0));
+					wp_nav_menu(array('theme_location' => 'top_navi', 'container' => false, 'menu_id' => 'topnav', 'echo' => true, 'fallback_cb' => 'themezee_default_menu', 'before' => '', 'after' => '', 'link_before' => '', 'link_after' => '', 'depth' => 0));
 				?>
 			</div>
 		</div>
 	</div>
+	<?php themezee_header_after(); // hook after #header ?>
 	
 	<?php if( get_header_image() != '' ) : ?>
 		<div id="custom_header">

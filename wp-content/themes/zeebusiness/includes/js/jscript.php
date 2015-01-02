@@ -1,95 +1,22 @@
 <?php 
+
+// Includes Javascripts for Navigation Menu (pluggable)
+add_action('wp_head', 'themezee_jscript_navi_menus');
+
+if ( ! function_exists( 'themezee_jscript_navi_menus' ) ) :
+function themezee_jscript_navi_menus() {
+
+	/* Available Slide Menu Effects
+		show - show(500) 
+		slide - slideDown(500)
+		fade - show().css({opacity:0}).animate({opacity:1},500)
+		diagonal - animate({width:'show',height:'show'},500)
+		left - animate({width:'show'},500)
+		slidefade - animate({height:'show',opacity:1})
+	*/
 	
-add_action('wp_head', 'themezee_include_jscript');
-function themezee_include_jscript() {
-
-	// Select Post Slider Modus
-	$options = get_option('themezee_options');
-	if(isset($options['themeZee_show_slider']) and $options['themeZee_show_slider'] == 'true') {
-		switch($options['themeZee_slider_mode']) {
-			case 0:
-				$return = "<script type=\"text/javascript\">
-				//<![CDATA[
-					// Horizontal Slider
-					jQuery(document).ready(function($) {
-						$('#slideshow')
-							.cycle({
-							fx: 'scrollHorz',
-							speed: 1000,
-							timeout: 8000,
-							next:   '#slide_next', 
-							prev:   '#slide_prev'
-						});
-					});
-				//]]>
-				</script>";
-
-			break;
-			case 1:
-				$return = "<script type=\"text/javascript\">
-				//<![CDATA[
-					// Dropdown Slider
-					jQuery(document).ready(function($) {
-						$('#slideshow')
-							.cycle({
-							fx:     'scrollVert',
-							speed: 1000,
-							timeout: 8000,
-							next:   '#slide_next', 
-							prev:   '#slide_prev'
-						});
-					});
-				//]]>
-				</script>";
-
-			break;
-			case 2:
-				$return = "<script type=\"text/javascript\">
-				//<![CDATA[
-					// Fade Slider
-					jQuery(document).ready(function($) {
-						$('#slideshow')
-							.cycle({
-							fx: 'fade',
-							speed: 'slow',
-							timeout: 8000,
-							next:   '#slide_next', 
-							prev:   '#slide_prev'
-						});
-					});
-				//]]>
-				</script>";
-
-			break;
-			default:
-				$return = "<script type=\"text/javascript\">
-				//<![CDATA[
-					// Horizontal Slider
-					jQuery(document).ready(function($) {
-						$('#slideshow')
-							.cycle({
-							fx: 'scrollHorz',
-							speed: 1000,
-							timeout: 8000,
-							next:   '#slide_next', 
-							prev:   '#slide_prev'
-						});
-					});
-				//]]>
-				</script>";
-			break;
-		}
-		
-		/* Slide Menu
-			Slide Effeckts
-				show - show(500) 
-				slide - slideDown(500)
-				fade - show().css({opacity:0}).animate({opacity:1},500)
-				diagonal - animate({width:'show',height:'show'},500)
-				left - animate({width:'show'},500)
-				slidefade - animate({height:'show',opacity:1})
-		*/
-		$return .= "<script type=\"text/javascript\">
+	// Set Javascript for Navigation Menus
+	$jscript = "<script type=\"text/javascript\">
 				//<![CDATA[
 					jQuery(document).ready(function($) {
 						$('#nav ul').css({display: 'none'}); // Opera Fix
@@ -108,23 +35,106 @@ function themezee_include_jscript() {
 					});
 				//]]>
 				</script>";
-				
-		/* Frontpage Slider */
-		$return .= "<script type=\"text/javascript\">
+	
+	echo $jscript; // Print Javascript
+}
+endif;
+
+
+// Includes Javascripts for Featured Post Slider (pluggable)
+add_action('wp_head', 'themezee_jscript_post_slider');
+
+if ( ! function_exists( 'themezee_jscript_post_slider' ) ) :
+function themezee_jscript_post_slider() {
+
+	/* Slideshow is based on the malsup cycle plugin 
+	Learn more about all possible slideshow settings here: 
+	http://jquery.malsup.com/cycle/ */
+	
+	$jscript = ''; // Declare Variable to prevent WP debug errors
+	
+	// Check if Featured Post Slider is activated
+	$options = get_option('themezee_options');
+	if(isset($options['themeZee_show_slider']) and $options['themeZee_show_slider'] == 'true') :
+	
+		// Select Post Slider Mode
+		switch($options['themeZee_slider_mode']) {
+			case 0:
+				// Horizontal Slider
+				$jscript = "<script type=\"text/javascript\">
 				//<![CDATA[
-					// Front Page Slider
 					jQuery(document).ready(function($) {
-						$('#frontpage_slideshow')
+						$('#slideshow')
 							.cycle({
-							fx: 'curtainX',
-							speed: 500,
-							timeout: 8000,
-							pager: '#frontpage_pager'
+							fx: 'scrollHorz',
+							speed: 1000,
+							timeout: 10000,
+							next: '#slide_next',
+							prev: '#slide_prev'
 						});
 					});
 				//]]>
 				</script>";
-		echo $return;
-	}
+
+			break;
+			case 1:
+				// Dropdown Slider
+				$jscript = "<script type=\"text/javascript\">
+				//<![CDATA[
+					jQuery(document).ready(function($) {
+						$('#slideshow')
+							.cycle({
+							fx:     'scrollVert',
+							speed: 1000,
+							timeout: 10000,
+							next: '#slide_next',
+							prev: '#slide_prev'
+						});
+					});
+				//]]>
+				</script>";
+
+			break;
+			case 2:
+				// Fade Slider
+				$jscript = "<script type=\"text/javascript\">
+				//<![CDATA[
+					jQuery(document).ready(function($) {
+						$('#slideshow')
+							.cycle({
+							fx: 'fade',
+							speed: 600,
+							timeout: 10000,
+							next: '#slide_next',
+							prev: '#slide_prev'
+						});
+					});
+				//]]>
+				</script>";
+
+			break;
+			default:
+				// Default Slider: Horizontal
+				$jscript = "<script type=\"text/javascript\">
+				//<![CDATA[
+					jQuery(document).ready(function($) {
+						$('#slideshow')
+							.cycle({
+							fx: 'scrollHorz',
+							speed: 1000,
+							timeout: 10000,
+							next: '#slide_next',
+							prev: '#slide_prev'
+						});
+					});
+				//]]>
+				</script>";
+			break;
+		}
+	endif;
+	
+	echo $jscript; // Print Javascript
 }
+endif;
+
 ?>

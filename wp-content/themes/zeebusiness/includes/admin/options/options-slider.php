@@ -11,6 +11,13 @@
 	
 	function themezee_get_slider_settings() {
 		
+		$categories = array();
+		$categories[''] = 'All Categories';
+		$cats = get_categories(); 
+		foreach ($cats as $cat) {
+			$categories[$cat->category_nicename] = $cat->cat_name;
+		}
+		
 		$themezee_settings = array();
 						
 		### POST SLIDER SETTINGS
@@ -40,25 +47,23 @@
 									2 => 'Fade Slider'),
 						"section" => "themeZee_slider"
 						);
-
-		$themezee_settings[] = array("name" => __('Slider Content', 'themezee_lang'),
+						
+		$themezee_settings[] = array("name" => __(' Slider Content', 'themezee_lang'),
 						"desc" => "",
 						"id" => "themeZee_slider_content",
-						"std" => "0",
+						"std" => "recent",
 						"type" => "radio",
 						'choices' => array(
-									0 => __('Show latest posts', 'themezee_lang'),
-									1 => __('Show latest posts from category "featured"', 'themezee_lang'),
-									2 => __('Show latest posts with post_meta_key "featured"', 'themezee_lang'),
-									3 => __('Show latest posts from custom category(enter ID below)', 'themezee_lang')),
-						"section" => "themeZee_slider"
-						);
+									'recent' => __('Show recent posts', 'themezee_lang'),
+									'popular' => __('Show popular posts', 'themezee_lang')),
+						"section" => "themeZee_slider");
 						
-		$themezee_settings[] = array("name" => __('category ID', 'themezee_lang'),
-						"desc" => __("Please enter the category ID you'd like to include in the slideshow.(You have to tick the last option above)", 'themezee_lang'),
-						"id" => "themeZee_slider_cat",
-						"std" => "1",
-						"type" => "text",
+		$themezee_settings[] = array("name" => __('Slider Category', 'themezee_lang'),
+						"desc" => __("Select a category which posts are displayed at the featured posts slider .", 'themezee_lang'),
+						"id" => "themeZee_slider_category",
+						"std" => "",
+						"type" => "select",
+						'choices' => $categories,
 						"section" => "themeZee_slider");
 
 		$themezee_settings[] = array("name" => __('Number of Posts', 'themezee_lang'),

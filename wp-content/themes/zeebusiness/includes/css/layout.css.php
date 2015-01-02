@@ -6,7 +6,7 @@ function themezee_css_layout() {
 	$options = get_option('themezee_options');
 	
 	// Add Custom CSS
-	if ( isset($options['themeZee_general_css']) and $options['themeZee_general_css'] <> '' ) {
+	if ( $options['themeZee_general_css'] <> '' ) {
 		echo $options['themeZee_general_css'];
 	}
 	

@@ -26,7 +26,7 @@
 						"desc" => __('Enter here the content which is displayed in the footer.', 'themezee_lang'),
 						"id" => "themeZee_general_footer",
 						"std" => "Place your Footer Content here",
-						"type" => "textarea",
+						"type" => "html",
 						"section" => "themeZee_general_layout");
 						
 		$themezee_settings[] = array("name" => __('Custom CSS', 'themezee_lang'),
