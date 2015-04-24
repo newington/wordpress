@@ -1,0 +1,14 @@
+{
+    "name": "mediacore/moodle_local_mediacore",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:mediacore/mediacore-client-php.git"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.2",
+        "mediacore/mediacore-client-php": "dev-api2-client"
+    }
+}

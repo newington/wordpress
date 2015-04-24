@@ -1,0 +1,43 @@
+/**
+ * Copyright 2012  MediaCore  (email: info@mediacore.com)
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License, version 2, as
+ * published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ */
+
+.icon32#mcore-logo {
+	background: url('../images/mcore-logo.png') no-repeat center;
+}
+#message.error {
+	color: #dd3d36;
+}
+#mcore-settings .mcore-url {
+	display:inline-block;
+	font-weight: 500;
+	color: #3f576f;
+	font-size: 16px;
+	background: #f1f5f9 !important;
+	border: 1px solid #b8c5d1 !important;
+	border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	text-shadow: 0 1px 0 #fff;
+	padding: 8px 14px;
+	margin-left: 20px;
+}
+#mcore-settings .mcore-url.error {
+	border: 1px solid #dd3d36 !important;
+}
+#mcore-settings .mcore-url {
+	margin-left: 0;
+}
